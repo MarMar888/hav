@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kayak Boat Build — 3D Mount Visual</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; font-family: -apple-system, "Segoe UI", sans-serif; }
+  #app { width: 100%; height: 100%; }
+  .panel {
+    position: fixed; top: 12px; right: 12px; width: 210px;
+    background: rgba(255,255,255,.92); border: 1px solid #d5d9de; border-radius: 10px;
+    padding: 12px 14px; font-size: 13px; color: #1c2733; box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  }
+  .panel h3 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: #55606c; }
+  .panel label { display: flex; align-items: center; gap: 7px; padding: 3px 0; cursor: pointer; user-select: none; }
+  .panel .views { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px; }
+  .panel button {
+    border: 1px solid #c8cdd3; background: #f4f6f8; border-radius: 6px;
+    padding: 5px 4px; font-size: 12px; cursor: pointer;
+  }
+  .panel button:hover { background: #e8ecf0; }
+  .legend {
+    position: fixed; left: 12px; bottom: 12px; background: rgba(255,255,255,.92);
+    border: 1px solid #d5d9de; border-radius: 10px; padding: 10px 14px; font-size: 12px;
+    color: #1c2733; line-height: 1.55; box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  }
+  .legend b { color: #0b57d0; }
+  .title {
+    position: fixed; left: 12px; top: 12px; background: rgba(255,255,255,.92);
+    border: 1px solid #d5d9de; border-radius: 10px; padding: 8px 14px; font-size: 13px;
+    font-weight: 600; color: #1c2733; box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="app"></div>
+<div class="title">Lifetime Wave 72&Prime; + twin Flipsky 56115 — mount concept (all real dimensions, inches)</div>
+<div class="panel">
+  <h3>Show / hide</h3>
+  <div id="toggles"></div>
+  <h3 style="margin-top:12px">Views</h3>
+  <div class="views">
+    <button data-view="threequarter">3/4 view</button>
+    <button data-view="top">Top</button>
+    <button data-view="side">Side</button>
+    <button data-view="underwater">Underwater</button>
+  </div>
+</div>
+<div class="legend" id="legend"></div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { DIMS } from './dims.js';
+
+const D = DIMS;
+
+// ---------- renderer / scene ----------
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(innerWidth, innerHeight);
+document.getElementById('app').appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xe4edf4);
+
+const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.5, 2000);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 5, 0);
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8a959d, 1.0));
+const sun = new THREE.DirectionalLight(0xffffff, 1.6);
+sun.position.set(50, 90, 40);
+scene.add(sun);
+const fill = new THREE.DirectionalLight(0xbcd4e8, 0.5);
+fill.position.set(-60, 20, -50);
+scene.add(fill);
+
+const grid = new THREE.GridHelper(240, 24, 0x9fb2c0, 0xc3d2dd);
+grid.position.y = -10;
+scene.add(grid);
+
+// ---------- materials ----------
+const M = {
+  hull:      new THREE.MeshStandardMaterial({ color: 0xf2c500, roughness: 0.55, side: THREE.DoubleSide }),
+  water:     new THREE.MeshStandardMaterial({ color: 0x2e7fd9, transparent: true, opacity: 0.32, side: THREE.DoubleSide }),
+  aluminum:  new THREE.MeshStandardMaterial({ color: 0xb9bec4, roughness: 0.35, metalness: 0.75 }),
+  stainless: new THREE.MeshStandardMaterial({ color: 0xd9dde0, roughness: 0.25, metalness: 0.85 }),
+  blackPl:   new THREE.MeshStandardMaterial({ color: 0x23262a, roughness: 0.7 }),
+  pelican:   new THREE.MeshStandardMaterial({ color: 0x17181a, roughness: 0.6 }),
+  esc:       new THREE.MeshStandardMaterial({ color: 0x3a3f45, roughness: 0.4, metalness: 0.5 }),
+  rubber:    new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.95 }),
+  motor:     new THREE.MeshStandardMaterial({ color: 0x2b2e33, roughness: 0.35, metalness: 0.6 }),
+  prop:      new THREE.MeshStandardMaterial({ color: 0x556069, roughness: 0.4, metalness: 0.6 }),
+  marker:    new THREE.MeshStandardMaterial({ color: 0x4a4235, roughness: 0.8 }),
+  navRed:    new THREE.MeshStandardMaterial({ color: 0x550000, emissive: 0xff2020, emissiveIntensity: 1.6 }),
+  navGreen:  new THREE.MeshStandardMaterial({ color: 0x004400, emissive: 0x20ff40, emissiveIntensity: 1.6 }),
+  navWhite:  new THREE.MeshStandardMaterial({ color: 0x888888, emissive: 0xffffff, emissiveIntensity: 1.4 }),
+};
+
+// ---------- hull (lofted stations) ----------
+// halfWidth along the length: full amidships, cosine taper at the bow, slight rounding at the stern.
+function halfWidthAt(t) { // t: 0 = stern, 1 = bow
+  let w = D.hull.halfBeam;
+  const bs = D.hull.bowTaperStart;
+  if (t > bs) {
+    const u = (t - bs) / (1 - bs);
+    w *= Math.pow(Math.cos(u * Math.PI / 2), 0.75);
+  }
+  if (t < 0.08) w *= 0.86 + 0.14 * (t / 0.08);
+  return Math.max(w, 0.5);
+}
+
+// Recess depth along the length: full 3 in over the cockpit, fading to solid
+// deck at the stern swim deck and the bow nose.
+function recessDepthAt(t) {
+  const smooth = (a, b, x) => { const u = Math.min(1, Math.max(0, (x - a) / (b - a))); return u * u * (3 - 2 * u); };
+  return D.hull.deckInset * smooth(0.08, 0.18, t) * (1 - smooth(0.80, 0.90, t));
+}
+
+// Cross-section ring (z, y) — side, reverse chine, near-flat bottom, and a
+// recessed cockpit well between the deck rims (rd = local recess depth).
+function sectionRing(w, rd) {
+  const c = D.hull.chineHeight, H = D.hull.depth;
+  const ri = D.hull.recessRimFrac * w, rf = D.hull.recessFloorFrac * w;
+  return [
+    [-w, H], [-w, c], [-0.72 * w, 0.9], [-0.28 * w, 0.15], [0, 0],
+    [0.28 * w, 0.15], [0.72 * w, 0.9], [w, c], [w, H],
+    [ri, H], [rf, H - rd], [-rf, H - rd], [-ri, H],
+  ]; // loop closes along the port rim from [-ri,H] back to [-w,H]
+}
+
+function buildHull() {
+  const S = 30, half = D.hull.length / 2;
+  const rings = [];
+  for (let s = 0; s < S; s++) {
+    const t = s / (S - 1);
+    const x = -half + t * D.hull.length;
+    rings.push(sectionRing(halfWidthAt(t), recessDepthAt(t)).map(([z, y]) => new THREE.Vector3(x, y, z)));
+  }
+  const R = rings[0].length;
+  const pos = [], idx = [];
+  rings.forEach(r => r.forEach(p => pos.push(p.x, p.y, p.z)));
+  for (let s = 0; s < S - 1; s++) {
+    for (let r = 0; r < R; r++) {
+      const rn = (r + 1) % R;
+      const a = s * R + r, b = s * R + rn, c2 = (s + 1) * R + r, d2 = (s + 1) * R + rn;
+      idx.push(a, c2, b, b, c2, d2);
+    }
+  }
+  // end caps (fan to centroid)
+  for (const s of [0, S - 1]) {
+    const ring = rings[s];
+    const cen = ring.reduce((v, p) => v.add(p.clone()), new THREE.Vector3()).multiplyScalar(1 / R);
+    const ci = pos.length / 3;
+    pos.push(cen.x, cen.y, cen.z);
+    for (let r = 0; r < R; r++) {
+      const rn = (r + 1) % R, a = s * R + r, b = s * R + rn;
+      if (s === 0) idx.push(ci, b, a); else idx.push(ci, a, b);
+    }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setIndex(idx);
+  g.computeVertexNormals();
+  return new THREE.Mesh(g, M.hull);
+}
+
+function box(l, h, w, mat) { return new THREE.Mesh(new THREE.BoxGeometry(l, h, w), mat); }
+function cyl(dia, h, mat, radial = 24) { return new THREE.Mesh(new THREE.CylinderGeometry(dia / 2, dia / 2, h, radial), mat); }
+
+// ---------- groups ----------
+const groups = {};
+function group(key, label) {
+  const g = new THREE.Group();
+  g.userData.label = label;
+  groups[key] = g;
+  scene.add(g);
+  return g;
+}
+
+// -- hull group --
+{
+  const g = group('hull', 'Kayak hull');
+  g.add(buildHull());
+  // twin stern tracking fins [PHOTO]
+  for (const sgn of [1, -1]) {
+    const fin = box(D.fins.xFwd - D.fins.xAft, D.fins.depth + 0.6, D.fins.thickness, M.hull);
+    fin.position.set((D.fins.xAft + D.fins.xFwd) / 2, -D.fins.depth / 2 + 0.3, sgn * D.fins.z);
+    g.add(fin);
+  }
+  // front scupper holes (real through-holes) — shown as dark markers up
+  // through the recess floor
+  for (const sgn of [1, -1]) {
+    const m = cyl(D.scuppers.holeDia, D.hull.depth - D.hull.deckInset + 1.0, M.marker);
+    m.position.set(D.scuppers.frontX, (D.hull.depth - D.hull.deckInset) / 2 + 0.2, sgn * D.scuppers.frontZ);
+    g.add(m);
+  }
+  // rear molded dimple — NOT a hole
+  const dim = cyl(D.scuppers.holeDia, 0.25, M.marker);
+  dim.position.set(D.scuppers.dimpleX, 0.05, D.scuppers.dimpleZ);
+  g.add(dim);
+}
+
+// -- waterline --
+{
+  const g = group('water', 'Waterline (~65 lb load)');
+  const p = new THREE.Mesh(new THREE.PlaneGeometry(240, 240), M.water);
+  p.rotation.x = -Math.PI / 2;
+  p.position.y = D.draft;
+  g.add(p);
+}
+
+// -- mount frame --
+{
+  const g = group('frame', 'Mount frame');
+  const F = D.frame;
+  // through-posts in the two REAL front scuppers
+  for (const sgn of [1, -1]) {
+    const post = cyl(F.postDia, F.postTop - F.postBottom, M.stainless);
+    post.position.set(D.scuppers.frontX, (F.postTop + F.postBottom) / 2, sgn * D.scuppers.frontZ);
+    g.add(post);
+    const puck = cyl(F.puckDia, F.puckHeight, M.blackPl);
+    puck.position.set(D.scuppers.frontX, F.postBottom + F.puckHeight / 2, sgn * D.scuppers.frontZ);
+    g.add(puck);
+  }
+  // front top plate over both posts
+  const fp = box(F.frontPlate.w, F.frontPlate.t, F.frontPlate.d, M.aluminum);
+  fp.position.set(F.frontPlate.x, F.frontPlate.y, 0);
+  g.add(fp);
+  // two deck rails running aft
+  for (const sgn of [1, -1]) {
+    const rail = box(F.railXFwd - F.railXAft, F.railSize, F.railSize, M.aluminum);
+    rail.position.set((F.railXFwd + F.railXAft) / 2, F.railY, sgn * F.railZ);
+    g.add(rail);
+  }
+  // rear crossbar (no rear hole needed — held by straps + frame)
+  const cb = box(F.crossbar.size, F.crossbar.size, F.crossbar.span, M.aluminum);
+  cb.position.set(F.crossbar.x, F.crossbar.y, 0);
+  g.add(cb);
+  // risers tie the in-recess rails up to the crossbar riding on the rims
+  for (const sgn of [1, -1]) {
+    const riser = box(F.railSize, F.crossbar.y - F.railY, F.railSize, M.aluminum);
+    riser.position.set(F.railXAft, (F.crossbar.y + F.railY) / 2, sgn * F.railZ);
+    g.add(riser);
+  }
+  // equipment deck plate
+  const dp = box(F.deckPlate.xFwd - F.deckPlate.xAft, F.deckPlate.t, F.deckPlate.halfW * 2, M.blackPl);
+  dp.position.set((F.deckPlate.xFwd + F.deckPlate.xAft) / 2, F.deckPlate.y, 0);
+  g.add(dp);
+  // faired struts down to the motors, outside the chines
+  for (const sgn of [1, -1]) {
+    const h = F.strut.topY - F.strut.bottomY;
+    const st = box(F.strut.chord, h, F.strut.thickness, M.aluminum);
+    st.position.set(D.motor.x + 0.5, (F.strut.topY + F.strut.bottomY) / 2, sgn * F.strut.z);
+    g.add(st);
+  }
+}
+
+// -- straps --
+{
+  const g = group('straps', 'Hull straps (2x cam)');
+  for (const x of D.frame.strapX) {
+    const t = new THREE.Mesh(new THREE.TorusGeometry(1, 0.05, 8, 60), M.rubber);
+    t.rotation.y = Math.PI / 2;                       // lie in the YZ plane
+    t.scale.set(D.hull.halfBeam + 0.6, D.hull.depth / 2 + 0.9, 1);
+    t.position.set(x, D.hull.depth / 2 - 0.3, 0);
+    g.add(t);
+  }
+}
+
+// -- motors + props --
+{
+  const g = group('motors', 'Flipsky 56115 pods');
+  for (const sgn of [1, -1]) {
+    const pod = new THREE.Group();
+    const body = cyl(D.motor.dia, D.motor.length, M.motor);
+    body.rotation.z = Math.PI / 2;                    // axis along X
+    pod.add(body);
+    const nose = new THREE.Mesh(new THREE.ConeGeometry(D.motor.dia / 2, 1.4, 24), M.motor);
+    nose.rotation.z = -Math.PI / 2;
+    nose.position.x = D.motor.length / 2 + 0.7;
+    pod.add(nose);
+    const hub = cyl(0.8, 1.0, M.prop);
+    hub.rotation.z = Math.PI / 2;
+    hub.position.x = -(D.motor.length / 2 + 0.5);
+    pod.add(hub);
+    for (let b = 0; b < 3; b++) {
+      const blade = box(0.18, D.motor.propDia / 2, 0.85, M.prop);
+      blade.position.y = D.motor.propDia / 4;
+      const holder = new THREE.Group();
+      holder.add(blade);
+      holder.rotation.x = (b * 2 * Math.PI) / 3;
+      holder.rotation.y = 0.5;                        // crude pitch
+      holder.position.x = -(D.motor.length / 2 + 0.5);
+      pod.add(holder);
+    }
+    pod.position.set(D.motor.x, D.motor.y, sgn * D.motor.z);
+    g.add(pod);
+  }
+}
+
+// -- battery box --
+{
+  const g = group('box', 'Pelican 1200 battery box');
+  const P = D.pelican, plateTop = D.frame.deckPlate.y + D.frame.deckPlate.t / 2;
+  const b = box(P.l, P.h, P.w, M.pelican);
+  b.position.set(P.x, plateTop + P.h / 2, 0);
+  g.add(b);
+  const lid = box(P.l * 0.96, 0.5, P.w * 0.96, M.blackPl);
+  lid.position.set(P.x, plateTop + P.h + 0.25, 0);
+  g.add(lid);
+  for (const sgn of [1, -1]) {                        // latches
+    const latch = box(1.4, 1.0, 0.4, M.blackPl);
+    latch.position.set(P.x + P.l / 2 - 3 * sgn - 0, plateTop + P.h - 0.3, sgn * (P.w / 2 + 0.15));
+    g.add(latch);
+  }
+}
+
+// -- ESCs --
+{
+  const g = group('escs', 'ESCs (heatsinks on plate, open air)');
+  const E = D.esc, plateTop = D.frame.deckPlate.y + D.frame.deckPlate.t / 2;
+  for (const sgn of [1, -1]) {
+    const e = box(E.l, E.h, E.w, M.esc);
+    e.position.set(E.x, plateTop + E.h / 2, sgn * E.z);
+    g.add(e);
+  }
+}
+
+// -- sensor tower (lidar + camera + GPS) --
+{
+  const g = group('tower', 'Sensor tower (lidar + camera)');
+  const T = D.tower;
+  const apexY = T.baseY + T.height;
+  // four A-frame legs from the deck plate to the platform corners
+  const legLen = Math.sqrt(T.height ** 2 + 2 * T.legSpread ** 2) + 0.5;
+  for (const sx of [1, -1]) for (const sz of [1, -1]) {
+    const leg = cyl(T.legDia, legLen, M.aluminum, 12);
+    const base = new THREE.Vector3(T.x + sx * T.legSpread, T.baseY, sz * T.legSpread);
+    const top = new THREE.Vector3(T.x + sx * T.platform.w / 4, apexY, sz * T.platform.d / 4);
+    const mid = base.clone().add(top).multiplyScalar(0.5);
+    leg.position.copy(mid);
+    leg.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), top.clone().sub(base).normalize());
+    g.add(leg);
+  }
+  // platform
+  const plat = box(T.platform.w, T.platform.t, T.platform.d, M.aluminum);
+  plat.position.set(T.x, apexY + T.platform.t / 2, 0);
+  g.add(plat);
+  // RPLidar C1 on top center — needs 360° clear view
+  const lidar = cyl(T.lidar.dia, T.lidar.h, M.blackPl);
+  lidar.position.set(T.x, apexY + T.platform.t + T.lidar.h / 2, 0);
+  g.add(lidar);
+  const lidarWin = cyl(T.lidar.dia * 0.96, T.lidar.h * 0.4, M.esc);
+  lidarWin.position.set(T.x, apexY + T.platform.t + T.lidar.h * 0.6, 0);
+  g.add(lidarWin);
+  // pilot camera on the forward edge, facing the bow (+X)
+  const cam = box(T.camera.d, T.camera.h, T.camera.w, M.blackPl);
+  cam.position.set(T.x + T.platform.w / 2 + T.camera.d / 2 - 0.2, apexY - T.camera.h / 2 + 0.05, 0);
+  g.add(cam);
+  const lens = cyl(T.camera.lensDia, 0.35, M.esc, 16);
+  lens.rotation.z = Math.PI / 2;   // axis along X, looking forward
+  lens.position.set(T.x + T.platform.w / 2 + T.camera.d + 0.15, apexY - T.camera.h / 2 + 0.05, 0);
+  g.add(lens);
+  // GPS puck on the aft corner of the platform
+  const gps = cyl(T.gpsDia, 0.45, M.blackPl);
+  gps.position.set(T.x - T.platform.w / 2 + 0.9, apexY + T.platform.t + 0.22, -T.platform.d / 2 + 0.9);
+  g.add(gps);
+}
+
+// -- nav lights --
+{
+  const g = group('lights', 'Nav lights (R/G/W)');
+  const L = D.lights;
+  // red port / green starboard domes on the bow rims
+  const tBow = (L.bowX + D.hull.length / 2) / D.hull.length;
+  const rimZ = halfWidthAt(tBow) * 0.88;
+  for (const [sgn, mat] of [[-1, M.navRed], [1, M.navGreen]]) {  // port = -Z here (red), stbd = +Z (green)
+    const base = cyl(L.domeDia, 0.35, M.blackPl, 16);
+    base.position.set(L.bowX, L.bowY - 0.15, sgn * rimZ);
+    g.add(base);
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(L.domeDia / 2, 16, 12), mat);
+    dome.position.set(L.bowX, L.bowY + 0.15, sgn * rimZ);
+    g.add(dome);
+  }
+  // all-round white on a stalk above the lidar scan plane (tower platform, aft edge)
+  const T = D.tower, apexY = T.baseY + T.height + T.platform.t;
+  const stalk = cyl(0.3, L.whiteStalkH, M.aluminum, 10);
+  stalk.position.set(T.x - T.platform.w / 2 + 0.4, apexY + L.whiteStalkH / 2, 0);
+  g.add(stalk);
+  const white = new THREE.Mesh(new THREE.SphereGeometry(L.whiteDia / 2, 16, 12), M.navWhite);
+  white.position.set(T.x - T.platform.w / 2 + 0.4, apexY + L.whiteStalkH + L.whiteDia / 2 - 0.1, 0);
+  g.add(white);
+}
+
+// -- CG & buoyancy markers --
+{
+  const g = group('cg', 'CG & buoyancy centers');
+  const W = D.weights;
+  const tot = W.reduce((s, w) => s + w.lb, 0);
+  const lcg = W.reduce((s, w) => s + w.lb * w.x, 0) / tot;
+  const vcg = W.reduce((s, w) => s + w.lb * w.y, 0) / tot;
+  // waterplane centroid (~longitudinal center of buoyancy) from the hull width function
+  let a = 0, ax = 0;
+  for (let i = 0; i < 200; i++) {
+    const t = (i + 0.5) / 200, x = -D.hull.length / 2 + t * D.hull.length, w = halfWidthAt(t);
+    a += w; ax += w * x;
+  }
+  const lcb = ax / a;
+  const cgM = new THREE.Mesh(new THREE.SphereGeometry(0.9, 16, 12),
+    new THREE.MeshStandardMaterial({ color: 0xd7263d, emissive: 0xd7263d, emissiveIntensity: 0.5 }));
+  cgM.position.set(lcg, vcg, 0);
+  g.add(cgM);
+  const cbM = new THREE.Mesh(new THREE.SphereGeometry(0.9, 16, 12),
+    new THREE.MeshStandardMaterial({ color: 0x0b57d0, emissive: 0x0b57d0, emissiveIntensity: 0.5 }));
+  cbM.position.set(lcb, D.draft - 1.4, 0);
+  g.add(cbM);
+  window.__balance = { totalLb: tot, lcgX: lcg, vcgY: vcg, lcbX: lcb };
+}
+
+// ---------- UI ----------
+const togglesEl = document.getElementById('toggles');
+for (const [key, g] of Object.entries(groups)) {
+  const label = document.createElement('label');
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.checked = true;
+  cb.onchange = () => { g.visible = cb.checked; };
+  label.append(cb, g.userData.label);
+  togglesEl.appendChild(label);
+}
+
+const VIEWS = {
+  threequarter: { pos: [62, 40, 62], target: [0, 4, 0] },
+  top:          { pos: [0.1, 130, 0.1], target: [0, 0, 0] },
+  side:         { pos: [0, 8, 105], target: [0, 5, 0] },
+  underwater:   { pos: [55, -26, 48], target: [-18, -1, 4] },
+};
+function setView(name) {
+  const v = VIEWS[name];
+  camera.position.set(...v.pos);
+  controls.target.set(...v.target);
+  controls.update();
+}
+window.setView = setView; // programmatic camera control (used for automated renders)
+document.querySelectorAll('.panel button').forEach(b => b.onclick = () => setView(b.dataset.view));
+setView('threequarter');
+
+document.getElementById('legend').innerHTML = `
+  <b>Hull</b> ${D.hull.length} × ${D.hull.beam} × ${D.hull.depth} in &nbsp;·&nbsp; ${D.hull.weightLb} lb, ${D.hull.capacityLb} lb cap<br>
+  <b>Draft shown</b> ~${D.draft} in at ~65 lb all-up<br>
+  <b>Front posts</b> ${D.hull.length / 2 - D.scuppers.frontX} in aft of bow, ${D.scuppers.frontZ * 2} in apart (real holes)<br>
+  <b>Motors</b> 56115 pods at rear third, ${Math.abs(D.motor.x - -D.hull.length / 2)} in fwd of stern &nbsp;·&nbsp; rear crossbar span ${D.frame.crossbar.span} in<br>
+  <b>Balance</b> ~${Math.round(window.__balance.totalLb)} lb all-up · LCG ${Math.abs(window.__balance.lcgX).toFixed(1)} in aft of mid
+    (${Math.round((D.hull.length / 2 - window.__balance.lcgX) / D.hull.length * 100)}% from bow) · VCG ${window.__balance.vcgY.toFixed(1)} in above keel
+    · <span style="color:#d7263d">red = CG</span>, <span style="color:#0b57d0">blue = buoyancy center</span><br>
+  <span style="color:#7a8591">Rear “scupper” = closed dimple (marker shown) — no rear hole used. Edit dims.js to change anything.</span>
+`;
+
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+
+renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); });
+</script>
+</body>
+</html>

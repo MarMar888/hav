@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Top Speed Model — kayak build</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { margin: 0; font-family: -apple-system, "Segoe UI", sans-serif; color: #1c2733; background: #eef2f6; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 20px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  .sub { color: #55606c; font-size: 13px; margin-bottom: 16px; }
+  .panel { background: #fff; border: 1px solid #d5d9de; border-radius: 12px; padding: 18px; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+  canvas { width: 100%; height: 420px; display: block; }
+  .controls { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 26px; margin-top: 16px; }
+  .ctl { font-size: 13px; }
+  .ctl label { display: block; font-weight: 600; margin-bottom: 4px; }
+  .ctl input[type=range] { width: 100%; }
+  .ctl select { width: 100%; padding: 5px; border-radius: 6px; border: 1px solid #c8cdd3; }
+  .val { color: #0b57d0; font-weight: 600; }
+  .readout { font-size: 15px; margin-top: 14px; padding: 12px 14px; background: #f4f8ff; border: 1px solid #cfe0ff; border-radius: 10px; }
+  .readout b { font-size: 22px; color: #0b57d0; }
+  .warn { color: #a15c00; }
+  .note { font-size: 12px; color: #7a8591; margin-top: 8px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Top speed = where thrust crosses drag</h1>
+  <div class="sub">Physics estimate for the Lifetime Wave + twin Flipsky build. The prop is the biggest unknown, so it's a slider.</div>
+  <div class="panel">
+    <canvas id="chart" width="1900" height="800"></canvas>
+    <div class="readout" id="readout"></div>
+    <div class="controls">
+      <div class="ctl">
+        <label>Motor <span class="val" id="motorName"></span></label>
+        <select id="motor"></select>
+      </div>
+      <div class="ctl">
+        <label>Prop pitch: <span class="val" id="pitchV"></span> in</label>
+        <input type="range" id="pitch" min="3.5" max="8" step="0.25" value="5">
+      </div>
+      <div class="ctl">
+        <label>All-up weight: <span class="val" id="wV"></span> lb</label>
+        <input type="range" id="w" min="45" max="80" step="1" value="55">
+      </div>
+      <div class="ctl">
+        <label>Power tier</label>
+        <select id="tier">
+          <option value="rated">Rated / sustained current</option>
+          <option value="burst">Burst / max current</option>
+        </select>
+      </div>
+      <div class="ctl">
+        <label>Ventilation derate: <span class="val" id="ventV"></span>%</label>
+        <input type="range" id="vent" min="0" max="40" step="5" value="15">
+      </div>
+      <div class="ctl">
+        <label>Appendage drag: <span class="val" id="appV"></span></label>
+        <input type="range" id="app" min="0.010" max="0.032" step="0.001" value="0.019">
+      </div>
+    </div>
+    <div class="note" id="note"></div>
+  </div>
+</div>
+
+<script type="module">
+import { predict, DEFAULTS } from './speed.js';
+
+// Built-in-ESC Flipsky water motors (the chosen path — motor+VESC in one sealed pod).
+// [name, loaded rpm @12S, prop pitch it can swing, T0 rated lbf, T0 burst lbf]. [EST]
+const MOTORS = [
+  ['72150 120KV 3kW — native 6-12S (drop-in)', 4400, 6.0, 50, 59],
+  ['65150 160KV 3kW — the video motor',        5850, 5.5, 52, 66],
+  ['65220 120KV 6kW — 6-20S, big/overkill',    4400, 7.0, 62, 92],
+  ['56115 150KV 2.4kW — bare (needs ext. ESC)', 5500, 5.0, 40.3, 59.5],
+];
+
+const $ = id => document.getElementById(id);
+const motorSel = $('motor');
+MOTORS.forEach((m, i) => { const o = document.createElement('option'); o.value = i; o.textContent = m[0]; motorSel.appendChild(o); });
+
+function params() {
+  const m = MOTORS[+motorSel.value];
+  const tier = $('tier').value;
+  return {
+    rpm: m[1],
+    pitchIn: +$('pitch').value,
+    weightLb: +$('w').value,
+    T0perMotor: tier === 'burst' ? m[4] : m[3],
+    CdA_app: +$('app').value,
+    _vent: +$('vent').value / 100,
+    _motorName: m[0],
+  };
+}
+
+const cv = $('chart'), ctx = cv.getContext('2d');
+function draw() {
+  const p = params();
+  const r = predict(p);
+  // apply ventilation derate to thrust, recompute crossover
+  const vent = p._vent;
+  let top = 0, prev = 1;
+  const pts = r.curve.map(c => {
+    const th = c.thrust * (1 - vent);
+    return { mph: c.mph, drag: c.drag, thrust: th };
+  });
+  for (let i = 1; i < pts.length; i++) {
+    const s = Math.sign(pts[i].thrust - pts[i].drag);
+    if (s < 0 && prev >= 0 && pts[i].mph > 1) top = pts[i].mph;
+    if (s !== 0) prev = s;
+  }
+  const thrustAtHump = r.thrustAtHump * (1 - vent);
+  const planes = thrustAtHump > r.humpDrag * 1.05;
+
+  // chart frame
+  const W = cv.width, H = cv.height, L = 80, R2 = 30, T = 30, B = 70;
+  const xmax = 30, ymax = 60;
+  const X = v => L + (v / xmax) * (W - L - R2);
+  const Y = f => H - B - (f / ymax) * (H - T - B);
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = '#e4e9ee'; ctx.lineWidth = 1; ctx.fillStyle = '#8894a0'; ctx.font = '22px sans-serif';
+  ctx.textAlign = 'center';
+  for (let v = 0; v <= xmax; v += 5) { ctx.beginPath(); ctx.moveTo(X(v), T); ctx.lineTo(X(v), H - B); ctx.stroke(); ctx.fillText(v + ' mph', X(v), H - B + 30); }
+  ctx.textAlign = 'right';
+  for (let f = 0; f <= ymax; f += 10) { ctx.beginPath(); ctx.moveTo(L, Y(f)); ctx.lineTo(W - R2, Y(f)); ctx.stroke(); ctx.fillText(f + ' lbf', L - 8, Y(f) + 7); }
+
+  const line = (key, color) => {
+    ctx.strokeStyle = color; ctx.lineWidth = 4; ctx.beginPath();
+    pts.forEach((c, i) => { const x = X(c.mph), y = Y(Math.min(c[key], ymax)); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+    ctx.stroke();
+  };
+  line('drag', '#d7263d');     // drag red
+  line('thrust', '#0b57d0');   // thrust blue
+
+  // crossover marker
+  if (top > 0) {
+    const x = X(top);
+    ctx.strokeStyle = '#111'; ctx.setLineDash([6, 6]); ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(x, T); ctx.lineTo(x, H - B); ctx.stroke(); ctx.setLineDash([]);
+    ctx.fillStyle = '#111'; ctx.font = 'bold 26px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText(top.toFixed(1) + ' mph', x, T + 24);
+  }
+  // legend
+  ctx.textAlign = 'left'; ctx.font = '22px sans-serif';
+  ctx.fillStyle = '#0b57d0'; ctx.fillText('■ thrust (both motors)', L + 10, T + 24);
+  ctx.fillStyle = '#d7263d'; ctx.fillText('■ drag (hull + appendages)', L + 320, T + 24);
+
+  // readouts
+  $('motorName').textContent = p._motorName;
+  $('pitchV').textContent = p.pitchIn.toFixed(2);
+  $('wV').textContent = p.weightLb;
+  $('ventV').textContent = (vent * 100).toFixed(0);
+  $('appV').textContent = p.CdA_app.toFixed(3) + ' ft²';
+  $('readout').innerHTML = top > 0
+    ? `Predicted top speed: <b>${top.toFixed(1)} mph</b> &nbsp;·&nbsp; ${planes ? 'planes ✓' : '<span class="warn">may NOT clear the planing hump ✗</span>'}`
+    : `<span class="warn">No steady top speed found — thrust never exceeds drag (won't get moving at these settings).</span>`;
+  $('note').innerHTML = `Hump at ${r.humpMph.toFixed(1)} mph needs ${r.humpDrag.toFixed(0)} lbf; thrust there ≈ ${thrustAtHump.toFixed(0)} lbf. `
+    + `Ventilation derate models the video's real-world thrust loss (air sucked into props) — it makes the numbers honest, not optimistic. `
+    + `Bigger motors raise the blue curve, but past ~20 mph the red drag curve and the prop's zero-thrust speed dominate.`;
+}
+[motorSel, $('pitch'), $('w'), $('tier'), $('vent'), $('app')].forEach(e => e.addEventListener('input', draw));
+draw();
+window.__redraw = draw;
+</script>
+</body>
+</html>
