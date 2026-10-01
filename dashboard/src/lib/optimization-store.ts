@@ -4,7 +4,8 @@ import path from "node:path";
 import { z } from "zod";
 import { candidateSchema, resultsSchema, type RunSummary } from "./optimization";
 
-const root = path.join(process.cwd(), "optimization", "runs");
+// optimization/ is a sibling of dashboard/, not inside it.
+const root = path.join(process.cwd(), "..", "optimization", "runs");
 
 async function readRunFile(run: string, parts: string[]) {
   // Only descendants of a discovered run may be read, including through symlinks.

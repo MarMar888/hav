@@ -1,6 +1,10 @@
-# Hull design and CFD starter work
+# Hull design and CFD starter work (archived)
 
-This folder collects the team's current hull design and early CFD tooling. The parametric Onshape FeatureScript is the design source; the STEP and STL files are exports for geometry checks and meshing.
+> **Archived: catamaran-era hull.** This was the hull design before the project became the 3D-printed
+> RIB in [`cad/`](../../cad/). Kept for the CFD/OpenFOAM workflow, which is still a reasonable starting
+> point for testing the current hull. For the current design start at the [root README](../../README.md).
+
+This folder collects the team's hull design and early CFD tooling from that earlier phase. The parametric Onshape FeatureScript is the design source; the STEP and STL files are exports for geometry checks and meshing.
 
 ## Current state
 

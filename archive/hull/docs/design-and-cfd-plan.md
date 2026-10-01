@@ -7,8 +7,8 @@
 The generator in `cfd/tools/prepare.py` makes repeatable candidate manifests and performs preliminary section checks. Run it from any directory with Python 3:
 
 ```text
-python hull/cfd/tools/prepare.py
-python -m unittest discover -s hull/cfd/tools -v
+python archive/hull/cfd/tools/prepare.py
+python -m unittest discover -s archive/hull/cfd/tools -v
 ```
 
 The campaign manifest contains proposed candidates, not simulation results. Geometry screening does not validate the Onshape CAD kernel or hull performance. Bounds, mass, CG, fluid conditions, force application and objective need engineering decisions before optimization. Dynamic programming and reinforcement learning are deferred until there is a trustworthy evaluator and defined feasibility thresholds.
