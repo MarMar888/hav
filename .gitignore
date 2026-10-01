@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -40,3 +41,11 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .gstack/
+
+# CAD: the Python env and everything agentcad generates. Source lives in
+# cad/hull.py; rebuild with `agentcad run hull.py` (see README).
+/.venv-cad/
+/cad/build/
+
+# OpenFOAM decomposed solver output (hundreds of MB); regenerate with the case run scripts
+cad/cfd/*/processor*/

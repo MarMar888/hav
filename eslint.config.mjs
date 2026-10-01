@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Not ours: the CAD Python env, agentcad output, workspace scratch, installed skills.
+    ".venv-cad/**",
+    "cad/build/**",
+    ".context/**",
+    ".claude/**",
   ]),
 ]);
 
