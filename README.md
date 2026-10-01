@@ -23,7 +23,7 @@ starter workflow exist; nothing has been built or tested on water yet.
 | **Optimization** — [`hull/cfd/tools/`](hull/cfd/tools/) | `design-space.json` (parameter bounds + which ones are open to optimize) and `prepare.py` (generates candidate hull geometries for a sweep) | Bookkeeping only. Produces candidates, doesn't yet run or score them. DP/RL-based optimization is explicitly deferred until there's a trustworthy CFD evaluator — see [`hull/docs/design-and-cfd-plan.md`](hull/docs/design-and-cfd-plan.md). |
 | **BOM + operations** — [`thinking/bom/`](thinking/bom/), [`thinking/hardware/`](thinking/hardware/), [`thinking/software/`](thinking/software/), [`thinking/tradeoffs/`](thinking/tradeoffs/) | Bill of materials with reasoning and cost levers; per-subsystem hardware docs (hull/propulsion, brain/autopilot, comms, sensors, power, mechanical/environment); the software stack plan; the tradeoffs and open-decisions log | v1 build costs ≈$1,252 (range $953–$1,585). Major subsystems are locked; final hull pick and flight-controller route are still open. |
 | **Visualization** — [`boat-viz/`](boat-viz/) | Standalone 3D hull-and-mount viewer + a top-speed model, plain HTML/JS | Working, no build step. |
-| **Dashboard** — [`src/app/`](src/app/) | Next.js app, meant to become the live video/map/telemetry control dashboard | Not started — still the `create-next-app` template. |
+| **Dashboard** — [`dashboard/`](dashboard/) | Next.js app, meant to become the live video/map/telemetry control dashboard | Not started — still the `create-next-app` template. |
 
 ## Getting started
 
@@ -53,6 +53,7 @@ exactly what this does and doesn't prove.
 ### Dashboard (Next.js)
 
 ```bash
+cd dashboard
 pnpm install
 pnpm dev
 ```
