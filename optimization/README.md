@@ -334,10 +334,14 @@ To use an existing Chrome installation instead of downloading Chromium, run
 hull with OpenPlaning for the planing balance, plus hydrostatics, propeller, battery voltage and the constraints, with
 sweeps, sliders and a small search. It is separate from the finalops solver above and uses placeholder component data.
 
-```sh
-optimization/.venv/bin/python -m pip install -r optimization/requirements-notebook.txt
-optimization/.venv/bin/jupyter lab optimization/explore.ipynb
-```
+After section 7 the notebook has a ten-chart overview of how the model operates (pipeline, hull, mass and balance,
+hydrostatics, planing, power chain, battery, race, constraints, feasible region), all drawn live from the section 2 design.
+
+Part II of the notebook (after section 16) is a set of exploration lenses rather than a fixed analysis. A Controls cell sets
+the seeds, a target speed and which designs to compare. The notebook then searches the design space several ways
+(differential evolution, random search, dual annealing, a local search, and two other objectives) and gathers the results in
+`DESIGNS`. Every later chart reads from that dictionary, so adding your own design to `EXTRA_DESIGNS` puts it in all of them.
+Run All takes about two and a half minutes, most of it the searches.
 
 `openplaning-reference.ipynb` is a different, smaller notebook: a reference for the `PlaningBoat` class
 itself (what it takes as input vs what it computes, split into hull and propulsion), built on the

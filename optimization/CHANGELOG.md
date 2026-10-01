@@ -3,6 +3,20 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `VERSION` are kept — this
 folder versions independently of `cad/`, `dashboard/`, and `docs/`.
 
+## 0.1.3 — 2026-10-01
+
+`explore.ipynb`: added a second sweep grid (series count, thrust angle and height, payload, fixed
+equipment, voltage limit, rating fraction, freeboard rule, gyradius) beside the first; `sweep` now
+accepts `Fixed` fields as well as `Design` fields. Added Part II (the model as a data story). The setup
+cell now prints the model version (`VERSION` plus git commit and a dirty flag) on every run, so a
+saved chart or result can be traced to the code that made it. Widened the search `BOUNDS` (length 3-10 ft,
+beam 10-40 in, depth 8-20 in).
+
+Added `explore-model.tex` and `explore-model.pdf`, a plain-English write-up of the explore model (decision
+variables, calculated values, the twenty constraints and the objective), linked from the notebook's first
+cell. Added `AGENTS.md`: whenever the model in `explore.ipynb` changes, the write-up must be updated and
+rebuilt, and the version bumped, in the same change.
+
 ## 0.1.2 — 2026-10-01
 
 Added three variable-dependency diagrams under `../diagrams/` (decisions → mass/balance, mass/speed →
