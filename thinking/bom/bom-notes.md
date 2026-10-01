@@ -1,5 +1,8 @@
 # BOM Notes
 
+> **Not the current BOM.** `bom.csv` is the catamaran-era parts list, kept for its reasoning. The live BOM
+> is `src/lib/boat.ts`, rendered at `/components` on the site — see the [root README](../../README.md).
+
 The numbers live in [`bom.csv`](./bom.csv). This explains them.
 
 ## Totals at a glance

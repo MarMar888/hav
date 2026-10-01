@@ -1,5 +1,9 @@
 # 🚤 Project: Long-Range RC Sensor Boat — Thinking & Design Notes
 
+> **Historical: early design thinking.** These notes predate the current build — they describe a bought
+> catamaran hull, an Xbox controller and a ~$1,250 budget. The reasoning (stability, vibration, thermal,
+> comms) still holds; the parts list does not. For the current design start at the [root README](../README.md).
+
 This folder organizes everything we've worked through for the boat: a **remote-control, long-distance RC boat** loaded with sensors (cameras, lidar, wind, GPS), driven from a **computer dashboard + Xbox controller**, controlled over **4G/LTE** from anywhere. Inspired by **MIT's Roboat**, built mostly from **off-the-shelf marine-robotics parts** (ArduPilot / BlueOS ecosystem) with a **custom software stack**.
 
 > **Hardware is the main concern** — so the `hardware/` docs are the deepest. Software is the part that's built first-principles (and doubles as a portfolio piece — see `software/02-dream-company-stack.md`).
