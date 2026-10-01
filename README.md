@@ -13,7 +13,7 @@ This repo holds four things, each documented where it lives, not here:
 | [`dashboard/`](dashboard/) | The BOM (a Postgres table on Neon, shown and edited on a one-page Next.js site) and the optimizer results viewer | Live — this is the thing you open day to day |
 | [`optimization/`](optimization/) | The boat-design optimizer: one model picks hull geometry, drive, battery and speed together | Working demo. The numbers are synthetic fixtures, not a design recommendation yet — see its README |
 | [`archive/`](archive/) | Earlier phases, kept for the reasoning, not the parts | Historical. The project started as a bought catamaran hull before becoming the RIB above |
-| [`docs/`](docs/) | Reference material that isn't part of the design itself | [`docs/PEP-Rules/`](docs/PEP-Rules/) holds the official rules for the race this boat is built for |
+| [`docs/`](docs/) | Reference material that isn't part of the design itself | [`docs/PEP-Rules/`](docs/PEP-Rules/) holds the official race rules; [`docs/white-paper/`](docs/white-paper/) is the scaffold for the required 20-point submission, unwritten so far |
 
 ## If you're new here
 
