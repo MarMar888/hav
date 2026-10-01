@@ -20,8 +20,15 @@ This repo holds four things, each documented where it lives, not here:
 1. Read this file (you're doing it).
 2. Read [`docs/PEP-Rules/`](docs/PEP-Rules/) — this is the race the boat is built for, and most of the
    numbers in `optimization/` (30 lb payload, 55.5 V limit, 2-mile course) come straight from it.
-3. Open the BOM: see [`dashboard/README.md`](dashboard/README.md) for how to run it.
-4. Look at the hull: open [`cad/README.md`](cad/README.md), or just load the 3D viewer it points to.
+3. Run the website — one site, with everything else reachable from its header nav:
+   ```bash
+   cd dashboard && pnpm install && cd ..   # once
+   pnpm dev                                # http://localhost:3000, from the repo root from now on
+   ```
+   The header links to the BOM (home), the optimizer results viewer (`/optimization`), and the 3D hull
+   viewer. `pnpm build`/`pnpm start`/`pnpm lint` work the same way, from the root — see
+   [`dashboard/README.md`](dashboard/README.md) for what each page does.
+4. Look at the hull: open [`cad/README.md`](cad/README.md).
 5. If you care about the design math, [`optimization/README.md`](optimization/README.md) has the full
    model — objective, constraints, decision variables, and its limits.
 

@@ -1,0 +1,11 @@
+{
+  "name": "hav",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --dir dashboard dev",
+    "build": "pnpm --dir dashboard build",
+    "start": "pnpm --dir dashboard start",
+    "lint": "pnpm --dir dashboard lint",
+    "db:setup": "pnpm --dir dashboard db:setup"
+  }
+}
