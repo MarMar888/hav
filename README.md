@@ -42,6 +42,9 @@ Three languages, three setups:
 This is Next.js 16, which has breaking changes from what you've seen before — read [`AGENTS.md`](AGENTS.md)
 before touching `dashboard/`.
 
+`cad/`, `optimization/`, `dashboard/`, and `docs/` each version independently (their own `VERSION` +
+`CHANGELOG.md`, or `package.json`'s version for `dashboard/`) — see [`docs/VERSIONING.md`](docs/VERSIONING.md).
+
 ## Archive
 
 [`archive/thinking/`](archive/thinking/) is the design reasoning from the project's first phase: a bought
