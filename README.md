@@ -13,13 +13,16 @@ This repo holds four things, each documented where it lives, not here:
 | [`dashboard/`](dashboard/) | The BOM (a Postgres table on Neon, shown and edited on a one-page Next.js site) and the optimizer results viewer | Live — this is the thing you open day to day |
 | [`optimization/`](optimization/) | The boat-design optimizer: one model picks hull geometry, drive, battery and speed together | Working demo. The numbers are synthetic fixtures, not a design recommendation yet — see its README |
 | [`archive/`](archive/) | Earlier phases, kept for the reasoning, not the parts | Historical. The project started as a bought catamaran hull before becoming the RIB above |
+| [`docs/`](docs/) | Reference material that isn't part of the design itself | [`docs/PEP-Rules/`](docs/PEP-Rules/) holds the official rules for the race this boat is built for |
 
 ## If you're new here
 
 1. Read this file (you're doing it).
-2. Open the BOM: see [`dashboard/README.md`](dashboard/README.md) for how to run it.
-3. Look at the hull: open [`cad/README.md`](cad/README.md), or just load the 3D viewer it points to.
-4. If you care about the design math, [`optimization/README.md`](optimization/README.md) has the full
+2. Read [`docs/PEP-Rules/`](docs/PEP-Rules/) — this is the race the boat is built for, and most of the
+   numbers in `optimization/` (30 lb payload, 55.5 V limit, 2-mile course) come straight from it.
+3. Open the BOM: see [`dashboard/README.md`](dashboard/README.md) for how to run it.
+4. Look at the hull: open [`cad/README.md`](cad/README.md), or just load the 3D viewer it points to.
+5. If you care about the design math, [`optimization/README.md`](optimization/README.md) has the full
    model — objective, constraints, decision variables, and its limits.
 
 ## What's real and what isn't
