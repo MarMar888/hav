@@ -19,7 +19,7 @@ const result: Results = {
 let directory: string;
 let run: string;
 test.beforeAll(async () => {
-  const root = path.join(process.cwd(), "optimization/runs");
+  const root = path.join(process.cwd(), "../optimization/runs");
   await mkdir(root, { recursive: true });
   directory = await mkdtemp(path.join(root, "viewer-test-"));
   run = path.basename(directory);

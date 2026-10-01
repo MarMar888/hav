@@ -2,7 +2,7 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests/optimization",
-  outputDir: ".context/playwright-results",
+  outputDir: "../.context/playwright-results",
   workers: 1,
   use: { baseURL: "http://localhost:3000", browserName: "chromium", channel: process.env.PLAYWRIGHT_CHANNEL },
   webServer: {

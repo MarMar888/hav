@@ -7,10 +7,10 @@ The scripts exercise a starter OpenFOAM workflow around the hull. They are explo
 From the Git repository root, start Docker Desktop and run:
 
 ```powershell
-./hull/cfd/hull-flow-smoke/run-mesh.ps1
+./archive/hull/cfd/hull-flow-smoke/run-mesh.ps1
 ```
 
-The mesh script uses an OpenCFD OpenFOAM v2412 Docker image pinned by digest, disables networking, and caps resources. It reads `hull/cfd/hull-input/hull-meters.stl` and writes generated files under `hull/cfd/hull-flow-smoke/mesh-001/`. To replace an existing generated mesh, pass `-Force`.
+The mesh script uses an OpenCFD OpenFOAM v2412 Docker image pinned by digest, disables networking, and caps resources. It reads `hull-input/hull-meters.stl` (one level up from this script) and writes generated files under `mesh-001/` next to itself. To replace an existing generated mesh, pass `-Force`.
 
 After a successful mesh run, the companion flow script in this package sets up a fixed level hull with an imposed 1 m/s incoming flow, gravity and a 0.12 m waterline, and runs `interFoam` to 0.25 s. Existing recorded exploratory results are shown in `centerline-water.png`.
 
