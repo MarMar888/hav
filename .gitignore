@@ -1,5 +1,9 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# root package.json only delegates into dashboard/ - no real deps to lock
+/node_modules
+/pnpm-lock.yaml
+
 # misc
 .DS_Store
 *.pem

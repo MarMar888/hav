@@ -3,6 +3,11 @@
 One Next.js site. One page today: the BOM. A second page (`/optimization`) browses saved optimizer runs.
 See the [root README](../README.md) for how this fits into the rest of the project.
 
+The commands below assume you're `cd`'d into this folder, which you need to do once anyway (`pnpm
+install`, setting up `.env.local`). Day to day, `../package.json` delegates `dev`/`build`/`start`/`lint`/
+`db:setup` down to here, so `pnpm dev` from the repo root works the same as `pnpm dev` from inside
+`dashboard/`.
+
 ## The BOM
 
 The BOM is a Postgres database on Neon, and the home page is a table over it. Weight is up top;
