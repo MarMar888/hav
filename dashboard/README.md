@@ -1,12 +1,24 @@
 # The dashboard
 
-One Next.js site. One page today: the BOM. A second page (`/optimization`) browses saved optimizer runs.
+One Next.js site. The home page is the BOM, `/optimization` browses saved optimizer runs, and `/sponsors` is the public page for finding sponsors.
 See the [root README](../README.md) for how this fits into the rest of the project.
 
 The commands below assume you're `cd`'d into this folder, which you need to do once anyway (`pnpm
 install`, setting up `.env.local`). Day to day, `../package.json` delegates `dev`/`build`/`start`/`lint`/
 `db:setup` down to here, so `pnpm dev` from the repo root works the same as `pnpm dev` from inside
 `dashboard/`.
+
+## Sponsors
+
+`/sponsors` is the page we point potential sponsors at, modeled on [hello.aecync.com](https://hello.aecync.com/):
+instead of a pitch deck it lets people explore the real work: the 3D hull viewer, the optimizer results and the
+live BOM, then offers three ways to back the build (funds, parts, skills) and a contact form.
+
+- **Copy** lives in [`src/lib/sponsors.ts`](src/lib/sponsors.ts), apart from the markup. The "what you get" list is
+  the team's draft offer, so edit it to match what we can actually deliver.
+- **Inquiries** from the form land in the `sponsor_inquiries` table (`pnpm db:setup` creates it; it's
+  idempotent). Read them in the Neon console's table editor. The form has a hidden honeypot field against bots
+  and no other spam protection. Without `DATABASE_URL` the form tells the visitor it isn't collecting messages.
 
 ## The BOM
 

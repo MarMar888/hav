@@ -3,6 +3,12 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.2.0 — 2026-10-02
+
+New public page, `/sponsors`, for finding sponsors: a hero, links into the live 3D hull viewer, optimizer
+results and BOM, three ways to back the build, and a contact form that stores inquiries in a new
+`sponsor_inquiries` table. Modeled on hello.aecync.com. See [`README.md`](README.md).
+
 ## 0.1.0 — 2026-10-01
 
 First version tracked here. One page: the BOM, a Postgres table on Neon with weight/cost totals and an

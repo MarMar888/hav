@@ -23,6 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <Link href="/" className="font-semibold">Project Hav</Link>
             <Link href="/" className="text-sm text-zinc-500 hover:text-emerald-600">BOM</Link>
             <Link href="/optimization" className="text-sm text-zinc-500 hover:text-emerald-600">Optimization</Link>
+            <Link href="/sponsors" className="text-sm text-zinc-500 hover:text-emerald-600">Sponsors</Link>
             <a
               href="/viz/hull.html"
               target="_blank"
