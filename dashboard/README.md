@@ -1,6 +1,14 @@
 # The dashboard
 
-One Next.js site. The home page is the BOM, `/optimization` browses saved optimizer runs, and `/sponsors` is the public page for finding sponsors.
+One Next.js site, in two halves:
+
+| | Routes | Who it's for |
+|---|---|---|
+| **Public site** (`src/app/(site)/`) | `/` project page with live build status, `/sponsors` | Judges, sponsors, anyone with the link |
+| **Workshop** (`src/app/(workshop)/`) | `/bom`, `/optimization` | The team. Editable by anyone with the link, so marked `noindex` |
+
+Each half has its own layout and header, so the working tools never dress up as the public face, and the
+other way round.
 See the [root README](../README.md) for how this fits into the rest of the project.
 
 The commands below assume you're `cd`'d into this folder, which you need to do once anyway (`pnpm
@@ -10,7 +18,8 @@ install`, setting up `.env.local`). Day to day, `../package.json` delegates `dev
 
 ## Sponsors
 
-`/sponsors` is the page we point potential sponsors at, modeled on [hello.aecync.com](https://hello.aecync.com/):
+`/` is the project page: the race rules, the boat, a live build-status section read from the BOM, and a
+sponsor call to action. `/sponsors` is the page we point potential sponsors at, modeled on [hello.aecync.com](https://hello.aecync.com/):
 instead of a pitch deck it lets people explore the real work: the 3D hull viewer, the optimizer results and the
 live BOM, then offers three ways to back the build (funds, parts, skills) and a contact form.
 
@@ -22,7 +31,7 @@ live BOM, then offers three ways to back the build (funds, parts, skills) and a 
 
 ## The BOM
 
-The BOM is a Postgres database on Neon, and the home page is a table over it. Weight is up top;
+The BOM is a Postgres database on Neon, and `/bom` is a table over it. Weight is up top;
 below it, one table per **active phase**. Right now two phases are active, and together they're the
 dynamic system that goes in the water first:
 

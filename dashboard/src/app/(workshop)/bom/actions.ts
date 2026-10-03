@@ -79,7 +79,7 @@ export async function savePart(_prev: FormState, f: FormData): Promise<FormState
   } catch (err) {
     return { ok: false, error: `Database error: ${(err as Error).message}` };
   }
-  revalidatePath("/");
+  revalidatePath("/bom");
   return { ok: true };
 }
 
@@ -87,7 +87,7 @@ export async function deletePart(f: FormData) {
   const id = Number(f.get("id"));
   if (!Number.isInteger(id)) throw new Error("Bad part id.");
   await db().query("delete from parts where id = $1", [id]);
-  revalidatePath("/");
+  revalidatePath("/bom");
 }
 
 /** Make this option the one the BOM counts, and take its siblings out. */
@@ -114,5 +114,5 @@ export async function chooseOption(f: FormData) {
   } finally {
     client.release();
   }
-  revalidatePath("/");
+  revalidatePath("/bom");
 }

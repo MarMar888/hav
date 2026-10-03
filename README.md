@@ -10,7 +10,7 @@ This repo holds four things, each documented where it lives, not here:
 | Folder | What it is | Status |
 |---|---|---|
 | [`cad/`](cad/) | The hull: a parametric build123d model, STEP exports, drawings, and an OpenFOAM resistance case | Current design: 48.4 × 17.9 in hull, 59.5 lb all-up against a 62 lb budget |
-| [`dashboard/`](dashboard/) | The BOM (a Postgres table on Neon, shown and edited on a one-page Next.js site) and the optimizer results viewer | Live — this is the thing you open day to day |
+| [`dashboard/`](dashboard/) | The BOM (a Postgres table on Neon, shown and edited on a Next.js site) and the optimizer results viewer | Live — the public project and sponsor pages, plus the team workshop you open day to day |
 | [`optimization/`](optimization/) | The boat-design optimizer: one model picks hull geometry, drive, battery and speed together | Working demo. The numbers are synthetic fixtures, not a design recommendation yet — see its README |
 | [`archive/`](archive/) | Earlier phases, kept for the reasoning, not the parts | Historical. The project started as a bought catamaran hull before becoming the RIB above |
 | [`docs/`](docs/) | Reference material that isn't part of the design itself | [`docs/PEP-Rules/`](docs/PEP-Rules/) holds the official race rules; [`docs/white-paper/`](docs/white-paper/) is the scaffold for the required 20-point submission, unwritten so far |
@@ -25,8 +25,8 @@ This repo holds four things, each documented where it lives, not here:
    cd dashboard && pnpm install && cd ..   # once
    pnpm dev                                # http://localhost:3000, from the repo root from now on
    ```
-   The header links to the BOM (home), the optimizer results viewer (`/optimization`), and the 3D hull
-   viewer. `pnpm build`/`pnpm start`/`pnpm lint` work the same way, from the root — see
+   The home page is the public project page; the team workshop behind it holds the BOM (`/bom`), the
+   optimizer results viewer (`/optimization`) and the 3D hull viewer. `pnpm build`/`pnpm start`/`pnpm lint` work the same way, from the root — see
    [`dashboard/README.md`](dashboard/README.md) for what each page does.
 4. Look at the hull: open [`cad/README.md`](cad/README.md).
 5. If you care about the design math, [`optimization/README.md`](optimization/README.md) has the full
