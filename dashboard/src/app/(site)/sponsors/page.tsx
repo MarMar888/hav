@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FACTS, WAYS_TO_BACK, WHAT_YOU_GET } from "@/lib/sponsors";
-import { HullViewer } from "./hull-viewer";
 import { InquiryForm } from "./inquiry-form";
 
 export const metadata: Metadata = {
-  title: "Sponsor Project Hav",
+  title: "Sponsor Haav",
   description:
-    "Project Hav is a 4-foot autonomous boat built from scratch for the PEP27 Autonomy race. Explore the hull, the design math and the parts list, then back the build.",
+    "Haav is a 4-foot autonomous boat built from scratch for the PEP27 Autonomy race. Explore the hull, the design math and the parts list, then back the build.",
 };
 
 const eyebrow = "font-mono text-xs uppercase tracking-widest text-zinc-500";
 
 export default function Page() {
   return (
-    <div id="top" className="mx-auto max-w-6xl px-5">
+    <div className="mx-auto max-w-6xl px-5">
       {/* hero */}
       <section className="py-20 sm:py-28">
-        <p className={eyebrow}>Project Hav · PEP27 Autonomy</p>
+        <p className={eyebrow}>Haav · PEP27 Autonomy</p>
         <h1 className="mt-4 max-w-4xl text-5xl font-semibold tracking-tight sm:text-7xl">
           A boat worth following<span className="text-emerald-600">_</span>
         </h1>
@@ -46,35 +45,31 @@ export default function Page() {
       {/* explore */}
       <section id="explore" className="scroll-mt-8 border-t border-zinc-200 py-16 dark:border-zinc-800">
         <p className={eyebrow}>Explore</p>
-        <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight">Three ways to look inside the project.</h2>
+        <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight">Look inside the project before you decide.</h2>
         <p className="mt-3 max-w-2xl text-zinc-600 dark:text-zinc-400">
           No pitch deck. These are the working files the team uses every day.
         </p>
-        <div className="mt-8">
-          <HullViewer />
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
           <ExploreCard
             kicker="Explore"
-            title="The hull"
-            body="A parametric deep-V design, 3D-printed as a plug and glassed into a skin. Orbit it, section it, check the dimensions yourself."
-            href="/viz/hull.html"
-            cta="Full-screen 3D viewer"
-            external
+            title="The boat"
+            body="A 3D-printed deep-V hull glassed into a skin, two motor pods and a plan to drive it with an autopilot. Orbit the real CAD yourself."
+            href="/#boat"
+            cta="See the boat"
           />
           <ExploreCard
             kicker="Demonstrate"
-            title="The design math"
-            body="One optimizer picks hull geometry, drive, battery and speed together against the race rules. Browse the runs and compare candidates."
-            href="/optimization"
-            cta="Optimizer results"
+            title="Where it stands"
+            body="Live weight against our budget, what's bought and what's still undecided, phase by phase."
+            href="/#status"
+            cta="Build status"
           />
           <ExploreCard
             kicker="Inspect"
             title="The parts list"
-            body="The full bill of materials with prices, vendor links and weight against our budget. This is where your support shows up."
-            href="/"
-            cta="Live BOM"
+            body="Every part with its price and vendor link. This is where your support shows up."
+            href="/bom"
+            cta="Full parts list"
           />
         </div>
       </section>
@@ -117,13 +112,6 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
-        <p>
-          Project Hav is our entry in the PEP27 Workforce Development Competition, Autonomy Division. It
-          hasn&apos;t touched water yet. The numbers on this site are the design as it stands today.{" "}
-          <a href="#top" className="underline hover:text-emerald-600">Back to top</a>
-        </p>
-      </footer>
     </div>
   );
 }
@@ -134,14 +122,12 @@ function ExploreCard({
   body,
   href,
   cta,
-  external,
 }: {
   kicker: string;
   title: string;
   body: string;
   href: string;
   cta: string;
-  external?: boolean;
 }) {
   const link = "mt-5 inline-block text-sm font-medium text-emerald-700 hover:underline dark:text-emerald-400";
   return (
@@ -149,11 +135,7 @@ function ExploreCard({
       <p className={eyebrow}>{kicker}</p>
       <h3 className="mt-3 text-xl font-semibold">{title}</h3>
       <p className="mt-3 flex-1 text-sm text-zinc-600 dark:text-zinc-400">{body}</p>
-      {external ? (
-        <a href={href} target="_blank" rel="noopener noreferrer" className={link}>{cta} ↗</a>
-      ) : (
-        <Link href={href} className={link}>{cta} →</Link>
-      )}
+      <Link href={href} className={link}>{cta} →</Link>
     </article>
   );
 }

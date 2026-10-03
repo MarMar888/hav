@@ -1,9 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { connection } from "next/server";
 import { getBoard, hasDatabase } from "@/lib/db";
 import { G_PER_LB, onBom, optionGroups, pounds, totals, usd, WEIGHT_BUDGET_LB, type Phase } from "@/lib/bom";
 import { PartsTable } from "./parts-table";
 import { OptionsView } from "./options-table";
+
+export const metadata: Metadata = { title: "BOM" };
 
 export default async function Page({
   searchParams,
@@ -61,8 +64,8 @@ export default async function Page({
       </section>
 
       <nav className="mt-8 flex items-end gap-1 border-b border-zinc-200 dark:border-zinc-800">
-        <Tab href="/" active={tab === "bom"}>BOM</Tab>
-        <Tab href="/?tab=options" active={tab === "options"}>
+        <Tab href="/bom" active={tab === "bom"}>BOM</Tab>
+        <Tab href="/bom?tab=options" active={tab === "options"}>
           Options
           {groups.length > 0 && <span className="ml-1.5 font-mono text-xs text-zinc-400">{groups.length}</span>}
         </Tab>
@@ -82,7 +85,7 @@ export default async function Page({
           {undecided > 0 && (
             <p className="mt-6 text-sm text-amber-700 dark:text-amber-500">
               {undecided} product{undecided === 1 ? " has" : "s have"} options but none in the BOM yet —{" "}
-              <Link href="/?tab=options" className="underline">pick one on the Options tab</Link>.
+              <Link href="/bom?tab=options" className="underline">pick one on the Options tab</Link>.
             </p>
           )}
           {bomPhases.map((ph, i) => {

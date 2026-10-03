@@ -102,7 +102,7 @@ function Row({ p, onEdit }: { p: Part; onEdit: () => void }) {
         </div>
         {p.optionGroup && (
           <Link
-            href="/?tab=options"
+            href="/bom?tab=options"
             className="mt-1 inline-block rounded bg-violet-500/10 px-1.5 py-0.5 text-[11px] text-violet-700 hover:underline dark:text-violet-400"
           >
             chosen option · {p.optionGroup} →
