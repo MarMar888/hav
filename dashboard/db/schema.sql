@@ -1,4 +1,4 @@
--- Project Hav BOM. Idempotent: safe to run on every setup.
+-- Haav BOM. Idempotent: safe to run on every setup.
 
 create table if not exists phases (
   slug    text primary key,

@@ -8,7 +8,8 @@ are kept — this folder versions independently of `cad/`, `optimization/`, and 
 Split the site into a public half and a team workshop. `/` is now a public project page (race rules, the
 boat, live build status, sponsor call to action) and the BOM moved to `/bom`, alongside `/optimization`, under
 a separate "workshop" layout marked `noindex`. Added a logo, favicon and share image, and fixed the body
-font (Geist was loaded but overridden by Arial). `/sponsors` now shares the public header and footer.
+font (Geist was loaded but overridden by Arial). The project is now called Haav (Highly Amphibious / Autonomous
+Vehicle) across the site. `/sponsors` now shares the public header and footer.
 
 ## 0.2.0 — 2026-10-02
 

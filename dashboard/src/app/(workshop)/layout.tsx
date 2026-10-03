@@ -11,7 +11,7 @@ export default function WorkshopLayout({ children }: Readonly<{ children: React.
     <>
       <header className="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="mx-auto flex max-w-6xl flex-wrap items-baseline gap-4 px-5 py-3">
-          <Link href="/bom" className="font-semibold">Hav workshop</Link>
+          <Link href="/bom" className="font-semibold">Haav workshop</Link>
           <Link href="/bom" className={nav}>BOM</Link>
           <Link href="/optimization" className={nav}>Optimization</Link>
           <a href="/viz/hull.html" target="_blank" rel="noopener noreferrer" className={nav}>3D hull ↗</a>

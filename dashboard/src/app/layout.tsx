@@ -11,9 +11,9 @@ const site = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(site),
-  title: { default: "Project Hav | A 4-foot autonomous boat for PEP27", template: "%s | Project Hav" },
+  title: { default: "Haav | Highly Amphibious / Autonomous Vehicle", template: "%s | Haav" },
   description:
-    "Project Hav is our entry in the PEP27 Autonomy Division: a 4-foot autonomous RIB built from the hull up, designed and documented in the open.",
+    "Haav (Highly Amphibious / Autonomous Vehicle) is our entry in the PEP27 Autonomy Division: a 4-foot autonomous RIB built from the hull up, designed and documented in the open.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -1,4 +1,4 @@
-// The Hav mark: a deep-V hull seen from the bow, with the waterline cutting across it.
+// The Haav mark: a deep-V hull seen from the bow, with the waterline cutting across it.
 export function Logo({ className = "h-6 w-6" }: { className?: string }) {
   return (
     <svg viewBox="0 0 32 32" className={className} fill="none" aria-hidden>

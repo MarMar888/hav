@@ -4,9 +4,9 @@ import { FACTS, WAYS_TO_BACK, WHAT_YOU_GET } from "@/lib/sponsors";
 import { InquiryForm } from "./inquiry-form";
 
 export const metadata: Metadata = {
-  title: "Sponsor Project Hav",
+  title: "Sponsor Haav",
   description:
-    "Project Hav is a 4-foot autonomous boat built from scratch for the PEP27 Autonomy race. Explore the hull, the design math and the parts list, then back the build.",
+    "Haav is a 4-foot autonomous boat built from scratch for the PEP27 Autonomy race. Explore the hull, the design math and the parts list, then back the build.",
 };
 
 const eyebrow = "font-mono text-xs uppercase tracking-widest text-zinc-500";
@@ -16,7 +16,7 @@ export default function Page() {
     <div className="mx-auto max-w-6xl px-5">
       {/* hero */}
       <section className="py-20 sm:py-28">
-        <p className={eyebrow}>Project Hav · PEP27 Autonomy</p>
+        <p className={eyebrow}>Haav · PEP27 Autonomy</p>
         <h1 className="mt-4 max-w-4xl text-5xl font-semibold tracking-tight sm:text-7xl">
           A boat worth following<span className="text-emerald-600">_</span>
         </h1>

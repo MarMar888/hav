@@ -8,7 +8,7 @@ export function HullViewer() {
   return (
     <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/10 bg-zinc-900 shadow-2xl shadow-emerald-950/40">
       {open ? (
-        <iframe src="/viz/hull.html" title="Interactive 3D model of the Hav hull" className="h-full w-full" />
+        <iframe src="/viz/hull.html" title="Interactive 3D model of the Haav hull" className="h-full w-full" />
       ) : (
         <button
           type="button"

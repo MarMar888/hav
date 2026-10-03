@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Project Hav: a 4-foot autonomous boat for the PEP27 Autonomy race";
+export const alt = "Haav: Highly Amphibious / Autonomous Vehicle, our entry in the PEP27 Autonomy race";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -17,9 +17,9 @@ export default function Image() {
           PEP27 WORKFORCE DEVELOPMENT COMPETITION · AUTONOMY
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", fontSize: 148, fontWeight: 700, letterSpacing: -4 }}>Project Hav</div>
+          <div style={{ display: "flex", fontSize: 148, fontWeight: 700, letterSpacing: -4 }}>Haav</div>
           <div style={{ display: "flex", fontSize: 44, color: "#a1a1aa", marginTop: 8 }}>
-            A 4-foot autonomous boat, built from the hull up.
+            Highly Amphibious / Autonomous Vehicle
           </div>
         </div>
         <div style={{ display: "flex", height: 8, width: 240, background: "#10b981", borderRadius: 4 }} />

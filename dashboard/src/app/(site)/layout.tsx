@@ -10,7 +10,7 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
         <div className="mx-auto flex max-w-6xl items-center gap-6 px-5 py-3">
           <Link href="/" className="flex items-center gap-2 font-semibold tracking-tight">
             <Logo />
-            Project Hav
+            Haav
           </Link>
           <nav className="ml-4 flex items-center gap-6">
             <Link href="/#race" className={nav}>The race</Link>
@@ -31,8 +31,9 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
           <div className="max-w-md">
             <p className="flex items-center gap-2 font-semibold text-zinc-900 dark:text-zinc-100">
               <Logo className="h-5 w-5" />
-              Project Hav
+              Haav
             </p>
+            <p className="mt-1 font-mono text-xs uppercase tracking-widest">Highly Amphibious / Autonomous Vehicle</p>
             <p className="mt-3">
               Our entry in the PEP27 Workforce Development Competition, Autonomy Division. It hasn&apos;t touched
               water yet. Everything on this site is the design as it stands today.

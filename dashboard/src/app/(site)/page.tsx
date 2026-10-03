@@ -68,7 +68,10 @@ export default async function Page() {
             <p className="font-mono text-xs uppercase tracking-widest text-emerald-400">
               PEP27 Workforce Development Competition · Autonomy Division
             </p>
-            <h1 className="mt-5 text-5xl font-semibold tracking-tight sm:text-7xl">Project Hav</h1>
+            <h1 className="mt-5 text-5xl font-semibold tracking-tight sm:text-7xl">Haav</h1>
+            <p className="mt-3 font-mono text-sm uppercase tracking-widest text-zinc-400">
+              Highly Amphibious / Autonomous Vehicle
+            </p>
             <p className="mt-6 max-w-xl text-lg text-zinc-300">
               A four-foot autonomous boat, designed and built from the hull up. We&apos;re doing it in the open: every part,
               price and design decision is on this site.
