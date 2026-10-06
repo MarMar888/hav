@@ -11,6 +11,9 @@
 # gstack
 .gstack/
 
+# universal agent-skills mirror; .claude/skills/ is the committed copy
+/.agents/
+
 # CAD: the Python env and everything agentcad generates. Source lives in
 # cad/hull.py; rebuild with `agentcad run hull.py` (see README).
 /.venv-cad/
