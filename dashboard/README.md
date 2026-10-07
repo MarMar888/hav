@@ -4,7 +4,7 @@ One Next.js site, in two halves:
 
 | | Routes | Who it's for |
 |---|---|---|
-| **Public site** (`src/app/(site)/`) | `/` project page with live build status, `/sponsors` | Judges, sponsors, anyone with the link |
+| **Public site** (`src/app/(site)/`) | `/`, one page: the project, the team, a sponsor form | Judges, sponsors, anyone with the link |
 | **Workshop** (`src/app/(workshop)/`) | `/bom`, `/optimization` | The team. Editable by anyone with the link, so marked `noindex` |
 
 Each half has its own layout and header, so the working tools never dress up as the public face, and the
@@ -16,15 +16,13 @@ install`, setting up `.env.local`). Day to day, `../package.json` delegates `dev
 `db:setup` down to here, so `pnpm dev` from the repo root works the same as `pnpm dev` from inside
 `dashboard/`.
 
-## Sponsors
+## The public page
 
-`/` is the project page: the race rules, the boat, a live build-status section read from the BOM, and a
-sponsor call to action. `/sponsors` is the page we point potential sponsors at, modeled on [hello.aecync.com](https://hello.aecync.com/):
-instead of a pitch deck it lets people explore the real work: the 3D hull viewer, the optimizer results and the
-live BOM, then offers three ways to back the build (funds, parts, skills) and a contact form.
+`/` is one plain page: what Haav is, the boat, the team and a sponsor contact form. It is static, with no
+database read. `/sponsors` redirects to the form at the bottom of it.
 
-- **Copy** lives in [`src/lib/sponsors.ts`](src/lib/sponsors.ts), apart from the markup. The "what you get" list is
-  the team's draft offer, so edit it to match what we can actually deliver.
+- **Team bios** live in [`src/lib/team.ts`](src/lib/team.ts). Keep each bio the same shape and length so no
+  one reads as an afterthought.
 - **Inquiries** from the form land in the `sponsor_inquiries` table (`pnpm db:setup` creates it; it's
   idempotent). Read them in the Neon console's table editor. The form has a hidden honeypot field against bots
   and no other spam protection. Without `DATABASE_URL` the form tells the visitor it isn't collecting messages.
