@@ -37,3 +37,15 @@ alter table parts add column if not exists option_group text;
 alter table parts add column if not exists in_bom boolean not null default true;
 create unique index if not exists parts_one_choice_per_option
   on parts (option_group) where option_group is not null and in_bom;
+
+-- Sponsor inquiries from the public /sponsors page. Insert-only from the site;
+-- read them in the Neon console's table editor.
+create table if not exists sponsor_inquiries (
+  id          serial primary key,
+  name        text not null,
+  org         text,
+  email       text not null,
+  interest    text not null,
+  message     text,
+  created_at  timestamptz not null default now()
+);
