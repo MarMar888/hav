@@ -17,17 +17,17 @@ export default function Page() {
       <section className="pt-8">
         <h1 className="text-6xl font-semibold tracking-tight">Haav</h1>
         <p className="mt-3 font-mono text-sm text-zinc-500">Highly Amphibious / Autonomous Vehicle</p>
-        <div className="mt-10 overflow-hidden rounded-lg bg-[#efefef]">
+        <div className="mt-10 overflow-hidden rounded-lg border border-zinc-200 bg-white">
           <Image
-            src="/haav-cad.webp"
-            alt="Rendering of the Haav hull CAD: a four-foot rigid inflatable boat with a sensor tower and two motor pods"
-            width={1415}
-            height={610}
+            src="/haav-hull.webp"
+            alt="CAD rendering of the Haav hull: a smooth deep-V shell in blue, seen from above and to the side"
+            width={1202}
+            height={1008}
             priority
-            className="h-auto w-full"
+            className="mx-auto h-auto max-h-[24rem] w-full object-contain"
           />
         </div>
-        <p className="mt-2 text-sm text-zinc-500">Our current CAD.</p>
+        <p className="mt-2 text-sm text-zinc-500">Our current hull design.</p>
         <p className="mt-10 text-xl leading-relaxed">
           We are a student team building an autonomous boat from the ground up, and we model every decision before we cut
           a single part.
