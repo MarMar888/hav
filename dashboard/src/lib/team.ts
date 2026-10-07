@@ -47,4 +47,4 @@ export const ADVISORS = [
 ] as const;
 
 // The primary groups, named for their leads. Also the areas a prospective member can say they want to join.
-export const GROUPS = ["Hull and optimization", "Structural and mechanical", "Electrical and power systems", "Embedded and firmware", "Software", "Low voltage"] as const;
+export const GROUPS = ["Hull and optimization", "Structural and mechanical", "Electrical and power systems", "Embedded, firmware and low voltage", "Software"] as const;
