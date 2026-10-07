@@ -17,8 +17,7 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
       <main className="flex-1">{children}</main>
       <footer className="mt-24 flex flex-wrap gap-x-6 gap-y-2 border-t border-zinc-200 py-8 text-sm text-zinc-500 dark:border-zinc-800">
         <span>Haav · Highly Amphibious / Autonomous Vehicle</span>
-        <Link href="/bom" className="ml-auto hover:text-emerald-700">Workshop</Link>
-      </footer>
+        <a href="mailto:mhbarrett@wisc.edu" className="hover:text-emerald-700">mhbarrett@wisc.edu</a>      </footer>
     </div>
   );
 }
