@@ -3,6 +3,12 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.4.5 — 2026-10-07
+
+The sponsor form now emails the team through Resend on every submission (`RESEND_API_KEY`, `NOTIFY_EMAIL`).
+Saving to the `sponsor_inquiries` table is now optional: the form succeeds if either the email or the save
+worked, so it works in production without a database.
+
 ## 0.4.4 — 2026-10-07
 
 Removed the "Explore it in 3D" link under the hero render, and the click-through on the image itself. The

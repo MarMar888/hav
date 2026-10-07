@@ -28,9 +28,14 @@ database read. `/sponsors` redirects to the form at the bottom of it.
   webp. Redo it the same way after a hull revision.
 - **Team bios** live in [`src/lib/team.ts`](src/lib/team.ts). Keep each bio the same shape and length so no
   one reads as an afterthought.
-- **Inquiries** from the form land in the `sponsor_inquiries` table (`pnpm db:setup` creates it; it's
-  idempotent). Read them in the Neon console's table editor. The form has a hidden honeypot field against bots
-  and no other spam protection. Without `DATABASE_URL` the form tells the visitor it isn't collecting messages.
+- **Inquiries** from the form are emailed through [Resend](https://resend.com) and, when `DATABASE_URL` is set,
+  also saved to the `sponsor_inquiries` table (`pnpm db:setup` creates it; it's idempotent). The form counts as
+  sent if either worked, so it runs fine with just the email set up.
+  - Set `RESEND_API_KEY` and `NOTIFY_EMAIL` (see [`.env.example`](.env.example)). Resend's default sender,
+    `onboarding@resend.dev`, only delivers to the address that owns the Resend account; verify a domain in
+    Resend and set `RESEND_FROM` to send to anyone else.
+  - Replying to the email replies to the visitor. The form has a hidden honeypot field against bots and no
+    other spam protection.
 
 ## The BOM
 
