@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(site),
   title: { default: "Haav | Highly Amphibious / Autonomous Vehicle", template: "%s | Haav" },
   description:
-    "Haav (Highly Amphibious / Autonomous Vehicle) is a student team building a 4-foot autonomous boat from the ground up for the 2027 PEP Workforce Development Competition.",
+    "Haav (Highly Amphibious / Autonomous Vehicle) is a student team building a 4-foot autonomous boat from the ground up, with every decision modeled before it is built.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

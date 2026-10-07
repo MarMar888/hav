@@ -6,8 +6,8 @@ are kept — this folder versions independently of `cad/`, `optimization/`, and 
 ## 0.4.0 — 2026-10-07
 
 Public site cut back to one plain page: what Haav is, the boat, the team (new profiles in `src/lib/team.ts`)
-and the sponsor form. Messaging now leads with the team's mix of skills and modeling up front, for the 2027
-uncrewed autonomous division. Removed the dark hero, card grids, race-stat tiles and live build status from
+and the sponsor form. Messaging now leads with the team's mix of skills and modeling up front. The public pages
+don't name a competition yet, since eligibility isn't confirmed. Removed the dark hero, card grids, race-stat tiles and live build status from
 the public page; `/sponsors` redirects to the form. The workshop (`/bom`, `/optimization`) is unchanged.
 
 ## 0.3.0 — 2026-10-03

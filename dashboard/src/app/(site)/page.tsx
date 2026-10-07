@@ -13,14 +13,13 @@ export default function Page() {
         <h1 className="text-6xl font-semibold tracking-tight">Haav</h1>
         <p className="mt-3 font-mono text-sm text-zinc-500">Highly Amphibious / Autonomous Vehicle</p>
         <p className="mt-8 text-xl leading-relaxed">
-          We are a student team preparing for the 2027 PEP Workforce Development Competition&apos;s uncrewed autonomous
-          division. We are building the boat from the ground up, and we model every decision before we cut a single
-          part.
+          We are a student team building an autonomous boat from the ground up, and we model every decision before we cut
+          a single part.
         </p>
         <p className={prose}>
           Our team spans computer science, optimization, battery energy systems and composites. That mix lets us
-          design the whole system together: hull, drive, battery and software. The goal is a boat that competes well,
-          and a worked example of what modeling up front can do.
+          design the whole system together: hull, drive, battery and software. The goal is a boat that performs well on
+          the water, and a worked example of what modeling up front can do.
         </p>
       </section>
 
