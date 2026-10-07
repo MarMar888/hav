@@ -3,6 +3,11 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.4.4 — 2026-10-07
+
+Removed the "Explore it in 3D" link under the hero render, and the click-through on the image itself. The
+interactive viewer is still at `/viz/hull.html` and in the workshop header.
+
 ## 0.4.3 — 2026-10-07
 
 Added Peyton Olson (structural and mechanical lead) to the team profiles.
