@@ -10,6 +10,7 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
         <nav className="ml-auto flex gap-6">
           <Link href="/#timeline" className={link}>Timeline</Link>
           <Link href="/#team" className={link}>Team</Link>
+          <Link href="/simulation" className={link}>Simulation</Link>
           <Link href="/#contact" className={link}>Contact</Link>
         </nav>
       </header>

@@ -3,6 +3,12 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.5.0 — 2026-10-07
+
+New public page, `/simulation`, listing Study #1 (propeller, thrust, motor drive and force against boat speed),
+with a Simulation link in the header. The figure is `public/simulation/study-1.png`; add later studies as
+further sections on the page.
+
 ## 0.4.7 — 2026-10-07
 
 Added optional LinkedIn links to the team profiles (Marley, Patrick, Ryan, Peyton). Set `linkedin` on a person
