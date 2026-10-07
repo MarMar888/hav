@@ -3,6 +3,11 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.4.2 — 2026-10-07
+
+Added a build timeline to the home page (rough hull dimensions in Oct 2026 through tuning and testing in
+Mar 2027), with a Timeline link in the header. Dates live in `src/lib/timeline.ts`.
+
 ## 0.4.1 — 2026-10-07
 
 Added a rendering of the hull CAD on the home page, directly under the Haav title, linking to the interactive
