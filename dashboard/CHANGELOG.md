@@ -3,6 +3,11 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.6.1 — 2026-10-07
+
+Merged the embedded, firmware and low voltage groups into one on the home page and the `/join` form (Software stays
+its own group), and made the footer read "Contact: mhbarrett@wisc.edu" with the site version on the right.
+
 ## 0.6.0 — 2026-10-07
 
 Added a Primary groups list to the home page, named for the group leads (`GROUPS` in `src/lib/team.ts`), with a
