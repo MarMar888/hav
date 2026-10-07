@@ -22,4 +22,9 @@ export const TEAM = [
     role: "Embedded and electrical systems",
     bio: "A computer engineering student at UW–Madison who builds embedded, electrical and electromechanical systems. Built a robotic lifting aid for patients with sarcopenia and interned twice in electrical engineering at Milwaukee Tool. Researches simulation hardware in the Simulation-Based Engineering Lab.",
   },
+  {
+    name: "Peyton Olson",
+    role: "Structural and mechanical lead",
+    bio: "A mechanical engineering student at UW–Madison and a member of the Baja SAE front suspension team. Designed and analyzed the team's upper and lower control arms in SolidWorks, and machines and welds competition parts on the lathe, the CNC mill, and with MIG and TIG.",
+  },
 ] as const;
