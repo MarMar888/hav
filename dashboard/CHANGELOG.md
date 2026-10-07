@@ -3,6 +3,11 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.5.1 — 2026-10-07
+
+Replaced the hero image under the Haav title with the new blue hull CAD image, on a white panel, with the caption
+"Our current hull design." Removed the old render.
+
 ## 0.5.0 — 2026-10-07
 
 New public page, `/simulation`, listing Study #1 (propeller, thrust, motor drive and force against boat speed),

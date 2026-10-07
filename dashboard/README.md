@@ -22,10 +22,8 @@ install`, setting up `.env.local`). Day to day, `../package.json` delegates `dev
 database read. `/sponsors` redirects to the form at the bottom of it.
 
 - **The timeline** lives in [`src/lib/timeline.ts`](src/lib/timeline.ts), oldest first. Edit dates there.
-- **The hero render** (`public/haav-cad.webp`) is a snapshot of the hull CAD, so it goes stale when the CAD
-  changes. It was captured headlessly from [`public/viz/hull.html`](public/viz/hull.html) (a copy with the grid
-  and axes removed, the waterline part hidden, the UI hidden, zoomed in, cropped to the boat), then saved as
-  webp. Redo it the same way after a hull revision.
+- **The hero image** (`public/haav-hull.webp`) is a screenshot of the hull CAD, cropped to the hull on a white
+  background. It goes stale when the hull changes, so replace it after a hull revision.
 - **Team bios** live in [`src/lib/team.ts`](src/lib/team.ts). Keep each bio the same shape and length so no
   one reads as an afterthought.
 - **Inquiries** from the form are emailed through [Resend](https://resend.com) and, when `DATABASE_URL` is set,
