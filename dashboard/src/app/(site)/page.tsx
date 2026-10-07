@@ -10,7 +10,6 @@ const prose = "mt-4 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300";
 const day = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 
-const link = "text-emerald-700 underline underline-offset-4 hover:text-emerald-600 dark:text-emerald-400";
 
 export default function Page() {
   return (
@@ -18,12 +17,7 @@ export default function Page() {
       <section className="pt-8">
         <h1 className="text-6xl font-semibold tracking-tight">Haav</h1>
         <p className="mt-3 font-mono text-sm text-zinc-500">Highly Amphibious / Autonomous Vehicle</p>
-        <a
-          href="/viz/hull.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-10 block overflow-hidden rounded-lg bg-[#efefef]"
-        >
+        <div className="mt-10 overflow-hidden rounded-lg bg-[#efefef]">
           <Image
             src="/haav-cad.webp"
             alt="Rendering of the Haav hull CAD: a four-foot rigid inflatable boat with a sensor tower and two motor pods"
@@ -32,11 +26,8 @@ export default function Page() {
             priority
             className="h-auto w-full"
           />
-        </a>
-        <p className="mt-2 text-sm text-zinc-500">
-          Our current CAD.{" "}
-          <a href="/viz/hull.html" target="_blank" rel="noopener noreferrer" className={link}>Explore it in 3D</a>
-        </p>
+        </div>
+        <p className="mt-2 text-sm text-zinc-500">Our current CAD.</p>
         <p className="mt-10 text-xl leading-relaxed">
           We are a student team building an autonomous boat from the ground up, and we model every decision before we cut
           a single part.
