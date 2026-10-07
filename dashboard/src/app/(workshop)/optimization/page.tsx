@@ -5,7 +5,7 @@ import { OptimizationView } from "./results-view";
 import type { Results, RunSummary } from "@/lib/optimization";
 import "./optimization.css";
 
-export const metadata: Metadata = { title: "Optimization | Project Hav" };
+export const metadata: Metadata = { title: "Optimization" };
 export const runtime = "nodejs";
 
 export default async function OptimizationPage({ searchParams }: {
