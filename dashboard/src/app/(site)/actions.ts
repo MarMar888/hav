@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { db, hasDatabase } from "@/lib/db";
+import { oneLine, notifyTeam } from "@/lib/notify";
 import { INTERESTS } from "@/lib/sponsors";
 
 export type InquiryState = { ok: boolean; error?: string };
@@ -17,6 +18,36 @@ const inquiry = z.object({
   message: optional(5000),
 });
 
+type Inquiry = z.infer<typeof inquiry>;
+
+async function notify({ name, email, org, interest, message }: Inquiry): Promise<boolean> {
+  return notifyTeam({
+    subject: `Haav sponsor inquiry: ${oneLine(name)}${org ? ` (${oneLine(org)})` : ""}`,
+    replyTo: email,
+    text: [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Organization: ${org ?? "-"}`,
+      `Wants to help with: ${interest}`,
+      "",
+      message ?? "(no message)",
+    ].join("\n"),
+  });
+}
+
+async function save({ name, email, org, interest, message }: Inquiry): Promise<boolean> {
+  if (!hasDatabase()) return false;
+  try {
+    await db().query(
+      `insert into sponsor_inquiries (name, email, org, interest, message) values ($1, $2, $3, $4, $5)`,
+      [name, email, org, interest, message]
+    );
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export async function sendInquiry(_prev: InquiryState, f: FormData): Promise<InquiryState> {
   // Bots fill every field. Pretend it worked so they don't retry.
   if (String(f.get("website") ?? "") !== "") return { ok: true };
@@ -29,16 +60,9 @@ export async function sendInquiry(_prev: InquiryState, f: FormData): Promise<Inq
     message: f.get("message") ?? "",
   });
   if (!parsed.success) return { ok: false, error: parsed.error.issues[0].message };
-  if (!hasDatabase()) return { ok: false, error: "Messages aren't being collected right now. Please try again later." };
 
-  const { name, email, org, interest, message } = parsed.data;
-  try {
-    await db().query(
-      `insert into sponsor_inquiries (name, email, org, interest, message) values ($1, $2, $3, $4, $5)`,
-      [name, email, org, interest, message]
-    );
-  } catch {
-    return { ok: false, error: "Something went wrong saving that. Please try again." };
-  }
-  return { ok: true };
+  // The inquiry counts as received if the email went out or the row was saved.
+  const [emailed, saved] = await Promise.all([notify(parsed.data), save(parsed.data)]);
+  if (emailed || saved) return { ok: true };
+  return { ok: false, error: "Something went wrong sending that. Please try again later." };
 }

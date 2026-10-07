@@ -3,6 +3,45 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.6.1 — 2026-10-07
+
+Merged the embedded, firmware and low voltage groups into one on the home page and the `/join` form (Software stays
+its own group), and made the footer read "Contact: mhbarrett@wisc.edu" with the site version on the right.
+
+## 0.6.0 — 2026-10-07
+
+Added a Primary groups list to the home page, named for the group leads (`GROUPS` in `src/lib/team.ts`), with a
+"Become a member" link to a new `/join` form for prospective students. Submissions email the team through Resend
+(same `RESEND_API_KEY` / `NOTIFY_EMAIL` as the sponsor form; shared in `src/lib/notify.ts`) and are not stored.
+Added the contact email and the site version to the footer, removed the Workshop footer link, and updated Will's bio and Ryan's role.
+
+## 0.5.1 — 2026-10-07
+
+Replaced the hero image under the Haav title with the new blue hull CAD image, on a white panel, with the caption
+"Our current hull design." Removed the old render.
+
+## 0.5.0 — 2026-10-07
+
+New public page, `/simulation`, listing Study #1 (propeller, thrust, motor drive and force against boat speed),
+with a Simulation link in the header. The figure is `public/simulation/study-1.png`; add later studies as
+further sections on the page.
+
+## 0.4.7 — 2026-10-07
+
+Added optional LinkedIn links to the team profiles (Marley, Patrick, Ryan, Peyton). Set `linkedin` on a person
+in `src/lib/team.ts` to show one.
+
+## 0.4.6 — 2026-10-07
+
+Added an Advisors section to the home page (Vincent Rasse, Kevin Macauley), after the team. Bios live in
+`src/lib/team.ts` next to the team's.
+
+## 0.4.5 — 2026-10-07
+
+The sponsor form now emails the team through Resend on every submission (`RESEND_API_KEY`, `NOTIFY_EMAIL`).
+Saving to the `sponsor_inquiries` table is now optional: the form succeeds if either the email or the save
+worked, so it works in production without a database.
+
 ## 0.4.4 — 2026-10-07
 
 Removed the "Explore it in 3D" link under the hero render, and the click-through on the image itself. The

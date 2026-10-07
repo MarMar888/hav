@@ -22,15 +22,18 @@ install`, setting up `.env.local`). Day to day, `../package.json` delegates `dev
 database read. `/sponsors` redirects to the form at the bottom of it.
 
 - **The timeline** lives in [`src/lib/timeline.ts`](src/lib/timeline.ts), oldest first. Edit dates there.
-- **The hero render** (`public/haav-cad.webp`) is a snapshot of the hull CAD, so it goes stale when the CAD
-  changes. It was captured headlessly from [`public/viz/hull.html`](public/viz/hull.html) (a copy with the grid
-  and axes removed, the waterline part hidden, the UI hidden, zoomed in, cropped to the boat), then saved as
-  webp. Redo it the same way after a hull revision.
+- **The hero image** (`public/haav-hull.webp`) is a screenshot of the hull CAD, cropped to the hull on a white
+  background. It goes stale when the hull changes, so replace it after a hull revision.
 - **Team bios** live in [`src/lib/team.ts`](src/lib/team.ts). Keep each bio the same shape and length so no
   one reads as an afterthought.
-- **Inquiries** from the form land in the `sponsor_inquiries` table (`pnpm db:setup` creates it; it's
-  idempotent). Read them in the Neon console's table editor. The form has a hidden honeypot field against bots
-  and no other spam protection. Without `DATABASE_URL` the form tells the visitor it isn't collecting messages.
+- **Inquiries** from the form are emailed through [Resend](https://resend.com) and, when `DATABASE_URL` is set,
+  also saved to the `sponsor_inquiries` table (`pnpm db:setup` creates it; it's idempotent). The form counts as
+  sent if either worked, so it runs fine with just the email set up.
+  - Set `RESEND_API_KEY` and `NOTIFY_EMAIL` (see [`.env.example`](.env.example)). Resend's default sender,
+    `onboarding@resend.dev`, only delivers to the address that owns the Resend account; verify a domain in
+    Resend and set `RESEND_FROM` to send to anyone else.
+  - Replying to the email replies to the visitor. The form has a hidden honeypot field against bots and no
+    other spam protection.
 
 ## The BOM
 
