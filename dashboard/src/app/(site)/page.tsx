@@ -1,10 +1,15 @@
 import Image from "next/image";
 import { TEAM } from "@/lib/team";
+import { TIMELINE } from "@/lib/timeline";
 import { InquiryForm } from "./inquiry-form";
 
 const h2 = "text-2xl font-semibold tracking-tight";
 const section = "scroll-mt-8 border-t border-zinc-200 pt-12 dark:border-zinc-800";
 const prose = "mt-4 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300";
+// Fixed to UTC so a milestone never shifts a day with the visitor's time zone.
+const day = (iso: string) =>
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+
 const link = "text-emerald-700 underline underline-offset-4 hover:text-emerald-600 dark:text-emerald-400";
 
 export default function Page() {
@@ -50,6 +55,18 @@ export default function Page() {
           glassed into a skin. Two motor pods steer it by differential thrust, and an autopilot comes in a second
           phase. It has not touched water yet.
         </p>
+      </section>
+
+      <section id="timeline" className={section}>
+        <h2 className={h2}>Timeline</h2>
+        <ol className="mt-8 divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+          {TIMELINE.map((m) => (
+            <li key={m.label} className="flex flex-wrap items-baseline gap-x-6 py-3">
+              <time dateTime={m.date} className="w-32 shrink-0 tabular-nums text-zinc-500">{day(m.date)}</time>
+              <span className="text-lg">{m.label}</span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section id="team" className={section}>

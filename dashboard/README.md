@@ -18,9 +18,10 @@ install`, setting up `.env.local`). Day to day, `../package.json` delegates `dev
 
 ## The public page
 
-`/` is one plain page: what Haav is, the boat, the team and a sponsor contact form. It is static, with no
+`/` is one plain page: what Haav is, the boat, a timeline, the team and a sponsor contact form. It is static, with no
 database read. `/sponsors` redirects to the form at the bottom of it.
 
+- **The timeline** lives in [`src/lib/timeline.ts`](src/lib/timeline.ts), oldest first. Edit dates there.
 - **The hero render** (`public/haav-cad.webp`) is a snapshot of the hull CAD, so it goes stale when the CAD
   changes. It was captured headlessly from [`public/viz/hull.html`](public/viz/hull.html) (a copy with the grid
   and axes removed, the waterline part hidden, the UI hidden, zoomed in, cropped to the boat), then saved as
