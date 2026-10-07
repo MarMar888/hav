@@ -3,6 +3,11 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.4.6 — 2026-10-07
+
+Added an Advisors section to the home page (Vincent Rasse, Kevin Macauley), after the team. Bios live in
+`src/lib/team.ts` next to the team's.
+
 ## 0.4.5 — 2026-10-07
 
 The sponsor form now emails the team through Resend on every submission (`RESEND_API_KEY`, `NOTIFY_EMAIL`).

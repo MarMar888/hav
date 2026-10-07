@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { TEAM } from "@/lib/team";
+import { ADVISORS, TEAM } from "@/lib/team";
 import { TIMELINE } from "@/lib/timeline";
 import { InquiryForm } from "./inquiry-form";
 
@@ -62,17 +62,12 @@ export default function Page() {
 
       <section id="team" className={section}>
         <h2 className={h2}>Team</h2>
-        <dl className="mt-8 space-y-8">
-          {TEAM.map((m) => (
-            <div key={m.name}>
-              <dt className="flex flex-wrap items-baseline gap-x-3">
-                <span className="text-lg font-semibold">{m.name}</span>
-                <span className="text-zinc-500">{m.role}</span>
-              </dt>
-              <dd className="mt-2 leading-relaxed text-zinc-700 dark:text-zinc-300">{m.bio}</dd>
-            </div>
-          ))}
-        </dl>
+        <People people={TEAM} />
+      </section>
+
+      <section id="advisors" className={section}>
+        <h2 className={h2}>Advisors</h2>
+        <People people={ADVISORS} />
       </section>
 
       <section id="contact" className={section}>
@@ -86,5 +81,21 @@ export default function Page() {
         </div>
       </section>
     </div>
+  );
+}
+
+function People({ people }: { people: readonly { name: string; role: string; bio: string }[] }) {
+  return (
+    <dl className="mt-8 space-y-8">
+      {people.map((m) => (
+        <div key={m.name}>
+          <dt className="flex flex-wrap items-baseline gap-x-3">
+            <span className="text-lg font-semibold">{m.name}</span>
+            <span className="text-zinc-500">{m.role}</span>
+          </dt>
+          <dd className="mt-2 leading-relaxed text-zinc-700 dark:text-zinc-300">{m.bio}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
