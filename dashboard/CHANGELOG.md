@@ -8,7 +8,7 @@ are kept — this folder versions independently of `cad/`, `optimization/`, and 
 Added a Primary groups list to the home page, named for the group leads (`GROUPS` in `src/lib/team.ts`), with a
 "Become a member" link to a new `/join` form for prospective students. Submissions email the team through Resend
 (same `RESEND_API_KEY` / `NOTIFY_EMAIL` as the sponsor form; shared in `src/lib/notify.ts`) and are not stored.
-Added the contact email to the footer, removed the Workshop footer link, and updated Will's bio and Ryan's role.
+Added the contact email and the site version to the footer, removed the Workshop footer link, and updated Will's bio and Ryan's role.
 
 ## 0.5.1 — 2026-10-07
 
