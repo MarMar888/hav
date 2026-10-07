@@ -21,6 +21,10 @@ install`, setting up `.env.local`). Day to day, `../package.json` delegates `dev
 `/` is one plain page: what Haav is, the boat, the team and a sponsor contact form. It is static, with no
 database read. `/sponsors` redirects to the form at the bottom of it.
 
+- **The hero render** (`public/haav-cad.webp`) is a snapshot of the hull CAD, so it goes stale when the CAD
+  changes. It was captured headlessly from [`public/viz/hull.html`](public/viz/hull.html) (a copy with the grid
+  and axes removed, the waterline part hidden, the UI hidden, zoomed in, cropped to the boat), then saved as
+  webp. Redo it the same way after a hull revision.
 - **Team bios** live in [`src/lib/team.ts`](src/lib/team.ts). Keep each bio the same shape and length so no
   one reads as an afterthought.
 - **Inquiries** from the form land in the `sponsor_inquiries` table (`pnpm db:setup` creates it; it's

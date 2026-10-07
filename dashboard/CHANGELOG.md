@@ -3,6 +3,11 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.4.1 — 2026-10-07
+
+Added a rendering of the hull CAD on the home page, directly under the Haav title, linking to the interactive
+3D viewer. See [`README.md`](README.md) for how it was made.
+
 ## 0.4.0 — 2026-10-07
 
 Public site cut back to one plain page: what Haav is, the boat, the team (new profiles in `src/lib/team.ts`)

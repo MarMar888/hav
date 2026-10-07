@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { TEAM } from "@/lib/team";
 import { InquiryForm } from "./inquiry-form";
 
@@ -12,7 +13,26 @@ export default function Page() {
       <section className="pt-8">
         <h1 className="text-6xl font-semibold tracking-tight">Haav</h1>
         <p className="mt-3 font-mono text-sm text-zinc-500">Highly Amphibious / Autonomous Vehicle</p>
-        <p className="mt-8 text-xl leading-relaxed">
+        <a
+          href="/viz/hull.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-10 block overflow-hidden rounded-lg bg-[#efefef]"
+        >
+          <Image
+            src="/haav-cad.webp"
+            alt="Rendering of the Haav hull CAD: a four-foot rigid inflatable boat with a sensor tower and two motor pods"
+            width={1415}
+            height={610}
+            priority
+            className="h-auto w-full"
+          />
+        </a>
+        <p className="mt-2 text-sm text-zinc-500">
+          Our current CAD.{" "}
+          <a href="/viz/hull.html" target="_blank" rel="noopener noreferrer" className={link}>Explore it in 3D</a>
+        </p>
+        <p className="mt-10 text-xl leading-relaxed">
           We are a student team building an autonomous boat from the ground up, and we model every decision before we cut
           a single part.
         </p>
@@ -29,9 +49,6 @@ export default function Page() {
           A four-foot autonomous rigid inflatable boat. The hull is a 3D-printed deep-V shell, used as a plug and
           glassed into a skin. Two motor pods steer it by differential thrust, and an autopilot comes in a second
           phase. It has not touched water yet.
-        </p>
-        <p className={prose}>
-          <a href="/viz/hull.html" target="_blank" rel="noopener noreferrer" className={link}>Explore the hull in 3D</a>
         </p>
       </section>
 
