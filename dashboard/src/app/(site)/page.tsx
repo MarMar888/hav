@@ -84,7 +84,7 @@ export default function Page() {
   );
 }
 
-function People({ people }: { people: readonly { name: string; role: string; bio: string }[] }) {
+function People({ people }: { people: readonly { name: string; role: string; bio: string; linkedin?: string }[] }) {
   return (
     <dl className="mt-8 space-y-8">
       {people.map((m) => (
@@ -94,6 +94,19 @@ function People({ people }: { people: readonly { name: string; role: string; bio
             <span className="text-zinc-500">{m.role}</span>
           </dt>
           <dd className="mt-2 leading-relaxed text-zinc-700 dark:text-zinc-300">{m.bio}</dd>
+          {m.linkedin && (
+            <dd className="mt-2 text-sm">
+              <a
+                href={m.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${m.name} on LinkedIn`}
+                className="text-emerald-700 underline underline-offset-4 hover:text-emerald-600 dark:text-emerald-400"
+              >
+                LinkedIn
+              </a>
+            </dd>
+          )}
         </div>
       ))}
     </dl>
