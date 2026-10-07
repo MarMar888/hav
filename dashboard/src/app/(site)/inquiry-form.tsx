@@ -14,7 +14,7 @@ export function InquiryForm() {
   if (state.ok) {
     return (
       <p role="status" className="rounded-lg border border-emerald-600/40 bg-emerald-50 p-5 text-emerald-900 dark:bg-emerald-950 dark:text-emerald-100">
-        Thanks. Your message reached the team and we&apos;ll be in touch.
+        Thanks. Your message reached the team.
       </p>
     );
   }

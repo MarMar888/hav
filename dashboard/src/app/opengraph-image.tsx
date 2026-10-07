@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Haav: Highly Amphibious / Autonomous Vehicle, our entry in the PEP27 Autonomy race";
+export const alt = "Haav: Highly Amphibious / Autonomous Vehicle, a student team building an autonomous boat from the ground up";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -14,7 +14,7 @@ export default function Image() {
         }}
       >
         <div style={{ display: "flex", fontSize: 28, letterSpacing: 4, color: "#10b981" }}>
-          PEP27 WORKFORCE DEVELOPMENT COMPETITION · AUTONOMY
+          STUDENT TEAM · AUTONOMOUS BOAT
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", fontSize: 148, fontWeight: 700, letterSpacing: -4 }}>Haav</div>
