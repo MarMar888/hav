@@ -3,6 +3,13 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.6.0 — 2026-10-07
+
+Added a Primary groups list to the home page, named for the group leads (`GROUPS` in `src/lib/team.ts`), with a
+"Become a member" link to a new `/join` form for prospective students. Submissions email the team through Resend
+(same `RESEND_API_KEY` / `NOTIFY_EMAIL` as the sponsor form; shared in `src/lib/notify.ts`) and are not stored.
+Added the contact email to the footer, removed the Workshop footer link, and updated Will's bio and Ryan's role.
+
 ## 0.5.1 — 2026-10-07
 
 Replaced the hero image under the Haav title with the new blue hull CAD image, on a white panel, with the caption

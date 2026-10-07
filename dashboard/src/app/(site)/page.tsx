@@ -1,9 +1,10 @@
 import Image from "next/image";
-import { ADVISORS, TEAM } from "@/lib/team";
+import Link from "next/link";
+import { ADVISORS, GROUPS, TEAM } from "@/lib/team";
 import { TIMELINE } from "@/lib/timeline";
 import { InquiryForm } from "./inquiry-form";
 
-const h2 = "text-2xl font-semibold tracking-tight";
+const h2 ="text-2xl font-semibold tracking-tight";
 const section = "scroll-mt-8 border-t border-zinc-200 pt-12 dark:border-zinc-800";
 const prose = "mt-4 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300";
 // Fixed to UTC so a milestone never shifts a day with the visitor's time zone.
@@ -20,7 +21,7 @@ export default function Page() {
         <div className="mt-10 overflow-hidden rounded-lg border border-zinc-200 bg-white">
           <Image
             src="/haav-hull.webp"
-            alt="CAD rendering of the Haav hull: a smooth deep-V shell in blue, seen from above and to the side"
+            alt="CAD rendering of the Haav hull, hybrid planing hull"
             width={1202}
             height={1008}
             priority
@@ -29,22 +30,36 @@ export default function Page() {
         </div>
         <p className="mt-2 text-sm text-zinc-500">Our current hull design.</p>
         <p className="mt-10 text-xl leading-relaxed">
-          We are a student team building an autonomous boat from the ground up, and we model every decision before we cut
-          a single part.
+          We are a student team building an autonomous boat from the ground up at UW-Madison.
         </p>
         <p className={prose}>
-          Our team spans computer science, optimization, battery energy systems and composites. That mix lets us
-          design the whole system together: hull, drive, battery and software. The goal is a boat that performs well on
-          the water, and a worked example of what modeling up front can do.
+          The goal is a planing hull with a 30 pound added payload on a 2 mile long course.
         </p>
       </section>
 
       <section id="boat" className={section}>
-        <h2 className={h2}>The boat</h2>
+        <h2 className={h2}>Basic Spec</h2>
         <p className={prose}>
-          A four-foot autonomous rigid inflatable boat. The hull is a 3D-printed deep-V shell, used as a plug and
-          glassed into a skin. Two motor pods steer it by differential thrust, and an autopilot comes in a second
-          phase. It has not touched water yet.
+          A 4-6 foot composite hull. Autonomy using GPS, IMU and LIDAR. Two motor pods steer with differential thrust and a rudder for stability at high speeds.
+        </p>
+      </section>
+
+      <section id="groups" className={section}>
+        <h2 className={h2}>Primary groups</h2>
+        <ol className="mt-8 divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+          {GROUPS.map((g, i) => (
+            <li key={g} className="flex items-baseline gap-x-6 py-3">
+              <span className="w-8 shrink-0 tabular-nums text-zinc-500">{i + 1}</span>
+              <span className="text-lg">{g}</span>
+            </li>
+          ))}
+        </ol>
+        <p className={prose}>
+          Want to work on one of these?{" "}
+          <Link href="/join" className="text-emerald-700 underline underline-offset-4 hover:text-emerald-600 dark:text-emerald-400">
+            Become a member
+          </Link>
+          .
         </p>
       </section>
 
@@ -73,8 +88,11 @@ export default function Page() {
       <section id="contact" className={section}>
         <h2 className={h2}>Sponsor the build</h2>
         <p className={prose}>
-          We are looking for funds, parts and skills. If your company or lab would like to help, or you just want to
-          know more, tell us a little about yourself.
+          We are looking for funds, parts and skills. If your company or lab would like to help, or would like to learn more, please fill out the form below! 
+        </p>
+        
+        <p className={prose}>
+As a sponsor, you can get your logo on our hull, merch and website, access to our team talent and more soon!
         </p>
         <div className="mt-8">
           <InquiryForm />

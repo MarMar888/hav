@@ -2,6 +2,7 @@
 
 import { z } from "zod";
 import { db, hasDatabase } from "@/lib/db";
+import { oneLine, notifyTeam } from "@/lib/notify";
 import { INTERESTS } from "@/lib/sponsors";
 
 export type InquiryState = { ok: boolean; error?: string };
@@ -19,37 +20,19 @@ const inquiry = z.object({
 
 type Inquiry = z.infer<typeof inquiry>;
 
-// Headers can't carry line breaks; keep visitor-supplied text out of them.
-const oneLine = (s: string) => s.replace(/\s+/g, " ").trim();
-
-/** Emails the team through Resend. Returns false if it isn't configured or the send fails. */
 async function notify({ name, email, org, interest, message }: Inquiry): Promise<boolean> {
-  const key = process.env.RESEND_API_KEY;
-  const to = process.env.NOTIFY_EMAIL;
-  if (!key || !to) return false;
-  try {
-    const res = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from: process.env.RESEND_FROM ?? "Haav <onboarding@resend.dev>",
-        to: [to],
-        reply_to: email,
-        subject: `Haav sponsor inquiry: ${oneLine(name)}${org ? ` (${oneLine(org)})` : ""}`,
-        text: [
-          `Name: ${name}`,
-          `Email: ${email}`,
-          `Organization: ${org ?? "-"}`,
-          `Wants to help with: ${interest}`,
-          "",
-          message ?? "(no message)",
-        ].join("\n"),
-      }),
-    });
-    return res.ok;
-  } catch {
-    return false;
-  }
+  return notifyTeam({
+    subject: `Haav sponsor inquiry: ${oneLine(name)}${org ? ` (${oneLine(org)})` : ""}`,
+    replyTo: email,
+    text: [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Organization: ${org ?? "-"}`,
+      `Wants to help with: ${interest}`,
+      "",
+      message ?? "(no message)",
+    ].join("\n"),
+  });
 }
 
 async function save({ name, email, org, interest, message }: Inquiry): Promise<boolean> {
