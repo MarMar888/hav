@@ -3,6 +3,10 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.4.3 — 2026-10-07
+
+Added Peyton Olson (structural and mechanical lead) to the team profiles.
+
 ## 0.4.2 — 2026-10-07
 
 Added a build timeline to the home page (rough hull dimensions in Oct 2026 through tuning and testing in
