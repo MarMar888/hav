@@ -148,18 +148,17 @@ steps = [
     ("Oct 25", "Current hull design frozen"),
     ("Nov 15", "Preliminary design review"),
     ("Dec 1", "Mechanical and electrical design frozen"),
-    ("December", "Build the hull and composite parts"),
-    ("Early January", "First float and tow test"),
-    ("January", "Manufacture and assemble everything"),
-    ("Jan–Feb", "Build likely spare parts, in parallel"),
-    ("End of January", "Zeroth nautical mile"),
-    ("Early February", "Slow drives on the water"),
-    ("Mid February", "Start increasing speed"),
-    ("Until competition", "Test as much as possible"),
+    ("Dec 1–31", "Build the hull and composite parts"),
+    ("Jan 11–28", "Manufacture and assemble everything"),
+    ("Jan 11–Feb 26", "Build likely spare parts, in parallel"),
+    ("Jan 29", "Zeroth nautical mile"),
+    ("Feb 1–14", "Slow drives on the water"),
+    ("Feb 15", "Start increasing speed"),
+    ("From Feb 15", "Test as much as possible until the competition"),
 ]
 colw = (W - 0.3) / 2
 for i, (when, what) in enumerate(steps):
-    col, row = divmod(i, 6)
+    col, row = divmod(i, 5)
     x = PAD + col * (colw + 0.3)
     y = 8.76 + row * 0.22
     box(x, y, colw, 0.01, fill=LINE, name=f"Timeline rule: {what}")

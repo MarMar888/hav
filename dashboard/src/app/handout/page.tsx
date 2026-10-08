@@ -126,7 +126,7 @@ export default function Page() {
 
         <section className="mt-5 px-10 pb-3">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Timeline</h2>
-          <ol className="mt-2.5 grid grid-flow-col grid-cols-2 grid-rows-[repeat(6,auto)] gap-x-8">
+          <ol className="mt-2.5 grid grid-flow-col grid-cols-2 grid-rows-[repeat(5,auto)] gap-x-8">
             {TIMELINE.map((m) => (
               <li key={m.label} className="flex items-baseline gap-3 border-t border-zinc-200 py-[3px] text-[11px]">
                 <span className="w-[1.2in] shrink-0 font-semibold" style={{ color: CRIMSON }}>{m.when}</span>
