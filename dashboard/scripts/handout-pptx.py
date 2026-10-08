@@ -131,7 +131,7 @@ label(PAD, 6.4, 4, "Our approach")
 cards = [
     ("Hull", "Plane well and stay light.", ["Hybrid planing composite hull", "Shape tuned by optimization", "Resistance checked in CFD first"]),
     ("Electric", "Every watt-hour to speed.", ["High-voltage battery storage", "Propulsion sized by the model", "Propulsion and cooling co-designed"]),
-    ("Autonomous", "Find the way, unaided.", ["GPS, IMU and LIDAR sensing", "Firmware protects the battery", "Software plans the route"]),
+    ("Autonomous", "Manage drift and controls.", ["GPS, IMU and LIDAR sensing", "Firmware protects the battery", "Software plans the route"]),
 ]
 cw, cgap = 2.45, 0.13
 for i, (title, strategy, points) in enumerate(cards):

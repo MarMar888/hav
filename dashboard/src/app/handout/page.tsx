@@ -42,7 +42,7 @@ const COMPONENTS = [
   },
   {
     title: "Autonomous",
-    strategy: "Find the way, unaided.",
+    strategy: "Manage drift and controls.",
     points: [
       "GPS, IMU and LIDAR sensing",
       "Firmware protects the battery",
