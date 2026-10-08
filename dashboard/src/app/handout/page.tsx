@@ -37,8 +37,8 @@ const COMPONENTS = [
     strategy: "Every watt-hour to speed.",
     points: [
       "High-voltage battery storage",
-      "Motor pods sized by the model",
-      "Differential thrust and rudder",
+      "Propulsion sized by the model",
+      "Propulsion and cooling designed together",
     ],
   },
   {

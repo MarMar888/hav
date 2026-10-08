@@ -47,7 +47,7 @@ export default function Page() {
       <section id="boat" className={section}>
         <h2 className={h2}>Basic Spec</h2>
         <p className={prose}>
-          A 4-6 foot composite hull. Autonomy using GPS, IMU and LIDAR. Two motor pods steer with differential thrust and a rudder for stability at high speeds.
+          A 4-6 foot composite hull. Autonomy using GPS, IMU and LIDAR.
         </p>
       </section>
 

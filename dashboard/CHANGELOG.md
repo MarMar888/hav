@@ -10,6 +10,7 @@ linear programming (an illustrative feasible-region graph, `src/app/handout/milp
 Autonomous parts, timeline, contact), with the exported PDF at `public/haav-handout.pdf`. No names on it except the
 project lead's contact in the footer. Re-export the PDF after changing the page: print `/handout` to PDF from
 Chrome with headers and footers off.
+Removed the motor pods from the site's Basic Spec and from the handout; the boat no longer uses pod motors.
 
 ## 0.6.2 — 2026-10-08
 
