@@ -1,22 +1,29 @@
 import type { Metadata } from "next";
+import { Bricolage_Grotesque } from "next/font/google";
 import Image from "next/image";
 import { TEAM } from "@/lib/team";
 import { TIMELINE } from "@/lib/timeline";
 
 // A one-page, letter-size handout. Open /handout and print (or save as PDF); `public/haav-handout.pdf`
-// is the same page exported. Colors are fixed so it prints the same regardless of the visitor's dark mode.
+// is the same page exported. It is deliberately relaxed: warm paper, soft ink, no boxes or bands, one accent
+// colour used only for dates. Colours are fixed so it prints the same regardless of dark mode.
 
 export const metadata: Metadata = { title: "Team handout", robots: { index: false } };
 
-const CRIMSON = "#c5050c";
+const display = Bricolage_Grotesque({ subsets: ["latin"], weight: ["500", "700"], display: "swap" });
+
+const PAPER = "#f8f3ea";
+const INK = "#2b2620";
+const SOFT = "#5a5249";
+const ACCENT = "#c5050c";
 const COMPANIES = "Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool";
 
 // The team's engineering majors, and the part of the boat each one covers. No names on this page.
 const DISCIPLINES = [
-  { name: "Industrial", covers: "Optimization, composites and manufacturing" },
-  { name: "Mechanical", covers: "Structures, CAD and fabrication" },
-  { name: "Electrical", covers: "Power, battery and high voltage" },
-  { name: "Computer", covers: "Embedded, firmware and software" },
+  { name: "Industrial", covers: "optimization, composites and manufacturing" },
+  { name: "Mechanical", covers: "structures, CAD and fabrication" },
+  { name: "Electrical", covers: "power, battery and high voltage" },
+  { name: "Computer", covers: "embedded, firmware and software" },
 ];
 
 // The three parts of the boat and the approach to each. Names stay off this page except the contact in the footer.
@@ -24,99 +31,85 @@ const COMPONENTS = [
   {
     title: "Hull",
     strategy: "Plane well and stay light.",
-    points: [
-      "Hybrid planing composite hull",
-      "Shape tuned by optimization",
-      "Resistance checked in CFD first",
-    ],
+    points: ["Hybrid planing composite hull", "Shape tuned by optimization", "Resistance checked in CFD first"],
   },
   {
     title: "Electric",
     strategy: "Every watt-hour to speed.",
-    points: [
-      "High-voltage battery storage",
-      "Propulsion sized by the model",
-      "Propulsion and cooling co-designed",
-    ],
+    points: ["High-voltage battery storage", "Propulsion sized by the model", "Propulsion and cooling co-designed"],
   },
   {
     title: "Autonomous",
     strategy: "Manage drift and controls.",
-    points: [
-      "GPS, IMU and LIDAR sensing",
-      "Firmware protects the battery",
-      "Software plans the route",
-    ],
+    points: ["GPS, IMU and LIDAR sensing", "Firmware protects the battery", "Software plans the route"],
   },
 ];
 
+const h2 = `${display.className} text-[19px] font-bold leading-tight tracking-tight`;
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-zinc-300 py-8 text-zinc-900 print:bg-white print:py-0">
+    <main className="min-h-screen bg-zinc-300 py-8 print:bg-white print:py-0">
       <style>{`@page { size: 8.5in 11in; margin: 0 } html { -webkit-print-color-adjust: exact; print-color-adjust: exact }`}</style>
-      <article className="mx-auto flex h-[11in] w-[8.5in] flex-col overflow-hidden bg-white shadow-2xl print:shadow-none">
-        <header className="flex items-center justify-between px-10 py-3 text-white" style={{ backgroundColor: CRIMSON }}>
+      <article
+        className="mx-auto flex h-[11in] w-[8.5in] flex-col overflow-hidden px-[0.6in] pb-[0.5in] pt-[0.45in] shadow-2xl print:shadow-none"
+        style={{ backgroundColor: PAPER, color: INK }}
+      >
+        <header className="flex items-start justify-between">
           <div>
-            <h1 className="text-5xl font-semibold leading-none tracking-tight">Haav</h1>
-            <p className="mt-2 font-mono text-xs uppercase tracking-widest text-white/85">Highly Amphibious / Autonomous Vehicle</p>
+            <h1 className={`${display.className} text-[52px] font-bold leading-none tracking-tight`}>Haav</h1>
+            <p className="mt-1.5 text-[13px]" style={{ color: SOFT }}>Highly Amphibious / Autonomous Vehicle</p>
           </div>
-          <div className="rounded-lg bg-white px-4 py-2">
-            <Image src="/uw-logo-horizontal.png" alt="University of Wisconsin–Madison" width={1542} height={527} className="h-14 w-auto" />
-          </div>
+          <Image src="/uw-logo-horizontal.png" alt="University of Wisconsin–Madison" width={1542} height={527} className="mt-1 h-[0.62in] w-auto" />
         </header>
 
-        <section className="grid grid-cols-[1.45fr_1fr] items-center gap-8 px-10 pt-4">
-          <div>
-            <p className="text-[28px] font-semibold leading-tight tracking-tight">
-              A student team building an autonomous boat from the ground up.
-            </p>
-          </div>
-          <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
-            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.45in] w-full object-contain" />
-          </div>
+        <section className="relative mt-2 flex items-center">
+          <p className={`${display.className} relative z-10 max-w-[4.2in] text-[34px] font-bold leading-[1.06] tracking-tight`}>
+            A student team building an autonomous boat from the ground up.
+          </p>
+          <Image
+            src="/haav-hull.webp"
+            alt="CAD rendering of the Haav hull"
+            width={1202}
+            height={1008}
+            className="ml-auto -rotate-3 h-auto w-[2.6in] mix-blend-multiply"
+          />
         </section>
 
-        <section className="mt-5 px-10">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">How we model it</h2>
-          <div className="mt-2.5 rounded-xl bg-zinc-100 px-5 py-4">
-            <h3 className="text-lg font-semibold leading-tight">First-principles mixed-integer linear programming</h3>
-            <p className="mt-2 text-xs leading-relaxed text-zinc-700">
-              We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds
-              the fastest one left. Hull resistance comes from <span className="font-semibold">Savitsky&apos;s planing-hull model</span>. As we
-              build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.
-            </p>
-          </div>
+        <section className="mt-5">
+          <h2 className={h2}>First-principles mixed-integer linear programming</h2>
+          <p className="mt-1.5 max-w-[6.6in] text-[12.5px] leading-[1.55]" style={{ color: SOFT }}>
+            We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds the
+            fastest one left. Hull resistance comes from <span className="font-semibold" style={{ color: INK }}>Savitsky&apos;s planing-hull model</span>.
+            As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.
+          </p>
         </section>
 
-        <section className="mt-5 px-10">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Engineers from across UW–Madison</h2>
-          <p className="mt-1.5 text-xs leading-relaxed text-zinc-700">
+        <section className="mt-5">
+          <h2 className={h2}>Engineers from across UW–Madison</h2>
+          <p className="mt-1.5 text-balance text-[12.5px] leading-[1.55]" style={{ color: SOFT }}>
             Each segment of the boat is covered, and members have worked at {COMPANIES}.
           </p>
-          <div className="mt-2.5 grid grid-cols-4 gap-3">
+          <dl className="mt-2 grid grid-cols-4 gap-x-6">
             {DISCIPLINES.map((d) => (
-              <div key={d.name} className="rounded-lg bg-zinc-100 px-3 py-2.5">
-                <div className="text-sm font-semibold leading-tight" style={{ color: CRIMSON }}>{d.name}</div>
-                <div className="mt-0.5 text-xs leading-snug text-zinc-700">{d.covers}</div>
+              <div key={d.name}>
+                <dt className="text-[13px] font-bold">{d.name}</dt>
+                <dd className="text-[12px] leading-snug" style={{ color: SOFT }}>{d.covers}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </section>
 
-        <section className="mt-5 px-10">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Our approach</h2>
-          <div className="mt-3 grid grid-cols-3 gap-3">
+        <section className="mt-5">
+          <h2 className={h2}>Our approach</h2>
+          <div className="mt-2 grid grid-cols-3 gap-x-8">
             {COMPONENTS.map((c) => (
-              <div key={c.title} className="rounded-xl border border-zinc-200 p-3">
-                <h3 className="text-xl font-semibold leading-none tracking-tight">{c.title}</h3>
-                <p className="mt-2 text-sm font-medium leading-snug">{c.strategy}</p>
-                <ul className="mt-2 space-y-1.5 border-t border-zinc-200 pt-2">
+              <div key={c.title}>
+                <h3 className={`${display.className} text-[16px] font-bold leading-tight`}>{c.title}</h3>
+                <p className="text-[12.5px] font-semibold leading-snug">{c.strategy}</p>
+                <ul className="mt-1.5 space-y-0.5 text-[12px] leading-snug" style={{ color: SOFT }}>
                   {c.points.map((pt) => (
-                    <li key={pt} className="flex gap-2 text-xs leading-relaxed text-zinc-700">
-                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full" style={{ backgroundColor: CRIMSON }} />
-                      {pt}
-                    </li>
+                    <li key={pt}>{pt}</li>
                   ))}
                 </ul>
               </div>
@@ -124,31 +117,31 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-5 px-10 pb-3">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Timeline</h2>
-          <ol className="mt-2.5 grid grid-flow-col grid-cols-2 grid-rows-[repeat(6,auto)] gap-x-8">
+        <section className="mt-5">
+          <h2 className={h2}>Timeline</h2>
+          <ol className="mt-2 grid grid-flow-col grid-cols-2 grid-rows-[repeat(6,auto)] gap-x-8 gap-y-[3px]">
             {TIMELINE.map((m) => (
-              <li key={m.label} className="flex items-baseline gap-3 border-t border-zinc-200 py-[3px] text-[11px]">
-                <span className="w-[1.2in] shrink-0 font-semibold" style={{ color: CRIMSON }}>{m.when}</span>
-                <span className="leading-tight text-zinc-700">{m.label}</span>
+              <li key={m.label} className="flex items-baseline gap-3 text-[11.5px] leading-snug">
+                <span className="w-[1.15in] shrink-0 font-bold tabular-nums" style={{ color: ACCENT }}>{m.when}</span>
+                <span style={{ color: SOFT }}>{m.label}</span>
               </li>
             ))}
           </ol>
         </section>
 
-        <footer className="mt-auto flex items-center justify-between bg-zinc-900 px-10 py-3 text-white">
-          <div className="max-w-[2.9in]">
-            <div className="text-lg font-semibold leading-tight">Sponsor the build</div>
-            <div className="text-xs text-white/70">We are looking for funds, parts, advisors and people to build our BOM as we design.</div>
+        <footer className="mt-auto flex items-end justify-between gap-6">
+          <div className="max-w-[3.6in]">
+            <div className={`${display.className} text-[22px] font-bold leading-tight tracking-tight`}>Want to help build it?</div>
+            <p className="mt-1 text-[12.5px] leading-snug" style={{ color: SOFT }}>
+              We are looking for funds, parts, advisors and people to build our BOM as we design.
+            </p>
           </div>
-          <div className="text-center">
-            <div className="text-xs uppercase tracking-widest text-white/60">Learn more</div>
-            <a href="https://bit.ly/haav" className="text-lg font-semibold">bit.ly/haav</a>
-          </div>
-          <div className="text-right text-sm">
-            <div className="text-xs uppercase tracking-widest text-white/60">Contact</div>
-            <div className="font-medium">{TEAM[0].name}, {TEAM[0].role}</div>
-            <div className="text-white/80">mhbarrett@wisc.edu</div>
+          <div className="text-right text-[12.5px] leading-snug">
+            <a href="https://bit.ly/haav" className={`${display.className} text-[22px] font-bold leading-tight`} style={{ color: ACCENT }}>
+              bit.ly/haav
+            </a>
+            <div className="mt-1 font-semibold">{TEAM[0].name}, {TEAM[0].role}</div>
+            <div style={{ color: SOFT }}>mhbarrett@wisc.edu</div>
           </div>
         </footer>
       </article>
