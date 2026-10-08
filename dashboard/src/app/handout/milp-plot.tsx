@@ -1,7 +1,6 @@
 // An illustrative mixed-integer linear program in two variables: battery capacity (integer, in cells) and speed.
 // Every line is one constraint; the shaded region is what survives all of them. Dots are the integer choices,
-// the drive package is a binary switch (the 6 kW drive opens the red wedge), and the star is the fastest feasible
-// boat. Shapes are for explanation only, not our numbers. Y is SVG pixels: smaller y means faster.
+// and the drive package is a binary switch (the 6 kW drive opens the red wedge). Shapes are for explanation only, not our numbers. Y is SVG pixels: smaller y means faster.
 
 const CRIMSON = "#c5050c";
 const X0 = 40;
@@ -25,7 +24,6 @@ for (let x = X0; x <= WALL; x += 20) {
     else if (ok(x, y, 6)) DOTS.push({ x, y, kw: 6 });
   }
 }
-const STAR = { x: WALL, y: 76 };
 
 const pts = (p: [number, number][]) => p.map((q) => q.join(",")).join(" ");
 const label = "fill-zinc-700 text-[8.5px]";
@@ -64,20 +62,10 @@ export function MilpPlot() {
         <circle key={`${d.x}-${d.y}`} cx={d.x} cy={d.y} r={2} fill={d.kw === 6 ? CRIMSON : "#52525b"} />
       ))}
 
-      {/* optimum */}
-      <polygon
-        transform={`translate(${STAR.x} ${STAR.y})`}
-        points="0,-8 2.4,-2.6 8,-2.4 3.6,1.4 5,7 0,3.8 -5,7 -3.6,1.4 -8,-2.4 -2.4,-2.6"
-        fill={CRIMSON}
-        stroke="#fff"
-        strokeWidth={1}
-      />
-
       {/* labels, kept in the right-hand margin so no line is crossed */}
       <text x={WALL + 6} y={20} className={label}>Mass limit</text>
       <text x={WALL + 6} y={CEIL6 + 3} className={label}>6 kW drive</text>
       <text x={WALL + 6} y={current(WALL) - 6} className={label}>Battery current</text>
-      <text x={WALL + 14} y={STAR.y + 12} className="fill-zinc-900 text-[9px] font-semibold">fastest feasible boat</text>
       <text x={WALL + 6} y={CEIL4 + 3} className={label}>4 kW drive</text>
       <text x={44} y={142} className={label} transform="rotate(-24 44 142)">Energy limit</text>
 
