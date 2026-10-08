@@ -130,6 +130,10 @@ export default function Page() {
             <div className="text-lg font-semibold leading-tight">Sponsor the build</div>
             <div className="text-xs text-white/70">We are looking for funds, parts and advisors.</div>
           </div>
+          <div className="text-center">
+            <div className="text-xs uppercase tracking-widest text-white/60">Learn more</div>
+            <a href="https://bit.ly/haav" className="text-lg font-semibold">bit.ly/haav</a>
+          </div>
           <div className="text-right text-sm">
             <div className="text-xs uppercase tracking-widest text-white/60">Contact</div>
             <div className="font-medium">{TEAM[0].name}, {TEAM[0].role}</div>
