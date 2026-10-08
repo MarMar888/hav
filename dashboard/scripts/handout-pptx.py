@@ -4,9 +4,9 @@ Canva imports .pptx with its text and shapes still editable (File > Import files
 The page itself (src/app/handout/page.tsx) is the source of truth; this copies its wording and layout, so re-run it
 after the page changes:
 
-  python3 scripts/handout-pptx.py <hull.png> <graph.png>
+  python3 scripts/handout-pptx.py <hull.png>
 
-hull.png is public/haav-hull.webp converted to PNG; graph.png is public/haav-handout-graph.svg rendered to PNG.
+hull.png is public/haav-hull.webp converted to PNG.
 The logo comes from public/uw-logo-horizontal.png. Needs `pip install python-pptx`.
 """
 
@@ -20,7 +20,7 @@ from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parent.parent
-HULL, GRAPH = (Path(a) for a in sys.argv[1:3])
+HULL = Path(sys.argv[1])
 LOGO = ROOT / "public" / "uw-logo-horizontal.png"
 OUT = ROOT / "public" / "haav-handout.pptx"
 
@@ -101,20 +101,18 @@ slide.shapes.add_picture(str(HULL), Inches(5.3), Inches(1.2), height=Inches(1.4)
 
 # how we model it
 label(PAD, 2.9, 4, "How we model it")
-box(PAD, 3.12, W, 2.25, fill=PANEL, radius=0.1, name="Model panel")
-text(0.56, 3.3, 2.95, 0.5, "First-principles mixed-integer linear programming", size=12, bold=True, name="Model title")
+box(PAD, 3.12, W, 1.33, fill=PANEL, radius=0.1, name="Model panel")
+text(0.6, 3.27, 7.3, 0.3, "First-principles mixed-integer linear programming", size=13, bold=True, name="Model title")
 text(
-    0.56, 3.86, 2.95, 1.1,
+    0.6, 3.62, 7.3, 0.75,
     [[("We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds the fastest one left. Hull resistance comes from ", {}),
       ("Savitsky's planing-hull model", {"bold": True}), (". As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.", {})]],
-    size=8.5, color=GRAY, spacing=1.15, name="Model text",
+    size=10, color=GRAY, spacing=1.2, name="Model text",
 )
-box(3.67, 3.23, 4.28, 2.03, fill=WHITE, radius=0.08, name="Graph plate")
-slide.shapes.add_picture(str(GRAPH), Inches(3.77), Inches(3.3), width=Inches(4.08)).name = "Feasible-region graph"
 
 # engineers
-label(PAD, 5.62, 5, "Engineers from across UW–Madison")
-text(PAD, 5.82, W, 0.2, "Each segment of the boat is covered, and members have worked at Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool.", size=9, color=GRAY, name="Engineers text")
+label(PAD, 4.8, 5, "Engineers from across UW–Madison")
+text(PAD, 5.0, W, 0.2, "Each segment of the boat is covered, and members have worked at Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool.", size=9, color=GRAY, name="Engineers text")
 tiles = [
     ("Industrial", "Optimization, composites and manufacturing"),
     ("Mechanical", "Structures, CAD and fabrication"),
@@ -124,12 +122,12 @@ tiles = [
 tw, gap = 1.81, 0.13
 for i, (name, covers) in enumerate(tiles):
     x = PAD + i * (tw + gap)
-    box(x, 6.1, tw, 0.78, fill=PANEL, radius=0.07, name=f"Tile: {name}")
-    text(x + 0.11, 6.17, tw - 0.2, 0.2, name, size=11, color=CRIMSON, bold=True, name=f"Tile title: {name}")
-    text(x + 0.11, 6.4, tw - 0.2, 0.45, covers, size=9, color=GRAY, spacing=1.1, name=f"Tile text: {name}")
+    box(x, 5.28, tw, 0.78, fill=PANEL, radius=0.07, name=f"Tile: {name}")
+    text(x + 0.11, 5.35, tw - 0.2, 0.2, name, size=11, color=CRIMSON, bold=True, name=f"Tile title: {name}")
+    text(x + 0.11, 5.58, tw - 0.2, 0.45, covers, size=9, color=GRAY, spacing=1.1, name=f"Tile text: {name}")
 
 # approach
-label(PAD, 7.17, 4, "Our approach")
+label(PAD, 6.4, 4, "Our approach")
 cards = [
     ("Hull", "Plane well and stay light.", ["Hybrid planing composite hull", "Shape tuned by optimization", "Resistance checked in CFD first"]),
     ("Electric", "Every watt-hour to speed.", ["High-voltage battery storage", "Propulsion sized by the model", "Propulsion and cooling co-designed"]),
@@ -138,21 +136,21 @@ cards = [
 cw, cgap = 2.45, 0.13
 for i, (title, strategy, points) in enumerate(cards):
     x = PAD + i * (cw + cgap)
-    box(x, 7.4, cw, 1.68, fill=WHITE, line=LINE, radius=0.1, name=f"Card: {title}")
-    text(x + 0.15, 7.5, cw - 0.3, 0.3, title, size=15, bold=True, name=f"Card title: {title}")
-    text(x + 0.15, 7.86, cw - 0.3, 0.25, strategy, size=10.5, bold=True, name=f"Card strategy: {title}")
-    box(x + 0.15, 8.18, cw - 0.3, 0.01, fill=LINE, name=f"Card rule: {title}")
-    text(x + 0.15, 8.27, cw - 0.3, 0.75, [[("●  ", {"color": CRIMSON, "size": 6}), (pt, {})] for pt in points], size=9, color=GRAY, spacing=1.45, name=f"Card points: {title}")
+    box(x, 6.63, cw, 1.95, fill=WHITE, line=LINE, radius=0.1, name=f"Card: {title}")
+    text(x + 0.15, 6.75, cw - 0.3, 0.3, title, size=15, bold=True, name=f"Card title: {title}")
+    text(x + 0.15, 7.12, cw - 0.3, 0.25, strategy, size=10.5, bold=True, name=f"Card strategy: {title}")
+    box(x + 0.15, 7.46, cw - 0.3, 0.01, fill=LINE, name=f"Card rule: {title}")
+    text(x + 0.15, 7.58, cw - 0.3, 0.9, [[("●  ", {"color": CRIMSON, "size": 6}), (pt, {})] for pt in points], size=9, color=GRAY, spacing=1.75, name=f"Card points: {title}")
 
 # timeline
-label(PAD, 9.2, 4, "Timeline")
+label(PAD, 8.95, 4, "Timeline")
 steps = [("Oct 25", "Hull design"), ("Nov 15", "Electrical design"), ("Nov 25", "Hull built"), ("Jan 25", "First drive"), ("Feb 15", "First fast drive"), ("Mar 15", "Tuning and testing")]
 sw = (W - 5 * 0.12) / 6
 for i, (date, name) in enumerate(steps):
     x = PAD + i * (sw + 0.12)
-    box(x, 9.48, sw, 0.025, fill=CRIMSON, name=f"Timeline rule: {name}")
-    text(x, 9.55, sw, 0.2, date, size=9, bold=True, name=f"Timeline date: {name}")
-    text(x, 9.74, sw, 0.2, name, size=9, color=GRAY, name=f"Timeline label: {name}")
+    box(x, 9.23, sw, 0.025, fill=CRIMSON, name=f"Timeline rule: {name}")
+    text(x, 9.3, sw, 0.2, date, size=9, bold=True, name=f"Timeline date: {name}")
+    text(x, 9.49, sw, 0.2, name, size=9, color=GRAY, name=f"Timeline label: {name}")
 
 # footer
 box(0, 10.17, 8.5, 0.83, fill=DARK, name="Footer band")

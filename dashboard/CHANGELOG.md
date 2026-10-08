@@ -6,13 +6,13 @@ are kept — this folder versions independently of `cad/`, `optimization/`, and 
 ## 0.7.0 — 2026-10-08
 
 Added a one-page, letter-size handout at `/handout` (hero, how we model the boat with first-principles mixed-integer
-linear programming (an illustrative feasible-region graph, `src/app/handout/milp-plot.tsx`, and Savitsky's planing-hull model), the engineering disciplines we pull from across UW–Madison, our approach to the Hull, Electric and
+linear programming and Savitsky's planing-hull model, the engineering disciplines we pull from across UW–Madison, our approach to the Hull, Electric and
 Autonomous parts, timeline, contact), with the exported PDF at `public/haav-handout.pdf`. No names on it except the
 project lead's contact in the footer. Re-export the PDF after changing the page: print `/handout` to PDF from
 Chrome with headers and footers off.
 Removed the motor pods from the site's Basic Spec and from the handout; the boat no longer uses pod motors.
 The handout is also available as an editable PowerPoint, `public/haav-handout.pptx` (imports into Canva with live text and
-shapes), and its graph as `public/haav-handout-graph.svg`. Rebuild the PowerPoint with `scripts/handout-pptx.py`.
+shapes). Rebuild it with `scripts/handout-pptx.py`.
 
 ## 0.6.2 — 2026-10-08
 

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { TEAM } from "@/lib/team";
-import { MilpPlot } from "./milp-plot";
 import { TIMELINE } from "@/lib/timeline";
 
 // A one-page, letter-size handout. Open /handout and print (or save as PDF); `public/haav-handout.pdf`
@@ -78,27 +77,23 @@ export default function Page() {
             </p>
           </div>
           <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
-            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.45in] w-full object-contain" />
+            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.7in] w-full object-contain" />
           </div>
         </section>
 
-        <section className="mt-5 px-10">
+        <section className="mt-7 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">How we model it</h2>
-          <div className="mt-2.5 grid grid-cols-[1fr_1.45fr] items-center gap-4 rounded-xl bg-zinc-100 p-3">
-            <div>
-              <h3 className="text-base font-semibold leading-tight">First-principles mixed-integer linear programming</h3>
-              <p className="mt-2 text-xs leading-relaxed text-zinc-700">
-                We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds
-                the fastest one left. Hull resistance comes from <span className="font-semibold">Savitsky&apos;s planing-hull model</span>. As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.
-              </p>
-            </div>
-            <div className="rounded-lg bg-white p-2">
-              <MilpPlot />
-            </div>
+          <div className="mt-2.5 rounded-xl bg-zinc-100 px-5 py-4">
+            <h3 className="text-lg font-semibold leading-tight">First-principles mixed-integer linear programming</h3>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-700">
+              We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds
+              the fastest one left. Hull resistance comes from <span className="font-semibold">Savitsky&apos;s planing-hull model</span>. As we
+              build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.
+            </p>
           </div>
         </section>
 
-        <section className="mt-5 px-10">
+        <section className="mt-7 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Engineers from across UW–Madison</h2>
           <p className="mt-1.5 text-xs leading-relaxed text-zinc-700">
             Each segment of the boat is covered, and members have worked at {COMPANIES}.
@@ -113,7 +108,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-5 px-10">
+        <section className="mt-7 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Our approach</h2>
           <div className="mt-3 grid grid-cols-3 gap-3">
             {COMPONENTS.map((c) => (
@@ -133,7 +128,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-3 px-10 pb-3">
+        <section className="mt-6 px-10 pb-3">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Timeline</h2>
           <ol className="mt-3 grid grid-cols-6 gap-2">
             {milestones.map((m) => (
