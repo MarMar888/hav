@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { ADVISORS, GROUPS, TEAM } from "@/lib/team";
+import { TEAM } from "@/lib/team";
 import { TIMELINE } from "@/lib/timeline";
 
 // A one-page, letter-size handout. Open /handout and print (or save as PDF); `public/haav-handout.pdf`
@@ -17,9 +17,39 @@ const STATS = [
   { value: "2", label: "motor pods + rudder" },
 ];
 
+// The three parts of the boat and the approach to each. Names stay off this page except the contact in the footer.
+const COMPONENTS = [
+  {
+    title: "Hull",
+    strategy: "Plane well, carry the load, stay light.",
+    points: [
+      "4–6 ft rigid composite hull with a hybrid planing shape",
+      "One optimization model picks hull geometry, drive, battery and speed together",
+      "Resistance checked in CFD before anything is built",
+    ],
+  },
+  {
+    title: "Electric",
+    strategy: "Spend every watt-hour on speed.",
+    points: [
+      "Battery energy storage system within the 55.5 V race limit",
+      "Two motor pods and propellers sized by the model",
+      "Differential thrust steers; a rudder adds stability at speed",
+    ],
+  },
+  {
+    title: "Autonomous",
+    strategy: "Drive the course with no one at the helm.",
+    points: [
+      "GPS, IMU and LIDAR sense position, heading and obstacles",
+      "Embedded firmware runs the motors and protects the battery",
+      "Controls software steers the boat around the 2-mile course",
+    ],
+  },
+];
+
 const short = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
-const initials = (name: string) => name.split(" ").map((w) => w[0]).join("");
 
 export default function Page() {
   const milestones = KEY_MILESTONES.map((label) => TIMELINE.find((m) => m.label === label)!);
@@ -61,36 +91,24 @@ export default function Page() {
         </section>
 
         <section className="mt-5 px-10">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">The team</h2>
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Our approach</h2>
           <div className="mt-3 grid grid-cols-3 gap-3">
-            {TEAM.map((m) => (
-              <div key={m.name} className="rounded-xl border border-zinc-200 p-4">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-white"
-                    style={{ backgroundColor: CRIMSON }}
-                  >
-                    {initials(m.name)}
-                  </div>
-                  <div className="min-w-0">
-                    <div className="text-[15px] font-semibold leading-tight">{m.name}</div>
-                    <div className="text-xs leading-tight text-zinc-500">{m.role}</div>
-                  </div>
-                </div>
-                <p className="mt-3 text-xs leading-relaxed text-zinc-700">{m.blurb}</p>
+            {COMPONENTS.map((c, i) => (
+              <div key={c.title} className="rounded-xl border border-zinc-200 p-5">
+                <div className="font-mono text-xs tabular-nums" style={{ color: CRIMSON }}>0{i + 1}</div>
+                <h3 className="mt-1 text-2xl font-semibold leading-none tracking-tight">{c.title}</h3>
+                <p className="mt-3 text-[15px] font-medium leading-snug">{c.strategy}</p>
+                <ul className="mt-4 space-y-2.5 border-t border-zinc-200 pt-4">
+                  {c.points.map((pt) => (
+                    <li key={pt} className="flex gap-2 text-xs leading-relaxed text-zinc-700">
+                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full" style={{ backgroundColor: CRIMSON }} />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
-            <div className="flex flex-col justify-center rounded-xl p-4 text-white" style={{ backgroundColor: CRIMSON }}>
-              <div className="text-[15px] font-semibold leading-tight">Want to join?</div>
-              <p className="mt-2 text-xs leading-relaxed text-white/90">
-                Open to UW–Madison students in {GROUPS.length} groups, from hull to software.
-              </p>
-            </div>
           </div>
-          <p className="mt-3 text-xs text-zinc-600">
-            <span className="font-semibold text-zinc-900">Advisors:</span>{" "}
-            {ADVISORS.map((a) => `${a.name} (${a.role.replace("Advisor: ", "")})`).join(" · ")}
-          </p>
         </section>
 
         <section className="mt-4 px-10">
@@ -112,7 +130,8 @@ export default function Page() {
           </div>
           <div className="text-right text-sm">
             <div className="text-xs uppercase tracking-widest text-white/60">Contact</div>
-            <div className="font-medium">mhbarrett@wisc.edu</div>
+            <div className="font-medium">{TEAM[0].name}, {TEAM[0].role}</div>
+            <div className="text-white/80">mhbarrett@wisc.edu</div>
           </div>
         </footer>
       </article>
