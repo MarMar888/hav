@@ -1,42 +1,11 @@
-HAAV BUILD TIMELINE
-===================
-
-The full plan, with every detail. The website (src/lib/timeline.ts) shows all of this; the one-page handout
-shows only the dates and titles. Dates other than Oct 25, Nov 15 and Dec 1 are proposed and not yet confirmed.
-
-Oct 25  |  Current hull design frozen
-
-Nov 15  |  Preliminary design review
-    Full CAD and circuit design, plus a rough proof of concept, even a cardboard boat with boxes for
-    the components, to visually check dimensions and catch issues. Critical and long-lead components
-    are ordered.
-
-Dec 1  |  Mechanical and electrical design frozen
-    With the full BOM and the order.
-
-Dec 1–31  |  Build the hull and composite parts
-    Plus any custom-milled parts.
-
-Jan 11–28  |  Manufacture and assemble everything
-    All mechanical and electrical components, with dry fits, electrical assembly out of the boat
-    first, and debugging.
-
-Jan 11–Feb 26  |  Build likely spare parts, in parallel
-    Spares for the parts most likely to be used.
-
-Jan 22  |  First float and tow test
-    The hull floats with deadweight for the real weight, and is towed behind a motorized boat to
-    validate the hull design and quality.
-
-Jan 29  |  Zeroth nautical mile
-    The first time everything is powered on in the hull: all microcontrollers, sensors and
-    actuators. The first motor and propeller spin with the boat lifted in the air, and the first
-    propulsion and navigation test commanded by the autonomous pipeline.
-
-Feb 1–14  |  Slow drives on the water
-    Fully manual first, by remote command, then adding autonomy over time.
-
-Feb 15  |  Start increasing speed
-
-From Feb 15  |  Test as much as possible
-    Right up to the competition, working through the hardware and software issues that come up.
+Oct 25: Current hull design frozen
+Nov 15: Preliminary design review. Full CAD and circuit design, plus a rough proof of concept, even a cardboard boat with boxes for the components, to visually check dimensions and catch issues. Critical and long-lead components are ordered.
+Dec 1: Mechanical and electrical design frozen. With the full BOM and the order.
+Dec 1–31: Build the hull and composite parts. Plus any custom-milled parts.
+Jan 11–28: Manufacture and assemble everything. All mechanical and electrical components, with dry fits, electrical assembly out of the boat first, and debugging.
+Jan 11–Feb 26: Build likely spare parts, in parallel. Spares for the parts most likely to be used.
+Jan 22: First float and tow test. The hull floats with deadweight for the real weight, and is towed behind a motorized boat to validate the hull design and quality.
+Jan 29: Zeroth nautical mile. The first time everything is powered on in the hull: all microcontrollers, sensors and actuators. The first motor and propeller spin with the boat lifted in the air, and the first propulsion and navigation test commanded by the autonomous pipeline.
+Feb 1–14: Slow drives on the water. Fully manual first, by remote command, then adding autonomy over time.
+Feb 15: Start increasing speed
+From Feb 15: Test as much as possible. Right up to the competition, working through the hardware and software issues that come up.
