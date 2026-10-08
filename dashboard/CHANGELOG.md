@@ -5,7 +5,7 @@ are kept — this folder versions independently of `cad/`, `optimization/`, and 
 
 ## 0.6.2 — 2026-10-08
 
-Added the UW-Madison logo (`public/uw-madison-logo.png`) under the intro sentence on the home page.
+Added the official UW–Madison horizontal logo (`public/uw-logo-horizontal.png`) under the intro sentence on the home page.
 
 ## 0.6.1 — 2026-10-07
 

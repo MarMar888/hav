@@ -33,11 +33,11 @@ export default function Page() {
           We are a student team building an autonomous boat from the ground up at UW-Madison.
         </p>
         <Image
-          src="/uw-madison-logo.png"
-          alt="UW-Madison"
-          width={1776}
-          height={184}
-          className="mt-4 h-auto w-44"
+          src="/uw-logo-horizontal.png"
+          alt="University of Wisconsin–Madison"
+          width={1542}
+          height={527}
+          className="mt-4 h-auto w-64"
         />
         <p className={prose}>
           The goal is a planing hull with a 30 pound added payload on a 2 mile long course.
