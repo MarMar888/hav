@@ -9,7 +9,15 @@ import { TIMELINE } from "@/lib/timeline";
 export const metadata: Metadata = { title: "Team handout", robots: { index: false } };
 
 const CRIMSON = "#c5050c";
-const KEY_MILESTONES = ["Hull design", "Electrical design", "Hull built", "First drive", "First fast drive", "Tuning and testing"];
+// Milestones shown on the handout, by their label in `TIMELINE`; `show` is a shorter label where the full one is long.
+const KEY_MILESTONES = [
+  { label: "Hull design" },
+  { label: "Hull built" },
+  { label: "Mechanical and electrical design frozen", show: "Mech and electrical design frozen" },
+  { label: "First drive" },
+  { label: "First fast drive" },
+  { label: "Tuning and testing" },
+];
 const COMPANIES = "Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool";
 
 // The team's engineering majors, and the part of the boat each one covers. No names on this page.
@@ -55,7 +63,7 @@ const short = (iso: string) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
 
 export default function Page() {
-  const milestones = KEY_MILESTONES.map((label) => TIMELINE.find((m) => m.label === label)!);
+  const milestones = KEY_MILESTONES.map((k) => ({ ...TIMELINE.find((m) => m.label === k.label)!, label: k.show ?? k.label }));
   return (
     <main className="min-h-screen bg-zinc-300 py-8 text-zinc-900 print:bg-white print:py-0">
       <style>{`@page { size: 8.5in 11in; margin: 0 } html { -webkit-print-color-adjust: exact; print-color-adjust: exact }`}</style>
@@ -141,9 +149,9 @@ export default function Page() {
         </section>
 
         <footer className="mt-auto flex items-center justify-between bg-zinc-900 px-10 py-3 text-white">
-          <div>
+          <div className="max-w-[2.9in]">
             <div className="text-lg font-semibold leading-tight">Sponsor the build</div>
-            <div className="text-xs text-white/70">We are looking for funds, parts and advisors.</div>
+            <div className="text-xs text-white/70">We are looking for funds, parts, advisors and people to build our BOM as we design.</div>
           </div>
           <div className="text-center">
             <div className="text-xs uppercase tracking-widest text-white/60">Learn more</div>

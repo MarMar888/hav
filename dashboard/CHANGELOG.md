@@ -11,6 +11,8 @@ Autonomous parts, timeline, contact), with the exported PDF at `public/haav-hand
 project lead's contact in the footer. Re-export the PDF after changing the page: print `/handout` to PDF from
 Chrome with headers and footers off.
 Removed the motor pods from the site's Basic Spec and from the handout; the boat no longer uses pod motors.
+Timeline: dropped "Preliminary BOM list" and added "Mechanical and electrical design frozen" (Dec 1). The handout footer and
+the `/join` page now say we need people to build the BOM as we design.
 The handout is also available as an editable PowerPoint, `public/haav-handout.pptx` (imports into Canva with live text and
 shapes). Rebuild it with `scripts/handout-pptx.py`.
 

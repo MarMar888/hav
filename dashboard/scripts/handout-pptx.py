@@ -144,7 +144,7 @@ for i, (title, strategy, points) in enumerate(cards):
 
 # timeline
 label(PAD, 8.95, 4, "Timeline")
-steps = [("Oct 25", "Hull design"), ("Nov 15", "Electrical design"), ("Nov 25", "Hull built"), ("Jan 25", "First drive"), ("Feb 15", "First fast drive"), ("Mar 15", "Tuning and testing")]
+steps = [("Oct 25", "Hull design"), ("Nov 25", "Hull built"), ("Dec 1", "Mech and electrical design frozen"), ("Jan 25", "First drive"), ("Feb 15", "First fast drive"), ("Mar 15", "Tuning and testing")]
 sw = (W - 5 * 0.12) / 6
 for i, (date, name) in enumerate(steps):
     x = PAD + i * (sw + 0.12)
@@ -155,7 +155,7 @@ for i, (date, name) in enumerate(steps):
 # footer
 box(0, 10.17, 8.5, 0.83, fill=DARK, name="Footer band")
 text(PAD, 10.33, 3.0, 0.25, "Sponsor the build", size=15, color=WHITE, bold=True, name="Footer title")
-text(PAD, 10.62, 3.2, 0.2, "We are looking for funds, parts and advisors.", size=8.5, color=RGBColor.from_string("B5B5BB"), name="Footer tagline")
+text(PAD, 10.6, 2.75, 0.4, "We are looking for funds, parts, advisors and people to build our BOM as we design.", size=8.5, color=RGBColor.from_string("B5B5BB"), name="Footer tagline")
 text(3.25, 10.3, 2.0, 0.2, "LEARN MORE", size=8, color=RGBColor.from_string("9A9AA2"), align=PP_ALIGN.CENTER, name="Footer link label")
 text(3.25, 10.5, 2.0, 0.3, "bit.ly/haav", size=14, color=WHITE, bold=True, align=PP_ALIGN.CENTER, name="Footer link")
 text(5.3, 10.27, 2.78, 0.2, "CONTACT", size=8, color=RGBColor.from_string("9A9AA2"), align=PP_ALIGN.RIGHT, name="Footer contact label")
