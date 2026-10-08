@@ -38,7 +38,7 @@ const COMPONENTS = [
     points: [
       "High-voltage battery storage",
       "Propulsion sized by the model",
-      "Propulsion and cooling designed together",
+      "Propulsion and cooling co-designed",
     ],
   },
   {
