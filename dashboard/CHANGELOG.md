@@ -19,8 +19,9 @@ Entries keep the team plan's wording on the site and in `timeline.txt`; the hand
 shows it as a rail with a marker per milestone (a filled dot for a day, a hollow ring for a stretch of work). The full
 plan is also written out in `timeline.txt`, and the PowerPoint reads `src/lib/timeline.ts` directly. The handout footer and the `/join` page now say we need people to build the BOM
 as we design.
-The handout is laid out as a relaxed one-pager: warm paper, no header band, cards or tiles, sentence-case headings in
-Bricolage Grotesque, and one accent colour used only for dates.
+The handout is laid out as a relaxed one-pager: warm paper, no header band, a few soft cards (model, the three parts and
+the footer), the site's own sans font, and one accent colour. The UW logo is replaced by "UW–Madison / College of
+Engineering" in text at the top right.
 The handout is also available as an editable PowerPoint, `public/haav-handout.pptx` (imports into Canva with live text and
 shapes). Rebuild it with `scripts/handout-pptx.py`.
 
