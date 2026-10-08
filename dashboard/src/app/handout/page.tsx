@@ -126,7 +126,7 @@ export default function Page() {
         <footer className="mt-auto flex items-center justify-between bg-zinc-900 px-10 py-4 text-white">
           <div>
             <div className="text-lg font-semibold leading-tight">Sponsor the build</div>
-            <div className="text-xs text-white/70">We are looking for funds, parts and skills.</div>
+            <div className="text-xs text-white/70">We are looking for funds, parts and advisors.</div>
           </div>
           <div className="text-right text-sm">
             <div className="text-xs uppercase tracking-widest text-white/60">Contact</div>
