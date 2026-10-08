@@ -11,10 +11,11 @@ Autonomous parts, timeline, contact), with the exported PDF at `public/haav-hand
 project lead's contact in the footer. Re-export the PDF after changing the page: print `/handout` to PDF from
 Chrome with headers and footers off.
 Removed the motor pods from the site's Basic Spec and from the handout; the boat no longer uses pod motors.
-New timeline with hard dates (`src/lib/timeline.ts`): current hull design frozen (Oct 25), preliminary design review
-(Nov 15), mechanical and electrical design frozen with full BOM and order (Dec 1), the December hull build,
-January manufacturing and assembly, spare parts, first float and tow test (Jan 22), "zeroth nautical mile" (Jan 29), slow drives (Feb 1-14), more speed
-(Feb 15) and testing until the competition. Every entry keeps its full description on the site; the handout and PowerPoint show the dates and titles only. The site
+New timeline with hard dates (`src/lib/timeline.ts`): hull design frozen (Oct 25), preliminary design review (Nov 1),
+critical and long-lead parts ordered (Nov 10), mechanical and electrical design frozen with full BOM and order (Nov 20),
+the Nov 20 to Dec 20 hull build, first float and tow test (Jan 8), manufacturing and assembly and spare parts
+(Jan 8-30), first nautical mile (Jan 31), slow drives (Feb 1-14), more speed (Feb 15) and testing and tuning until April.
+Every entry keeps its full description on the site; the handout and PowerPoint show the dates and titles only. The site
 shows it as a rail with a marker per milestone (a filled dot for a day, a hollow ring for a stretch of work). The full
 plan is also written out in `timeline.txt`, and the PowerPoint reads `src/lib/timeline.ts` directly. The handout footer and the `/join` page now say we need people to build the BOM
 as we design.

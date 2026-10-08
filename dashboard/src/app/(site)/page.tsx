@@ -72,7 +72,7 @@ export default function Page() {
         {/* A rail with a marker per milestone: a filled dot for a day, a hollow ring for a stretch of work. */}
         <ol className="relative ml-32 mt-8 border-l-2 border-zinc-200 dark:border-zinc-700">
           {TIMELINE.map((m) => {
-            const stretch = /–|^From /.test(m.when);
+            const stretch = /–|^From |^Until /.test(m.when);
             return (
               <li key={m.label} className="relative pb-8 pl-6 last:pb-0">
                 <span
