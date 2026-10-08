@@ -1,4 +1,4 @@
-"""Builds public/haav-handout.pptx: the /handout page as native, editable PowerPoint shapes and text boxes.
+"""Builds public/haav-handout-white.pptx: the /handout page as native, editable PowerPoint shapes and text boxes.
 
 Canva imports .pptx with its text and shapes still editable (File > Import files, or Create a design > Import file).
 The page itself (src/app/handout/page.tsx) is the source of truth; this copies its wording and layout, so re-run it
@@ -22,11 +22,11 @@ from pptx.util import Inches, Pt
 
 ROOT = Path(__file__).resolve().parent.parent
 HULL = Path(sys.argv[1])
-OUT = ROOT / "public" / "haav-handout.pptx"
+OUT = ROOT / "public" / "haav-handout-white.pptx"
 
 FONT = "Arial"
-PAPER, INK, SOFT, ACCENT, CARD, EDGE, FADED = (
-    RGBColor.from_string(h) for h in ("F8F3EA", "2B2620", "5A5249", "C5050C", "FFFDF8", "E7DECE", "BDB7AD")
+PAPER, INK, SOFT, RED, CARD, EDGE, FADED = (
+    RGBColor.from_string(h) for h in ("FFFFFF", "111111", "555555", "C5050C", "F5F5F5", "F5F5F5", "BBBBBB")
 )
 
 prs = Presentation()
@@ -97,7 +97,7 @@ def hull_on_paper():
     from PIL import Image
 
     img = Image.open(HULL).convert("RGB")
-    paper = (0xF8, 0xF3, 0xEA)
+    paper = (0xFF, 0xFF, 0xFF)
     out = Image.eval(img, lambda v: v)  # copy
     px = out.load()
     for y in range(out.height):
@@ -123,7 +123,7 @@ box(0, 0, 8.5, 11, fill=PAPER, name="Paper")
 # header
 text(LEFT, 0.36, 3, 0.7, "Haav", size=36, bold=True, name="Title")
 text(LEFT, 1.04, 4, 0.22, "Highly Amphibious / Autonomous Vehicle", size=9.75, color=SOFT, name="Subtitle")
-text(8.5 - LEFT - 3.5, 0.4, 3.5, 0.4, "UW–Madison", size=19.5, bold=True, color=ACCENT, align=PP_ALIGN.RIGHT, name="UW-Madison")
+text(8.5 - LEFT - 3.5, 0.4, 3.5, 0.4, "UW–Madison", size=19.5, bold=True, color=RED, align=PP_ALIGN.RIGHT, name="UW-Madison")
 text(8.5 - LEFT - 3.5, 0.8, 3.5, 0.22, "College of Engineering", size=9.75, color=SOFT, align=PP_ALIGN.RIGHT, name="College of Engineering")
 
 # hero
@@ -170,7 +170,7 @@ for i, (title, strategy, points) in enumerate(cards):
     x = LEFT + i * (cw + cgap)
     box(x, 6.37, cw, 1.25, fill=CARD, line=EDGE, radius=R, name=f"Card: {title}")
     text(x + 0.15, 6.45, cw - 0.3, 0.25, title, size=11.25, bold=True, name=f"Part: {title}")
-    text(x + 0.15, 6.68, cw - 0.3, 0.2, strategy, size=9, color=ACCENT, bold=True, name=f"Part tagline: {title}")
+    text(x + 0.15, 6.68, cw - 0.3, 0.2, strategy, size=9, color=INK, bold=True, name=f"Part tagline: {title}")
     text(x + 0.15, 6.92, cw - 0.3, 0.6, points, size=8.6, color=SOFT, spacing=1.15, name=f"Part points: {title}")
 
 # timeline: dates and titles only, two balanced columns, read from src/lib/timeline.ts
@@ -185,7 +185,7 @@ for i, (when, what) in enumerate(steps):
     x = LEFT + col * (colw + 0.333)
     lines = -(-len(what) // chars_per_line)
     h = 0.185 + (lines - 1) * 0.13
-    text(x, ys[col], 1.1, 0.18, when, size=8.2, color=ACCENT, bold=True, name=f"Timeline date: {what}")
+    text(x, ys[col], 1.1, 0.18, when, size=8.2, color=INK, bold=True, name=f"Timeline date: {what}")
     text(x + 1.2, ys[col], label_w, h, what, size=8.2, color=SOFT, name=f"Timeline label: {what}")
     ys[col] += h
 

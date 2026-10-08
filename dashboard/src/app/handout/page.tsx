@@ -4,17 +4,17 @@ import { TEAM } from "@/lib/team";
 import { TIMELINE } from "@/lib/timeline";
 
 // A one-page, letter-size handout. Open /handout and print (or save as PDF); `public/haav-handout.pdf`
-// is the same page exported. Relaxed on purpose: warm paper, soft ink, a few plain cards, the site's own sans
-// font, and one accent colour. Colours are fixed so it prints the same regardless of dark mode.
+// is the same page exported. Relaxed on purpose: white page, a few plain grey cards, the site's own sans font,
+// black, white and grey only, plus red for the UW–Madison mark. Colours are fixed so it prints the same in dark mode.
 
 export const metadata: Metadata = { title: "Team handout", robots: { index: false } };
 
-const PAPER = "#f8f3ea";
-const CARD = "#fffdf8";
-const EDGE = "#e7dece";
-const INK = "#2b2620";
-const SOFT = "#5a5249";
-const ACCENT = "#c5050c";
+const PAPER = "#ffffff";
+const CARD = "#f5f5f5";
+const EDGE = "#f5f5f5";
+const INK = "#111111";
+const SOFT = "#555555";
+const RED = "#c5050c"; // the UW–Madison mark only
 const COMPANIES = "Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool";
 
 // The team's engineering majors, and the part of the boat each one covers. No names on this page.
@@ -61,7 +61,7 @@ export default function Page() {
             <p className="mt-1.5 text-[13px]" style={{ color: SOFT }}>Highly Amphibious / Autonomous Vehicle</p>
           </div>
           <div className="text-right">
-            <div className="text-[26px] font-bold leading-none tracking-tight" style={{ color: ACCENT }}>UW–Madison</div>
+            <div className="text-[26px] font-bold leading-none tracking-tight" style={{ color: RED }}>UW–Madison</div>
             <div className="mt-1 text-[13px]" style={{ color: SOFT }}>College of Engineering</div>
           </div>
         </header>
@@ -109,7 +109,7 @@ export default function Page() {
             {COMPONENTS.map((c) => (
               <div key={c.title} className={card} style={{ backgroundColor: CARD, borderColor: EDGE }}>
                 <h3 className="text-[15px] font-semibold leading-tight">{c.title}</h3>
-                <p className="text-[12px] font-medium leading-snug" style={{ color: ACCENT }}>{c.strategy}</p>
+                <p className="text-[12px] font-semibold leading-snug">{c.strategy}</p>
                 <ul className="mt-1.5 space-y-0.5 text-[11.5px] leading-snug" style={{ color: SOFT }}>
                   {c.points.map((pt) => (
                     <li key={pt}>{pt}</li>
@@ -125,7 +125,7 @@ export default function Page() {
           <ol className="mt-1.5 grid grid-flow-col grid-cols-2 grid-rows-[repeat(6,auto)] gap-x-8 gap-y-[2px]">
             {TIMELINE.map((m) => (
               <li key={m.label} className="flex items-baseline gap-3 text-[11px] leading-snug">
-                <span className="w-[1.1in] shrink-0 font-semibold tabular-nums" style={{ color: ACCENT }}>{m.when}</span>
+                <span className="w-[1.1in] shrink-0 font-semibold tabular-nums">{m.when}</span>
                 <span style={{ color: SOFT }}>{m.label}</span>
               </li>
             ))}
