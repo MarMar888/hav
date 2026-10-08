@@ -13,7 +13,7 @@ Chrome with headers and footers off.
 Removed the motor pods from the site's Basic Spec and from the handout; the boat no longer uses pod motors.
 New timeline with hard dates (`src/lib/timeline.ts`): current hull design frozen (Oct 25), preliminary design review
 (Nov 15), mechanical and electrical design frozen with full BOM and order (Dec 1), the December hull build,
-January manufacturing and assembly, spare parts, "zeroth nautical mile" (Jan 29), slow drives (Feb 1-14), more speed
+January manufacturing and assembly, spare parts, first float and tow test (Jan 22), "zeroth nautical mile" (Jan 29), slow drives (Feb 1-14), more speed
 (Feb 15) and testing until the competition. Entries can carry a `detail` line, shown on the site; the handout lists the
 dates and titles in two columns. The handout footer and the `/join` page now say we need people to build the BOM
 as we design.

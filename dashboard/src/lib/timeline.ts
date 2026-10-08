@@ -35,6 +35,13 @@ export const TIMELINE: readonly { when: string; date?: string; label: string; de
     label: "Build likely spare parts, in parallel",
   },
   {
+    when: "Jan 22",
+    date: "2027-01-22",
+    label: "First float and tow test",
+    detail:
+      "The hull floats with deadweight standing in for the real weight, then is towed behind a motorized boat to validate the hull design and build quality.",
+  },
+  {
     when: "Jan 29",
     date: "2027-01-29",
     label: "Zeroth nautical mile",
@@ -51,7 +58,7 @@ export const TIMELINE: readonly { when: string; date?: string; label: string; de
   {
     when: "From Feb 15",
     date: "2027-02-15",
-    label: "Test as much as possible until the competition",
+    label: "Keep testing until the competition",
     detail: "Expect plenty of hardware and software issues to work through.",
   },
 ];
