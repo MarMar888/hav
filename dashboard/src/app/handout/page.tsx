@@ -10,10 +10,9 @@ export const metadata: Metadata = { title: "Team handout", robots: { index: fals
 
 const CRIMSON = "#c5050c";
 const KEY_MILESTONES = ["Hull design", "Electrical design", "Hull built", "First drive", "First fast drive", "Tuning and testing"];
-const DIFFERENT = [
-  { title: "Designed as one system", text: "One optimization model picks hull shape, drive, battery and speed together, so no part is sized alone." },
-  { title: "Industry experience", text: "Members have worked at Tesla, Northrop Grumman, Xcel Energy, Milwaukee Tool, John Deere and Fincantieri." },
-];
+// How the model links the parts of the boat, in the order a change flows through it.
+const CHAIN = ["Hull, battery, drive, speed", "Mass and balance", "Resistance", "Power", "Battery energy", "Race time"];
+const COMPANIES = "Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool";
 
 // The team's engineering majors, and the part of the boat each one covers. No names on this page.
 const DISCIPLINES = [
@@ -27,7 +26,7 @@ const DISCIPLINES = [
 const COMPONENTS = [
   {
     title: "Hull",
-    strategy: "Plane well, carry the load, stay light.",
+    strategy: "Plane well and stay light.",
     points: [
       "Hybrid planing composite hull",
       "Shape tuned by optimization",
@@ -36,7 +35,7 @@ const COMPONENTS = [
   },
   {
     title: "Electric",
-    strategy: "Spend every watt-hour on speed.",
+    strategy: "Every watt-hour to speed.",
     points: [
       "High-voltage battery storage",
       "Motor pods sized by the model",
@@ -45,7 +44,7 @@ const COMPONENTS = [
   },
   {
     title: "Autonomous",
-    strategy: "Find the way and steer, with no one at the helm.",
+    strategy: "Find the way, unaided.",
     points: [
       "GPS, IMU and LIDAR sensing",
       "Firmware protects the battery",
@@ -63,9 +62,9 @@ export default function Page() {
     <main className="min-h-screen bg-zinc-300 py-8 text-zinc-900 print:bg-white print:py-0">
       <style>{`@page { size: 8.5in 11in; margin: 0 } html { -webkit-print-color-adjust: exact; print-color-adjust: exact }`}</style>
       <article className="mx-auto flex h-[11in] w-[8.5in] flex-col overflow-hidden bg-white shadow-2xl print:shadow-none">
-        <header className="flex items-center justify-between px-10 py-4 text-white" style={{ backgroundColor: CRIMSON }}>
+        <header className="flex items-center justify-between px-10 py-3 text-white" style={{ backgroundColor: CRIMSON }}>
           <div>
-            <h1 className="text-6xl font-semibold leading-none tracking-tight">Haav</h1>
+            <h1 className="text-5xl font-semibold leading-none tracking-tight">Haav</h1>
             <p className="mt-2 font-mono text-xs uppercase tracking-widest text-white/85">Highly Amphibious / Autonomous Vehicle</p>
           </div>
           <div className="rounded-lg bg-white px-4 py-2">
@@ -73,36 +72,54 @@ export default function Page() {
           </div>
         </header>
 
-        <section className="grid grid-cols-[1fr_1.05fr] items-center gap-8 px-10 pt-5">
+        <section className="grid grid-cols-[1.45fr_1fr] items-center gap-8 px-10 pt-4">
           <div>
-            <p className="text-3xl font-semibold leading-tight tracking-tight">
+            <p className="text-[28px] font-semibold leading-tight tracking-tight">
               A student team building an autonomous boat from the ground up.
             </p>
             <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-              One composite planing hull, two motor pods steering by differential thrust, and a rudder for stability at speed. Designed as one system and built by students at UW–Madison.
+              A composite planing hull, two motor pods and a rudder, designed as one system at UW–Madison.
             </p>
           </div>
           <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
-            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.7in] w-full object-contain" />
+            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.45in] w-full object-contain" />
           </div>
         </section>
 
         <section className="mt-5 px-10">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">What makes us different</h2>
-          <div className="mt-3 grid grid-cols-2 gap-6">
-            {DIFFERENT.map((d) => (
-              <div key={d.title} className="border-l-4 pl-4" style={{ borderColor: CRIMSON }}>
-                <h3 className="text-[15px] font-semibold leading-tight">{d.title}</h3>
-                <p className="mt-1.5 text-xs leading-relaxed text-zinc-700">{d.text}</p>
-              </div>
-            ))}
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">How we model it</h2>
+          <div className="mt-2.5 grid grid-cols-[1.35fr_1fr] gap-4 rounded-xl bg-zinc-100 p-4">
+            <div>
+              <h3 className="text-lg font-semibold leading-tight">First-principles mixed-integer optimization</h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-zinc-700">
+                We are building the model from physics up, so every part of the boat is tied to every other. Change the hull,
+                the battery or the speed and the effect carries through the whole boat. Component choices are integers; sizes
+                and speed are continuous.
+              </p>
+              <ol className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                {CHAIN.map((c, i) => (
+                  <li key={c} className="flex items-center gap-1.5">
+                    <span className="rounded-md bg-white px-2 py-1 text-[11px] font-medium leading-none">{c}</span>
+                    {i < CHAIN.length - 1 && <span style={{ color: CRIMSON }} className="text-xs">→</span>}
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="rounded-lg bg-zinc-900 p-3 font-mono text-[11px] leading-relaxed text-white">
+              <div className="text-white/60">choose the one boat that passes</div>
+              <div className="text-white/60">every margin, fastest first</div>
+              <div className="mt-2">minimize Σ Tᵢ·xᵢ</div>
+              <div>s.t. Σ xᵢ = 1</div>
+              <div>{"      "}Σ mₖᵢ·xᵢ ≥ 0 ∀k</div>
+              <div>{"      "}each xᵢ is 0 or 1</div>
+            </div>
           </div>
         </section>
 
         <section className="mt-5 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Engineers from across UW–Madison</h2>
           <p className="mt-1.5 text-xs leading-relaxed text-zinc-700">
-            UW–Madison trains engineers in every discipline. We pulled from each segment of the boat.
+            Each segment of the boat is covered, and members have worked at {COMPANIES}.
           </p>
           <div className="mt-2.5 grid grid-cols-4 gap-3">
             {DISCIPLINES.map((d) => (
@@ -118,10 +135,10 @@ export default function Page() {
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Our approach</h2>
           <div className="mt-3 grid grid-cols-3 gap-3">
             {COMPONENTS.map((c) => (
-              <div key={c.title} className="rounded-xl border border-zinc-200 p-4">
-                <h3 className="text-2xl font-semibold leading-none tracking-tight">{c.title}</h3>
-                <p className="mt-3 text-[15px] font-medium leading-snug">{c.strategy}</p>
-                <ul className="mt-3 space-y-2 border-t border-zinc-200 pt-3">
+              <div key={c.title} className="rounded-xl border border-zinc-200 p-3">
+                <h3 className="text-xl font-semibold leading-none tracking-tight">{c.title}</h3>
+                <p className="mt-2 text-sm font-medium leading-snug">{c.strategy}</p>
+                <ul className="mt-2 space-y-1.5 border-t border-zinc-200 pt-2">
                   {c.points.map((pt) => (
                     <li key={pt} className="flex gap-2 text-xs leading-relaxed text-zinc-700">
                       <span className="mt-1.5 size-1.5 shrink-0 rounded-full" style={{ backgroundColor: CRIMSON }} />
@@ -134,7 +151,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-4 px-10 pb-3">
+        <section className="mt-3 px-10 pb-3">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Timeline</h2>
           <ol className="mt-3 grid grid-cols-6 gap-2">
             {milestones.map((m) => (
@@ -146,7 +163,7 @@ export default function Page() {
           </ol>
         </section>
 
-        <footer className="mt-auto flex items-center justify-between bg-zinc-900 px-10 py-4 text-white">
+        <footer className="mt-auto flex items-center justify-between bg-zinc-900 px-10 py-3 text-white">
           <div>
             <div className="text-lg font-semibold leading-tight">Sponsor the build</div>
             <div className="text-xs text-white/70">We are looking for funds, parts and advisors.</div>
