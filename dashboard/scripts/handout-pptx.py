@@ -109,7 +109,6 @@ text(
       ("Savitsky's planing-hull model", {"bold": True}), (". As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.", {})]],
     size=8.5, color=GRAY, spacing=1.15, name="Model text",
 )
-text(0.56, 5.0, 2.95, 0.3, "Illustrative: lines are constraints, dots are integer choices, red is what the 6 kW drive adds.", size=8, color=MUTED, name="Model note")
 box(3.67, 3.23, 4.28, 2.03, fill=WHITE, radius=0.08, name="Graph plate")
 slide.shapes.add_picture(str(GRAPH), Inches(3.77), Inches(3.3), width=Inches(4.08)).name = "Feasible-region graph"
 

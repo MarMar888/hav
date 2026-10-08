@@ -78,7 +78,7 @@ export default function Page() {
             </p>
           </div>
           <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
-            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.2in] w-full object-contain" />
+            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.45in] w-full object-contain" />
           </div>
         </section>
 
@@ -90,9 +90,6 @@ export default function Page() {
               <p className="mt-2 text-xs leading-relaxed text-zinc-700">
                 We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds
                 the fastest one left. Hull resistance comes from <span className="font-semibold">Savitsky&apos;s planing-hull model</span>. As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.
-              </p>
-              <p className="mt-2 text-[11px] leading-snug text-zinc-500">
-                Illustrative: lines are constraints, dots are integer choices, red is what the 6 kW drive adds.
               </p>
             </div>
             <div className="rounded-lg bg-white p-2">
