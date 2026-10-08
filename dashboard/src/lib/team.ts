@@ -1,33 +1,38 @@
-// The team and its advisors, for the public page. `linkedin` is optional. Bios stay in the same shape
+// The team and its advisors, for the public page. `linkedin` is optional; `blurb` is the one-line summary used on the handout. Bios stay in the same shape
 // (a role, then two or three plain sentences) so no one reads as an afterthought.
 
 export const TEAM = [
   {
     name: "Marley Barrett",
     linkedin: "https://www.linkedin.com/in/marley-h-barrett/",
+    blurb: "Software and project management. Interned at Tesla and Fincantieri, and sails competitively.",
     role: "Project lead",
     bio: "A computer engineering major with experience in software and project management. Interned in new product introduction and software engineering at Tesla and in project management at Fincantieri in Trieste, Italy. Has sailed competitively through college and started his own boat detailing business in high school.",
   },
   {
     name: "Patrick Grunklee",
     linkedin: "https://www.linkedin.com/in/patrickgrunklee/",
+    blurb: "Optimization, composites and DFM. Interned at Northrop Grumman and John Deere.",
     role: "Hull and optimization lead",
     bio: "An industrial engineering major with experience in optimization, composites and DFM. Was a manufacturing engineer intern at Northrop Grumman, working in solid rocket motor composites manufacturing. Also has supply chain experience at John Deere, working on DFM and cost-optimal material selection for agricultural equipment.",
   },
   {
     name: "Will Hennen",
+    blurb: "Two years at Xcel Energy on solar, wind and battery storage. High-voltage and data acquisition.",
     role: "Electrical and power systems lead",
     bio: "An electrical engineering student who has spent the past two years interning with Xcel Energy, supporting a variety of solar, wind and battery energy storage system projects. Gained hands-on experience with high voltage, data acquisition systems, and the safety procedures and protocols required to work around high-voltage equipment.",
   },
   {
     name: "Ryan Drahozal",
     linkedin: "https://www.linkedin.com/in/ryan-drahozal/",
+    blurb: "Embedded, electrical and electromechanical systems. Two internships at Milwaukee Tool.",
     role: "Embedded and firmware lead",
     bio: "A computer engineering student with experience in embedded, electrical and electromechanical systems. Built a robotic lifting assistive device for patients with sarcopenia (PCB design, motor drivers, current sensing, safety features). Has also completed two electrical engineering internships at Milwaukee Tool and conducts research at the UW–Madison Simulation-Based Engineering Lab.",
   },
   {
     name: "Peyton Olson",
     linkedin: "https://www.linkedin.com/in/peytonolson/",
+    blurb: "Baja SAE front suspension. SolidWorks design, plus lathe, CNC mill and welding.",
     role: "Structural and mechanical lead",
     bio: "A mechanical engineering student and a member of the Baja SAE front suspension team. There, Peyton designed and analyzed the upper and lower control arms in SolidWorks, and machines and welds competition parts (lathe, CNC mill, MIG/TIG).",
   },

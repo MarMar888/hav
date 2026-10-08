@@ -3,6 +3,12 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.7.0 — 2026-10-08
+
+Added a one-page, letter-size team handout at `/handout` (hero, key numbers, team, advisors, timeline, contact),
+with the exported PDF at `public/haav-handout.pdf`. Re-export it after changing the page: print `/handout` to PDF
+from Chrome with headers and footers off. Each person in `src/lib/team.ts` now has a one-line `blurb` for it.
+
 ## 0.6.2 — 2026-10-08
 
 Added the official UW–Madison horizontal logo (`public/uw-logo-horizontal.png`) under the intro sentence on the home page.
