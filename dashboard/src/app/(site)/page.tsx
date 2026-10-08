@@ -7,9 +7,6 @@ import { InquiryForm } from "./inquiry-form";
 const h2 ="text-2xl font-semibold tracking-tight";
 const section = "scroll-mt-8 border-t border-zinc-200 pt-12 dark:border-zinc-800";
 const prose = "mt-4 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300";
-// Fixed to UTC so a milestone never shifts a day with the visitor's time zone.
-const day = (iso: string) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 
 
 export default function Page() {
@@ -74,9 +71,16 @@ export default function Page() {
         <h2 className={h2}>Timeline</h2>
         <ol className="mt-8 divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
           {TIMELINE.map((m) => (
-            <li key={m.label} className="flex flex-wrap items-baseline gap-x-6 py-3">
-              <time dateTime={m.date} className="w-32 shrink-0 tabular-nums text-zinc-500">{day(m.date)}</time>
-              <span className="text-lg">{m.label}</span>
+            <li key={m.label} className="grid grid-cols-[8rem_1fr] gap-x-6 py-3">
+              {m.date ? (
+                <time dateTime={m.date} className="text-zinc-500">{m.when}</time>
+              ) : (
+                <span className="text-zinc-500">{m.when}</span>
+              )}
+              <div>
+                <span className="text-lg">{m.label}</span>
+                {m.detail && <p className="mt-1 leading-relaxed text-zinc-600 dark:text-zinc-400">{m.detail}</p>}
+              </div>
             </li>
           ))}
         </ol>

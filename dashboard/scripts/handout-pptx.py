@@ -136,21 +136,35 @@ cards = [
 cw, cgap = 2.45, 0.13
 for i, (title, strategy, points) in enumerate(cards):
     x = PAD + i * (cw + cgap)
-    box(x, 6.63, cw, 1.95, fill=WHITE, line=LINE, radius=0.1, name=f"Card: {title}")
+    box(x, 6.63, cw, 1.75, fill=WHITE, line=LINE, radius=0.1, name=f"Card: {title}")
     text(x + 0.15, 6.75, cw - 0.3, 0.3, title, size=15, bold=True, name=f"Card title: {title}")
     text(x + 0.15, 7.12, cw - 0.3, 0.25, strategy, size=10.5, bold=True, name=f"Card strategy: {title}")
     box(x + 0.15, 7.46, cw - 0.3, 0.01, fill=LINE, name=f"Card rule: {title}")
-    text(x + 0.15, 7.58, cw - 0.3, 0.9, [[("●  ", {"color": CRIMSON, "size": 6}), (pt, {})] for pt in points], size=9, color=GRAY, spacing=1.75, name=f"Card points: {title}")
+    text(x + 0.15, 7.58, cw - 0.3, 0.9, [[("●  ", {"color": CRIMSON, "size": 6}), (pt, {})] for pt in points], size=9, color=GRAY, spacing=1.55, name=f"Card points: {title}")
 
-# timeline
-label(PAD, 8.95, 4, "Timeline")
-steps = [("Oct 25", "Hull design"), ("Nov 25", "Hull built"), ("Dec 1", "Mech and electrical design frozen"), ("Jan 25", "First drive"), ("Feb 15", "First fast drive"), ("Mar 15", "Tuning and testing")]
-sw = (W - 5 * 0.12) / 6
-for i, (date, name) in enumerate(steps):
-    x = PAD + i * (sw + 0.12)
-    box(x, 9.23, sw, 0.025, fill=CRIMSON, name=f"Timeline rule: {name}")
-    text(x, 9.3, sw, 0.2, date, size=9, bold=True, name=f"Timeline date: {name}")
-    text(x, 9.49, sw, 0.2, name, size=9, color=GRAY, name=f"Timeline label: {name}")
+# timeline (same entries as src/lib/timeline.ts, in two columns)
+label(PAD, 8.52, 4, "Timeline")
+steps = [
+    ("Oct 25", "Current hull design frozen"),
+    ("Nov 15", "Preliminary design review"),
+    ("Dec 1", "Mechanical and electrical design frozen"),
+    ("December", "Build the hull and composite parts"),
+    ("Early January", "First float and tow test"),
+    ("January", "Manufacture and assemble everything"),
+    ("Jan–Feb", "Build likely spare parts, in parallel"),
+    ("End of January", "Zeroth nautical mile"),
+    ("Early February", "Slow drives on the water"),
+    ("Mid February", "Start increasing speed"),
+    ("Until competition", "Test as much as possible"),
+]
+colw = (W - 0.3) / 2
+for i, (when, what) in enumerate(steps):
+    col, row = divmod(i, 6)
+    x = PAD + col * (colw + 0.3)
+    y = 8.76 + row * 0.22
+    box(x, y, colw, 0.01, fill=LINE, name=f"Timeline rule: {what}")
+    text(x, y + 0.045, 1.15, 0.16, when, size=8, color=CRIMSON, bold=True, name=f"Timeline date: {what}")
+    text(x + 1.2, y + 0.045, colw - 1.2, 0.16, what, size=8, color=GRAY, name=f"Timeline label: {what}")
 
 # footer
 box(0, 10.17, 8.5, 0.83, fill=DARK, name="Footer band")

@@ -9,15 +9,6 @@ import { TIMELINE } from "@/lib/timeline";
 export const metadata: Metadata = { title: "Team handout", robots: { index: false } };
 
 const CRIMSON = "#c5050c";
-// Milestones shown on the handout, by their label in `TIMELINE`; `show` is a shorter label where the full one is long.
-const KEY_MILESTONES = [
-  { label: "Hull design" },
-  { label: "Hull built" },
-  { label: "Mechanical and electrical design frozen", show: "Mech and electrical design frozen" },
-  { label: "First drive" },
-  { label: "First fast drive" },
-  { label: "Tuning and testing" },
-];
 const COMPANIES = "Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool";
 
 // The team's engineering majors, and the part of the boat each one covers. No names on this page.
@@ -59,11 +50,8 @@ const COMPONENTS = [
   },
 ];
 
-const short = (iso: string) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
 
 export default function Page() {
-  const milestones = KEY_MILESTONES.map((k) => ({ ...TIMELINE.find((m) => m.label === k.label)!, label: k.show ?? k.label }));
   return (
     <main className="min-h-screen bg-zinc-300 py-8 text-zinc-900 print:bg-white print:py-0">
       <style>{`@page { size: 8.5in 11in; margin: 0 } html { -webkit-print-color-adjust: exact; print-color-adjust: exact }`}</style>
@@ -85,15 +73,15 @@ export default function Page() {
             </p>
           </div>
           <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
-            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.7in] w-full object-contain" />
+            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.45in] w-full object-contain" />
           </div>
         </section>
 
-        <section className="mt-7 px-10">
+        <section className="mt-5 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">How we model it</h2>
           <div className="mt-2.5 rounded-xl bg-zinc-100 px-5 py-4">
             <h3 className="text-lg font-semibold leading-tight">First-principles mixed-integer linear programming</h3>
-            <p className="mt-2 text-sm leading-relaxed text-zinc-700">
+            <p className="mt-2 text-xs leading-relaxed text-zinc-700">
               We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds
               the fastest one left. Hull resistance comes from <span className="font-semibold">Savitsky&apos;s planing-hull model</span>. As we
               build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.
@@ -101,7 +89,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-7 px-10">
+        <section className="mt-5 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Engineers from across UW–Madison</h2>
           <p className="mt-1.5 text-xs leading-relaxed text-zinc-700">
             Each segment of the boat is covered, and members have worked at {COMPANIES}.
@@ -116,7 +104,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-7 px-10">
+        <section className="mt-5 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Our approach</h2>
           <div className="mt-3 grid grid-cols-3 gap-3">
             {COMPONENTS.map((c) => (
@@ -136,13 +124,13 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-6 px-10 pb-3">
+        <section className="mt-5 px-10 pb-3">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Timeline</h2>
-          <ol className="mt-3 grid grid-cols-6 gap-2">
-            {milestones.map((m) => (
-              <li key={m.label} className="border-t-2 pt-2" style={{ borderColor: CRIMSON }}>
-                <div className="text-xs font-semibold tabular-nums">{short(m.date)}</div>
-                <div className="text-xs leading-tight text-zinc-600">{m.label}</div>
+          <ol className="mt-2.5 grid grid-flow-col grid-cols-2 grid-rows-[repeat(6,auto)] gap-x-8">
+            {TIMELINE.map((m) => (
+              <li key={m.label} className="flex items-baseline gap-3 border-t border-zinc-200 py-[3px] text-[11px]">
+                <span className="w-[1.2in] shrink-0 font-semibold" style={{ color: CRIMSON }}>{m.when}</span>
+                <span className="leading-tight text-zinc-700">{m.label}</span>
               </li>
             ))}
           </ol>
