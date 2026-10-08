@@ -13,7 +13,14 @@ const KEY_MILESTONES = ["Hull design", "Electrical design", "Hull built", "First
 const DIFFERENT = [
   { title: "Designed as one system", text: "One optimization model picks hull shape, drive, battery and speed together, so no part is sized alone." },
   { title: "Industry experience", text: "Members have worked at Tesla, Northrop Grumman, Xcel Energy, Milwaukee Tool, John Deere and Fincantieri." },
-  { title: "Built in-house", text: "The composite hull, high-voltage power system, firmware and autonomy all come from one student team." },
+];
+
+// The team's engineering majors, and the part of the boat each one covers. No names on this page.
+const DISCIPLINES = [
+  { name: "Industrial", covers: "Optimization, composites and manufacturing" },
+  { name: "Mechanical", covers: "Structures, CAD and fabrication" },
+  { name: "Electrical", covers: "Power, battery and high voltage" },
+  { name: "Computer", covers: "Embedded, firmware and software" },
 ];
 
 // The three parts of the boat and the approach to each. Names stay off this page except the contact in the footer.
@@ -22,8 +29,8 @@ const COMPONENTS = [
     title: "Hull",
     strategy: "Plane well, carry the load, stay light.",
     points: [
-      "4–6 ft rigid composite hybrid planing hull",
-      "Shape tuned by the optimization model",
+      "Hybrid planing composite hull",
+      "Shape tuned by optimization",
       "Resistance checked in CFD first",
     ],
   },
@@ -31,18 +38,18 @@ const COMPONENTS = [
     title: "Electric",
     strategy: "Spend every watt-hour on speed.",
     points: [
-      "Battery storage built with high-voltage safety practice",
-      "Motor pods and propellers sized by the model",
-      "Differential thrust steers, rudder adds stability",
+      "High-voltage battery storage",
+      "Motor pods sized by the model",
+      "Differential thrust and rudder",
     ],
   },
   {
     title: "Autonomous",
     strategy: "Find the way and steer, with no one at the helm.",
     points: [
-      "GPS, IMU and LIDAR sense position and obstacles",
-      "Firmware runs the motors and protects the battery",
-      "Controls software plans the route and steers",
+      "GPS, IMU and LIDAR sensing",
+      "Firmware protects the battery",
+      "Software plans the route",
     ],
   },
 ];
@@ -71,18 +78,18 @@ export default function Page() {
             <p className="text-3xl font-semibold leading-tight tracking-tight">
               A student team building an autonomous boat from the ground up.
             </p>
-            <p className="mt-3 text-[15px] leading-relaxed text-zinc-600">
+            <p className="mt-2 text-sm leading-relaxed text-zinc-600">
               One composite planing hull, two motor pods steering by differential thrust, and a rudder for stability at speed. Designed as one system and built by students at UW–Madison.
             </p>
           </div>
           <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
-            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[2in] w-full object-contain" />
+            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.7in] w-full object-contain" />
           </div>
         </section>
 
         <section className="mt-5 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">What makes us different</h2>
-          <div className="mt-3 grid grid-cols-3 gap-6">
+          <div className="mt-3 grid grid-cols-2 gap-6">
             {DIFFERENT.map((d) => (
               <div key={d.title} className="border-l-4 pl-4" style={{ borderColor: CRIMSON }}>
                 <h3 className="text-[15px] font-semibold leading-tight">{d.title}</h3>
@@ -93,12 +100,26 @@ export default function Page() {
         </section>
 
         <section className="mt-5 px-10">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Engineers from across UW–Madison</h2>
+          <p className="mt-1.5 text-xs leading-relaxed text-zinc-700">
+            UW–Madison trains engineers in every discipline. We pulled from each segment of the boat.
+          </p>
+          <div className="mt-2.5 grid grid-cols-4 gap-3">
+            {DISCIPLINES.map((d) => (
+              <div key={d.name} className="rounded-lg bg-zinc-100 px-3 py-2.5">
+                <div className="text-sm font-semibold leading-tight" style={{ color: CRIMSON }}>{d.name}</div>
+                <div className="mt-0.5 text-xs leading-snug text-zinc-700">{d.covers}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-5 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Our approach</h2>
           <div className="mt-3 grid grid-cols-3 gap-3">
-            {COMPONENTS.map((c, i) => (
+            {COMPONENTS.map((c) => (
               <div key={c.title} className="rounded-xl border border-zinc-200 p-4">
-                <div className="font-mono text-xs tabular-nums" style={{ color: CRIMSON }}>0{i + 1}</div>
-                <h3 className="mt-1 text-2xl font-semibold leading-none tracking-tight">{c.title}</h3>
+                <h3 className="text-2xl font-semibold leading-none tracking-tight">{c.title}</h3>
                 <p className="mt-3 text-[15px] font-medium leading-snug">{c.strategy}</p>
                 <ul className="mt-3 space-y-2 border-t border-zinc-200 pt-3">
                   {c.points.map((pt) => (
@@ -113,7 +134,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-4 px-10">
+        <section className="mt-4 px-10 pb-3">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Timeline</h2>
           <ol className="mt-3 grid grid-cols-6 gap-2">
             {milestones.map((m) => (
