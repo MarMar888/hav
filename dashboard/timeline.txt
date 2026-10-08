@@ -1,12 +1,12 @@
 Oct 25: Hull design frozen
-Nov 1: Preliminary design review. Full CAD and circuit design, and a rough proof of concept: cardboard with boxes for the components.
-Nov 10: Critical and long-lead parts ordered
+Nov 1: Preliminary design review. Full, complete CAD and circuit design, plus a rough proof of concept: even a rough boat in cardboard with boxes for the components. It is there to visually see the dimensions and catch issues.
+Nov 10: Critical and long-lead parts ordered. The critical components and the long-lead-time components.
 Nov 20: Mechanical and electrical design frozen. With the full BOM and the order.
 Nov 20–Dec 20: Build the hull and composite parts. Plus any custom-milled parts.
-Jan 8: First float and tow test. With deadweight for the real weight, towed behind a motorized boat.
-Jan 8–30: Manufacture and assemble everything. With dry fits, electrical assembly out of the boat first, and debugging.
-Jan 8–30: Build likely spare parts, in parallel
-Jan 31: First nautical mile. The first time everything is powered on in the hull, with the first motor and propeller spin in the air and the first propulsion and navigation test commanded by the autonomous pipeline.
-Feb 1–14: Slow drives on the water. Manual first, then adding autonomy.
+Jan 8: First float and tow test. The first time the hull floats, with deadweight to represent the real weight, plus a tow test behind a motorized boat to validate the hull design and quality.
+Jan 8–30: Manufacture and assemble everything. Manufacturing and assembly of all mechanical and electrical components, including dry fits, the initial electrical assembly out of the boat, and debugging.
+Jan 8–30: Build likely spare parts, in parallel. Spare parts that are likely to be used, built in parallel.
+Jan 31: First nautical mile. Full assembly, and the first time every component of the boat is turned on in the hull: pinging all the microcontrollers, sensors and actuators. The first motor and propeller turn with the boat lifted in the air, and the first test of propulsion and navigation controlled through the autonomous pipeline, meaning the autonomous stack sending the commands.
+Feb 1–14: Slow drives on the water. First fully manual, with remote commanding, then adding autonomy over time.
 Feb 15: Start increasing speed
-Until April: Testing and tuning
+Until April: Testing and tuning. As much testing as possible. Expect plenty of issues, in both hardware and software.

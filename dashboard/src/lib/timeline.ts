@@ -1,6 +1,7 @@
 // Build milestones for the public page, the handout and the PowerPoint, in order. `when` is the date (or range) shown;
-// `date` (ISO, YYYY-MM-DD) is the start; `detail` is the full description. scripts/handout-pptx.py reads this file,
-// so keep each entry's fields as plain `key: "string"` pairs.
+// `date` (ISO, YYYY-MM-DD) is the start; `detail` is the full description (site and timeline.txt only). The handout and
+// scripts/handout-pptx.py use the date and title, and the script reads this file, so keep each entry's fields as plain
+// `key: "string"` pairs.
 
 export const TIMELINE: readonly { when: string; date: string; label: string; detail?: string }[] = [
   { when: "Oct 25", date: "2026-10-25", label: "Hull design frozen" },
@@ -8,9 +9,15 @@ export const TIMELINE: readonly { when: string; date: string; label: string; det
     when: "Nov 1",
     date: "2026-11-01",
     label: "Preliminary design review",
-    detail: "Full CAD and circuit design, and a rough proof of concept: cardboard with boxes for the components.",
+    detail:
+      "Full, complete CAD and circuit design, plus a rough proof of concept: even a rough boat in cardboard with boxes for the components. It is there to visually see the dimensions and catch issues.",
   },
-  { when: "Nov 10", date: "2026-11-10", label: "Critical and long-lead parts ordered" },
+  {
+    when: "Nov 10",
+    date: "2026-11-10",
+    label: "Critical and long-lead parts ordered",
+    detail: "The critical components and the long-lead-time components.",
+  },
   {
     when: "Nov 20",
     date: "2026-11-20",
@@ -27,28 +34,40 @@ export const TIMELINE: readonly { when: string; date: string; label: string; det
     when: "Jan 8",
     date: "2027-01-08",
     label: "First float and tow test",
-    detail: "With deadweight for the real weight, towed behind a motorized boat.",
+    detail:
+      "The first time the hull floats, with deadweight to represent the real weight, plus a tow test behind a motorized boat to validate the hull design and quality.",
   },
   {
     when: "Jan 8–30",
     date: "2027-01-08",
     label: "Manufacture and assemble everything",
-    detail: "With dry fits, electrical assembly out of the boat first, and debugging.",
+    detail:
+      "Manufacturing and assembly of all mechanical and electrical components, including dry fits, the initial electrical assembly out of the boat, and debugging.",
   },
-  { when: "Jan 8–30", date: "2027-01-08", label: "Build likely spare parts, in parallel" },
+  {
+    when: "Jan 8–30",
+    date: "2027-01-08",
+    label: "Build likely spare parts, in parallel",
+    detail: "Spare parts that are likely to be used, built in parallel.",
+  },
   {
     when: "Jan 31",
     date: "2027-01-31",
     label: "First nautical mile",
     detail:
-      "The first time everything is powered on in the hull, with the first motor and propeller spin in the air and the first propulsion and navigation test commanded by the autonomous pipeline.",
+      "Full assembly, and the first time every component of the boat is turned on in the hull: pinging all the microcontrollers, sensors and actuators. The first motor and propeller turn with the boat lifted in the air, and the first test of propulsion and navigation controlled through the autonomous pipeline, meaning the autonomous stack sending the commands.",
   },
   {
     when: "Feb 1–14",
     date: "2027-02-01",
     label: "Slow drives on the water",
-    detail: "Manual first, then adding autonomy.",
+    detail: "First fully manual, with remote commanding, then adding autonomy over time.",
   },
   { when: "Feb 15", date: "2027-02-15", label: "Start increasing speed" },
-  { when: "Until April", date: "2027-02-15", label: "Testing and tuning" },
+  {
+    when: "Until April",
+    date: "2027-02-15",
+    label: "Testing and tuning",
+    detail: "As much testing as possible. Expect plenty of issues, in both hardware and software.",
+  },
 ];
