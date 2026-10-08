@@ -7,7 +7,7 @@ after the page changes:
   python3 scripts/handout-pptx.py <hull.png>
 
 hull.png is public/haav-hull.webp converted to PNG.
-The logo comes from public/uw-logo-horizontal.png. Needs `pip install python-pptx`.
+The logo comes from public/uw-logo-horizontal.png. Needs `pip install python-pptx pillow`.
 """
 
 import re
@@ -26,9 +26,7 @@ LOGO = ROOT / "public" / "uw-logo-horizontal.png"
 OUT = ROOT / "public" / "haav-handout.pptx"
 
 FONT = "Arial"
-CRIMSON, INK, GRAY, MUTED, PANEL, LINE, WHITE, DARK = (
-    RGBColor.from_string(h) for h in ("C5050C", "18181B", "3F3F46", "71717A", "F4F4F5", "E4E4E7", "FFFFFF", "18181B")
-)
+PAPER, INK, SOFT, ACCENT = (RGBColor.from_string(h) for h in ("F8F3EA", "2B2620", "5A5249", "C5050C"))
 
 prs = Presentation()
 prs.slide_width, prs.slide_height = Inches(8.5), Inches(11)
@@ -81,72 +79,6 @@ def text(x, y, w, h, runs, size=10, color=INK, bold=False, align=PP_ALIGN.LEFT, 
     return tb
 
 
-def label(x, y, w, s):
-    text(x, y, w, 0.2, s.upper(), size=8, color=MUTED, bold=True, name=f"Label: {s}")
-
-
-PAD = 0.42
-W = 8.5 - 2 * PAD
-
-# header band
-box(0, 0, 8.5, 1.0, fill=CRIMSON, name="Header band")
-text(PAD, 0.16, 4, 0.55, "Haav", size=36, color=WHITE, bold=True, name="Title")
-text(PAD, 0.72, 5, 0.2, "HIGHLY AMPHIBIOUS / AUTONOMOUS VEHICLE", size=8, color=WHITE, name="Subtitle")
-box(6.04, 0.12, 2.04, 0.76, fill=WHITE, radius=0.08, name="Logo plate")
-slide.shapes.add_picture(str(LOGO), Inches(6.12), Inches(0.17), height=Inches(0.66)).name = "UW-Madison logo"
-
-# hero
-text(PAD, 1.22, 4.4, 1.3, "A student team building an autonomous boat from the ground up.", size=21, bold=True, spacing=1.05, name="Headline")
-box(5.1, 1.17, 2.98, 1.46, fill=WHITE, line=LINE, radius=0.1, name="Hull frame")
-slide.shapes.add_picture(str(HULL), Inches(5.3), Inches(1.2), height=Inches(1.4)).name = "Hull render"
-
-# how we model it
-label(PAD, 2.9, 4, "How we model it")
-box(PAD, 3.12, W, 1.33, fill=PANEL, radius=0.1, name="Model panel")
-text(0.6, 3.27, 7.3, 0.3, "First-principles mixed-integer linear programming", size=13, bold=True, name="Model title")
-text(
-    0.6, 3.62, 7.3, 0.75,
-    [[("We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds the fastest one left. Hull resistance comes from ", {}),
-      ("Savitsky's planing-hull model", {"bold": True}), (". As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.", {})]],
-    size=10, color=GRAY, spacing=1.2, name="Model text",
-)
-
-# engineers
-label(PAD, 4.8, 5, "Engineers from across UW–Madison")
-text(PAD, 5.0, W, 0.2, "Each segment of the boat is covered, and members have worked at Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool.", size=9, color=GRAY, name="Engineers text")
-tiles = [
-    ("Industrial", "Optimization, composites and manufacturing"),
-    ("Mechanical", "Structures, CAD and fabrication"),
-    ("Electrical", "Power, battery and high voltage"),
-    ("Computer", "Embedded, firmware and software"),
-]
-tw, gap = 1.81, 0.13
-for i, (name, covers) in enumerate(tiles):
-    x = PAD + i * (tw + gap)
-    box(x, 5.28, tw, 0.78, fill=PANEL, radius=0.07, name=f"Tile: {name}")
-    text(x + 0.11, 5.35, tw - 0.2, 0.2, name, size=11, color=CRIMSON, bold=True, name=f"Tile title: {name}")
-    text(x + 0.11, 5.58, tw - 0.2, 0.45, covers, size=9, color=GRAY, spacing=1.1, name=f"Tile text: {name}")
-
-# approach
-label(PAD, 6.4, 4, "Our approach")
-cards = [
-    ("Hull", "Plane well and stay light.", ["Hybrid planing composite hull", "Shape tuned by optimization", "Resistance checked in CFD first"]),
-    ("Electric", "Every watt-hour to speed.", ["High-voltage battery storage", "Propulsion sized by the model", "Propulsion and cooling co-designed"]),
-    ("Autonomous", "Manage drift and controls.", ["GPS, IMU and LIDAR sensing", "Firmware protects the battery", "Software plans the route"]),
-]
-cw, cgap = 2.45, 0.13
-for i, (title, strategy, points) in enumerate(cards):
-    x = PAD + i * (cw + cgap)
-    box(x, 6.63, cw, 1.75, fill=WHITE, line=LINE, radius=0.1, name=f"Card: {title}")
-    text(x + 0.15, 6.75, cw - 0.3, 0.3, title, size=15, bold=True, name=f"Card title: {title}")
-    text(x + 0.15, 7.12, cw - 0.3, 0.25, strategy, size=10.5, bold=True, name=f"Card strategy: {title}")
-    box(x + 0.15, 7.46, cw - 0.3, 0.01, fill=LINE, name=f"Card rule: {title}")
-    text(x + 0.15, 7.58, cw - 0.3, 0.9, [[("●  ", {"color": CRIMSON, "size": 6}), (pt, {})] for pt in points], size=9, color=GRAY, spacing=1.55, name=f"Card points: {title}")
-
-# timeline: dates and titles only, in two columns
-label(PAD, 8.52, 4, "Timeline")
-
-
 def read_timeline():
     """The date and title of each milestone in src/lib/timeline.ts (the handout leaves out the long descriptions)."""
     src = (ROOT / "src" / "lib" / "timeline.ts").read_text(encoding="utf-8")
@@ -159,31 +91,105 @@ def read_timeline():
     return steps
 
 
+def hull_on_paper():
+    """The hull render has a white background; multiply it onto the paper colour so it sits on the page unframed."""
+    from PIL import Image
+
+    img = Image.open(HULL).convert("RGB")
+    paper = (0xF8, 0xF3, 0xEA)
+    out = Image.eval(img, lambda v: v)  # copy
+    px = out.load()
+    for y in range(out.height):
+        for x in range(out.width):
+            r, g, b = px[x, y]
+            px[x, y] = (r * paper[0] // 255, g * paper[1] // 255, b * paper[2] // 255)
+    path = Path("/tmp/haav-hull-paper.png")
+    out.save(path)
+    return path
+
+
+def heading(x, y, s, size=14):
+    text(x, y, 7.2, 0.3, s, size=size, bold=True, name=f"Heading: {s}")
+
+
+LEFT = 0.6
+CONTENT_W = 8.5 - 2 * LEFT
+
+# paper
+box(0, 0, 8.5, 11, fill=PAPER, name="Paper")
+
+# header
+text(LEFT, 0.36, 3, 0.7, "Haav", size=39, bold=True, name="Title")
+text(LEFT, 1.06, 4, 0.22, "Highly Amphibious / Autonomous Vehicle", size=9.75, color=SOFT, name="Subtitle")
+slide.shapes.add_picture(str(LOGO), Inches(8.5 - LEFT - 1.814), Inches(0.52), height=Inches(0.62)).name = "UW-Madison logo"
+
+# hero
+text(LEFT, 1.75, 4.2, 1.4, "A student team building an autonomous boat from the ground up.", size=25.5, bold=True, spacing=0.98, name="Headline")
+hull = slide.shapes.add_picture(str(hull_on_paper()), Inches(8.5 - LEFT - 2.6), Inches(1.5), width=Inches(2.6))
+hull.rotation = -3
+hull.name = "Hull render"
+
+# how we model it
+heading(LEFT, 3.72, "First-principles mixed-integer linear programming")
+text(
+    LEFT, 4.04, 6.6, 0.8,
+    [[("We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds the fastest one left. Hull resistance comes from ", {}),
+      ("Savitsky's planing-hull model", {"bold": True, "color": INK}),
+      (". As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.", {})]],
+    size=9.5, color=SOFT, spacing=1.25, name="Model text",
+)
+
+# engineers
+heading(LEFT, 4.82, "Engineers from across UW–Madison")
+text(LEFT, 5.12, 5.2, 0.4, "Each segment of the boat is covered, and members have worked at Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool.", size=9.5, color=SOFT, spacing=1.25, name="Engineers text")
+disciplines = [
+    ("Industrial", "optimization, composites and manufacturing"),
+    ("Mechanical", "structures, CAD and fabrication"),
+    ("Electrical", "power, battery and high voltage"),
+    ("Computer", "embedded, firmware and software"),
+]
+step = (CONTENT_W + 0.25) / 4
+for i, (name, covers) in enumerate(disciplines):
+    x = LEFT + i * step
+    text(x, 5.65, step - 0.2, 0.2, name, size=10, bold=True, name=f"Discipline: {name}")
+    text(x, 5.85, step - 0.3, 0.45, covers, size=9, color=SOFT, spacing=1.15, name=f"Discipline text: {name}")
+
+# approach
+heading(LEFT, 6.4, "Our approach")
+cards = [
+    ("Hull", "Plane well and stay light.", ["Hybrid planing composite hull", "Shape tuned by optimization", "Resistance checked in CFD first"]),
+    ("Electric", "Every watt-hour to speed.", ["High-voltage battery storage", "Propulsion sized by the model", "Propulsion and cooling co-designed"]),
+    ("Autonomous", "Manage drift and controls.", ["GPS, IMU and LIDAR sensing", "Firmware protects the battery", "Software plans the route"]),
+]
+cstep = (CONTENT_W + 0.333) / 3
+for i, (title, strategy, points) in enumerate(cards):
+    x = LEFT + i * cstep
+    text(x, 6.76, cstep - 0.3, 0.25, title, size=12, bold=True, name=f"Part: {title}")
+    text(x, 6.98, cstep - 0.3, 0.22, strategy, size=9.5, bold=True, name=f"Part tagline: {title}")
+    text(x, 7.22, cstep - 0.3, 0.6, points, size=9, color=SOFT, spacing=1.2, name=f"Part points: {title}")
+
+# timeline: dates and titles only, two balanced columns, read from src/lib/timeline.ts
+heading(LEFT, 7.82, "Timeline")
 steps = read_timeline()
-colw = (W - 0.3) / 2
-label_w = colw - 1.2
-chars_per_line = int(label_w / 0.057)  # 8 pt Arial, a little conservative
-ys = [8.76, 8.76]
+colw = (CONTENT_W - 0.333) / 2
+label_w = colw - 1.27
+chars_per_line = int(label_w / 0.052)  # 8.6 pt Arial
+ys = [8.19, 8.19]
 for i, (when, what) in enumerate(steps):
     col = 0 if i < 6 else 1
-    x = PAD + col * (colw + 0.3)
-    y = ys[col]
+    x = LEFT + col * (colw + 0.333)
     lines = -(-len(what) // chars_per_line)
-    h = 0.2 + (lines - 1) * 0.13
-    box(x, y, colw, 0.01, fill=LINE, name=f"Timeline rule: {what}")
-    text(x, y + 0.045, 1.15, 0.16, when, size=8, color=CRIMSON, bold=True, name=f"Timeline date: {what}")
-    text(x + 1.2, y + 0.045, label_w, h - 0.04, what, size=8, color=GRAY, name=f"Timeline label: {what}")
+    h = 0.2 + (lines - 1) * 0.14
+    text(x, ys[col], 1.15, 0.18, when, size=8.6, color=ACCENT, bold=True, name=f"Timeline date: {what}")
+    text(x + 1.27, ys[col], label_w, h, what, size=8.6, color=SOFT, name=f"Timeline label: {what}")
     ys[col] += h
 
 # footer
-box(0, 10.17, 8.5, 0.83, fill=DARK, name="Footer band")
-text(PAD, 10.33, 3.0, 0.25, "Sponsor the build", size=15, color=WHITE, bold=True, name="Footer title")
-text(PAD, 10.6, 2.75, 0.4, "We are looking for funds, parts, advisors and people to build our BOM as we design.", size=8.5, color=RGBColor.from_string("B5B5BB"), name="Footer tagline")
-text(3.25, 10.3, 2.0, 0.2, "LEARN MORE", size=8, color=RGBColor.from_string("9A9AA2"), align=PP_ALIGN.CENTER, name="Footer link label")
-text(3.25, 10.5, 2.0, 0.3, "bit.ly/haav", size=14, color=WHITE, bold=True, align=PP_ALIGN.CENTER, name="Footer link")
-text(5.3, 10.27, 2.78, 0.2, "CONTACT", size=8, color=RGBColor.from_string("9A9AA2"), align=PP_ALIGN.RIGHT, name="Footer contact label")
-text(5.3, 10.45, 2.78, 0.22, "Marley Barrett, Project lead", size=10.5, color=WHITE, bold=True, align=PP_ALIGN.RIGHT, name="Footer contact name")
-text(5.3, 10.68, 2.78, 0.2, "mhbarrett@wisc.edu", size=9.5, color=RGBColor.from_string("D4D4D8"), align=PP_ALIGN.RIGHT, name="Footer contact email")
+heading(LEFT, 9.74, "Want to help build it?", size=16.5)
+text(LEFT, 10.1, 3.7, 0.45, "We are looking for funds, parts, advisors and people to build our BOM as we design.", size=9.5, color=SOFT, spacing=1.2, name="Footer text")
+text(8.5 - LEFT - 3.2, 9.72, 3.2, 0.35, "bit.ly/haav", size=16.5, bold=True, color=ACCENT, align=PP_ALIGN.RIGHT, name="Footer link")
+text(8.5 - LEFT - 3.2, 10.1, 3.2, 0.2, "Marley Barrett, Project lead", size=9.5, bold=True, align=PP_ALIGN.RIGHT, name="Footer contact name")
+text(8.5 - LEFT - 3.2, 10.3, 3.2, 0.2, "mhbarrett@wisc.edu", size=9.5, color=SOFT, align=PP_ALIGN.RIGHT, name="Footer contact email")
 
 prs.save(OUT)
 print(f"wrote {OUT}")
