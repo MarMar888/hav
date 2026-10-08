@@ -3,6 +3,10 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.6.2 — 2026-10-08
+
+Added the UW-Madison logo (`public/uw-madison-logo.png`) under the intro sentence on the home page.
+
 ## 0.6.1 — 2026-10-07
 
 Merged the embedded, firmware and low voltage groups into one on the home page and the `/join` form (Software stays
