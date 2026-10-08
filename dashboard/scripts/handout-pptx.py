@@ -96,24 +96,24 @@ box(6.04, 0.12, 2.04, 0.76, fill=WHITE, radius=0.08, name="Logo plate")
 slide.shapes.add_picture(str(LOGO), Inches(6.12), Inches(0.17), height=Inches(0.66)).name = "UW-Madison logo"
 
 # hero
-text(PAD, 1.1, 4.4, 1.0, "A student team building an autonomous boat from the ground up.", size=20, bold=True, spacing=1.05, name="Headline")
-box(5.1, 1.12, 2.98, 1.1, fill=WHITE, line=LINE, radius=0.1, name="Hull frame")
-slide.shapes.add_picture(str(HULL), Inches(5.55), Inches(1.15), height=Inches(1.04)).name = "Hull render"
+text(PAD, 1.22, 4.4, 1.3, "A student team building an autonomous boat from the ground up.", size=21, bold=True, spacing=1.05, name="Headline")
+box(5.1, 1.17, 2.98, 1.46, fill=WHITE, line=LINE, radius=0.1, name="Hull frame")
+slide.shapes.add_picture(str(HULL), Inches(5.3), Inches(1.2), height=Inches(1.4)).name = "Hull render"
 
 # how we model it
-label(PAD, 2.36, 4, "How we model it")
-box(PAD, 2.56, W, 1.08, fill=PANEL, radius=0.1, name="Model panel")
-text(0.6, 2.64, 7.3, 0.3, "First-principles mixed-integer linear programming", size=12.5, bold=True, name="Model title")
+label(PAD, 2.9, 4, "How we model it")
+box(PAD, 3.12, W, 1.33, fill=PANEL, radius=0.1, name="Model panel")
+text(0.6, 3.27, 7.3, 0.3, "First-principles mixed-integer linear programming", size=13, bold=True, name="Model title")
 text(
-    0.6, 2.94, 7.3, 0.7,
+    0.6, 3.62, 7.3, 0.75,
     [[("We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds the fastest one left. Hull resistance comes from ", {}),
       ("Savitsky's planing-hull model", {"bold": True}), (". As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.", {})]],
-    size=9, color=GRAY, spacing=1.15, name="Model text",
+    size=10, color=GRAY, spacing=1.2, name="Model text",
 )
 
 # engineers
-label(PAD, 3.8, 4.5, "Engineers from across UW–Madison")
-text(3.9, 3.8, W - 3.48, 0.18, "Experience at Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool", size=7.5, color=GRAY, align=PP_ALIGN.RIGHT, name="Engineers text")
+label(PAD, 4.8, 5, "Engineers from across UW–Madison")
+text(PAD, 5.0, W, 0.2, "Each segment of the boat is covered, and members have worked at Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool.", size=9, color=GRAY, name="Engineers text")
 tiles = [
     ("Industrial", "Optimization, composites and manufacturing"),
     ("Mechanical", "Structures, CAD and fabrication"),
@@ -123,12 +123,12 @@ tiles = [
 tw, gap = 1.81, 0.13
 for i, (name, covers) in enumerate(tiles):
     x = PAD + i * (tw + gap)
-    box(x, 4.02, tw, 0.7, fill=PANEL, radius=0.07, name=f"Tile: {name}")
-    text(x + 0.11, 4.08, tw - 0.2, 0.2, name, size=10.5, color=CRIMSON, bold=True, name=f"Tile title: {name}")
-    text(x + 0.11, 4.3, tw - 0.2, 0.4, covers, size=8.5, color=GRAY, spacing=1.1, name=f"Tile text: {name}")
+    box(x, 5.28, tw, 0.78, fill=PANEL, radius=0.07, name=f"Tile: {name}")
+    text(x + 0.11, 5.35, tw - 0.2, 0.2, name, size=11, color=CRIMSON, bold=True, name=f"Tile title: {name}")
+    text(x + 0.11, 5.58, tw - 0.2, 0.45, covers, size=9, color=GRAY, spacing=1.1, name=f"Tile text: {name}")
 
 # approach
-label(PAD, 4.9, 4, "Our approach")
+label(PAD, 6.4, 4, "Our approach")
 cards = [
     ("Hull", "Plane well and stay light.", ["Hybrid planing composite hull", "Shape tuned by optimization", "Resistance checked in CFD first"]),
     ("Electric", "Every watt-hour to speed.", ["High-voltage battery storage", "Propulsion sized by the model", "Propulsion and cooling co-designed"]),
@@ -137,53 +137,37 @@ cards = [
 cw, cgap = 2.45, 0.13
 for i, (title, strategy, points) in enumerate(cards):
     x = PAD + i * (cw + cgap)
-    box(x, 5.12, cw, 1.52, fill=WHITE, line=LINE, radius=0.1, name=f"Card: {title}")
-    text(x + 0.15, 5.18, cw - 0.3, 0.3, title, size=14, bold=True, name=f"Card title: {title}")
-    text(x + 0.15, 5.5, cw - 0.3, 0.25, strategy, size=10, bold=True, name=f"Card strategy: {title}")
-    box(x + 0.15, 5.78, cw - 0.3, 0.01, fill=LINE, name=f"Card rule: {title}")
-    text(x + 0.15, 5.86, cw - 0.3, 0.75, [[("●  ", {"color": CRIMSON, "size": 6}), (pt, {})] for pt in points], size=8.5, color=GRAY, spacing=1.5, name=f"Card points: {title}")
+    box(x, 6.63, cw, 1.75, fill=WHITE, line=LINE, radius=0.1, name=f"Card: {title}")
+    text(x + 0.15, 6.75, cw - 0.3, 0.3, title, size=15, bold=True, name=f"Card title: {title}")
+    text(x + 0.15, 7.12, cw - 0.3, 0.25, strategy, size=10.5, bold=True, name=f"Card strategy: {title}")
+    box(x + 0.15, 7.46, cw - 0.3, 0.01, fill=LINE, name=f"Card rule: {title}")
+    text(x + 0.15, 7.58, cw - 0.3, 0.9, [[("●  ", {"color": CRIMSON, "size": 6}), (pt, {})] for pt in points], size=9, color=GRAY, spacing=1.55, name=f"Card points: {title}")
+
+# timeline: dates and titles only, in two columns
+label(PAD, 8.52, 4, "Timeline")
 
 
-# timeline: read from src/lib/timeline.ts so the handout and the site never disagree
 def read_timeline():
+    """The date and title of each milestone in src/lib/timeline.ts (the handout leaves out the long descriptions)."""
     src = (ROOT / "src" / "lib" / "timeline.ts").read_text(encoding="utf-8")
     body = src[src.index("= [", src.index("export const TIMELINE")):]
-    entries = []
+    steps = []
     for block in re.findall(r"\{(.*?)\}", body, re.S):
         fields = dict(re.findall(r'(\w+):\s*"((?:[^"\\]|\\.)*)"', block))
         if "when" in fields and "label" in fields:
-            entries.append(fields)
-    return entries
+            steps.append((fields["when"], fields["label"]))
+    return steps
 
 
-TL = read_timeline()
+steps = read_timeline()
 colw = (W - 0.3) / 2
-text_w = colw - 1.0
-chars_per_line = int(text_w / 0.052 * 0.92)  # 7.5 pt Arial, a little conservative
-
-
-def entry_height(e):
-    lines = -(-len(e.get("detail", "")) // chars_per_line) if e.get("detail") else 0
-    return 0.16 + lines * 0.122 + 0.09
-
-
-total = sum(entry_height(e) for e in TL)
-label(PAD, 6.84, 4, "Timeline")
-col, y, used = 0, 7.06, 0.0
-for e in TL:
-    h = entry_height(e)
-    if col == 0 and used + h / 2 > total / 2:
-        col, y = 1, 7.06
+for i, (when, what) in enumerate(steps):
+    col, row = divmod(i, 6)
     x = PAD + col * (colw + 0.3)
-    box(x, y, colw, 0.01, fill=LINE, name=f"Timeline rule: {e['label']}")
-    text(x, y + 0.05, 0.95, 0.16, e["when"], size=8, color=CRIMSON, bold=True, name=f"Timeline date: {e['label']}")
-    paras = [[(e["label"], {"bold": True, "color": INK, "size": 8.5})]]
-    if e.get("detail"):
-        paras.append([(e["detail"], {"size": 7.5})])
-    text(x + 1.0, y + 0.05, text_w, h - 0.05, paras, size=7.5, color=GRAY, spacing=1.0, name=f"Timeline: {e['label']}")
-    y += h
-    if col == 0:
-        used += h
+    y = 8.76 + row * 0.22
+    box(x, y, colw, 0.01, fill=LINE, name=f"Timeline rule: {what}")
+    text(x, y + 0.045, 1.15, 0.16, when, size=8, color=CRIMSON, bold=True, name=f"Timeline date: {what}")
+    text(x + 1.2, y + 0.045, colw - 1.2, 0.16, what, size=8, color=GRAY, name=f"Timeline label: {what}")
 
 # footer
 box(0, 10.17, 8.5, 0.83, fill=DARK, name="Footer band")

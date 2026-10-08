@@ -73,15 +73,15 @@ export default function Page() {
             </p>
           </div>
           <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
-            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.05in] w-full object-contain" />
+            <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.45in] w-full object-contain" />
           </div>
         </section>
 
-        <section className="mt-4 px-10">
+        <section className="mt-5 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">How we model it</h2>
-          <div className="mt-2 rounded-xl bg-zinc-100 px-5 py-3">
+          <div className="mt-2.5 rounded-xl bg-zinc-100 px-5 py-4">
             <h3 className="text-lg font-semibold leading-tight">First-principles mixed-integer linear programming</h3>
-            <p className="mt-1.5 text-[11px] leading-relaxed text-zinc-700">
+            <p className="mt-2 text-xs leading-relaxed text-zinc-700">
               We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds
               the fastest one left. Hull resistance comes from <span className="font-semibold">Savitsky&apos;s planing-hull model</span>. As we
               build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.
@@ -89,14 +89,14 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-4 px-10">
-          <div className="flex items-baseline justify-between gap-4">
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Engineers from across UW–Madison</h2>
-            <p className="text-[10px] text-zinc-600">Experience at {COMPANIES}</p>
-          </div>
-          <div className="mt-2 grid grid-cols-4 gap-3">
+        <section className="mt-5 px-10">
+          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Engineers from across UW–Madison</h2>
+          <p className="mt-1.5 text-xs leading-relaxed text-zinc-700">
+            Each segment of the boat is covered, and members have worked at {COMPANIES}.
+          </p>
+          <div className="mt-2.5 grid grid-cols-4 gap-3">
             {DISCIPLINES.map((d) => (
-              <div key={d.name} className="rounded-lg bg-zinc-100 px-3 py-2">
+              <div key={d.name} className="rounded-lg bg-zinc-100 px-3 py-2.5">
                 <div className="text-sm font-semibold leading-tight" style={{ color: CRIMSON }}>{d.name}</div>
                 <div className="mt-0.5 text-xs leading-snug text-zinc-700">{d.covers}</div>
               </div>
@@ -104,14 +104,14 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-4 px-10">
+        <section className="mt-5 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Our approach</h2>
           <div className="mt-3 grid grid-cols-3 gap-3">
             {COMPONENTS.map((c) => (
               <div key={c.title} className="rounded-xl border border-zinc-200 p-3">
                 <h3 className="text-xl font-semibold leading-none tracking-tight">{c.title}</h3>
-                <p className="mt-1.5 text-sm font-medium leading-snug">{c.strategy}</p>
-                <ul className="mt-1.5 space-y-1 border-t border-zinc-200 pt-1.5">
+                <p className="mt-2 text-sm font-medium leading-snug">{c.strategy}</p>
+                <ul className="mt-2 space-y-1.5 border-t border-zinc-200 pt-2">
                   {c.points.map((pt) => (
                     <li key={pt} className="flex gap-2 text-xs leading-relaxed text-zinc-700">
                       <span className="mt-1.5 size-1.5 shrink-0 rounded-full" style={{ backgroundColor: CRIMSON }} />
@@ -124,18 +124,13 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-4 px-10 pb-3">
+        <section className="mt-5 px-10 pb-3">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Timeline</h2>
-          <ol className="mt-2 columns-2 gap-x-7">
+          <ol className="mt-2.5 grid grid-flow-col grid-cols-2 grid-rows-[repeat(6,auto)] gap-x-8">
             {TIMELINE.map((m) => (
-              <li key={m.label} className="break-inside-avoid border-t border-zinc-200 py-[4px]">
-                <div className="flex gap-2.5">
-                  <span className="w-[0.95in] shrink-0 text-[10px] font-semibold" style={{ color: CRIMSON }}>{m.when}</span>
-                  <div>
-                    <div className="text-[10.5px] font-semibold leading-tight text-zinc-900">{m.label}</div>
-                    {m.detail && <div className="mt-0.5 text-[9px] leading-snug text-zinc-600">{m.detail}</div>}
-                  </div>
-                </div>
+              <li key={m.label} className="flex items-baseline gap-3 border-t border-zinc-200 py-[3px] text-[11px]">
+                <span className="w-[1.2in] shrink-0 font-semibold" style={{ color: CRIMSON }}>{m.when}</span>
+                <span className="leading-tight text-zinc-700">{m.label}</span>
               </li>
             ))}
           </ol>
