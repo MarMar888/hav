@@ -161,13 +161,19 @@ def read_timeline():
 
 steps = read_timeline()
 colw = (W - 0.3) / 2
+label_w = colw - 1.2
+chars_per_line = int(label_w / 0.057)  # 8 pt Arial, a little conservative
+ys = [8.76, 8.76]
 for i, (when, what) in enumerate(steps):
-    col, row = divmod(i, 6)
+    col = 0 if i < 6 else 1
     x = PAD + col * (colw + 0.3)
-    y = 8.76 + row * 0.22
+    y = ys[col]
+    lines = -(-len(what) // chars_per_line)
+    h = 0.2 + (lines - 1) * 0.13
     box(x, y, colw, 0.01, fill=LINE, name=f"Timeline rule: {what}")
     text(x, y + 0.045, 1.15, 0.16, when, size=8, color=CRIMSON, bold=True, name=f"Timeline date: {what}")
-    text(x + 1.2, y + 0.045, colw - 1.2, 0.16, what, size=8, color=GRAY, name=f"Timeline label: {what}")
+    text(x + 1.2, y + 0.045, label_w, h - 0.04, what, size=8, color=GRAY, name=f"Timeline label: {what}")
+    ys[col] += h
 
 # footer
 box(0, 10.17, 8.5, 0.83, fill=DARK, name="Footer band")
