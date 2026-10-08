@@ -6,7 +6,7 @@ are kept — this folder versions independently of `cad/`, `optimization/`, and 
 ## 0.7.0 — 2026-10-08
 
 Added a one-page, letter-size handout at `/handout` (hero, how we model the boat with first-principles mixed-integer
-optimization, the engineering disciplines we pull from across UW–Madison, our approach to the Hull, Electric and
+linear programming (an illustrative feasible-region graph, `src/app/handout/milp-plot.tsx`, and Savitsky's planing-hull model), the engineering disciplines we pull from across UW–Madison, our approach to the Hull, Electric and
 Autonomous parts, timeline, contact), with the exported PDF at `public/haav-handout.pdf`. No names on it except the
 project lead's contact in the footer. Re-export the PDF after changing the page: print `/handout` to PDF from
 Chrome with headers and footers off.

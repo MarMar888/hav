@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { TEAM } from "@/lib/team";
+import { MilpPlot } from "./milp-plot";
 import { TIMELINE } from "@/lib/timeline";
 
 // A one-page, letter-size handout. Open /handout and print (or save as PDF); `public/haav-handout.pdf`
@@ -10,8 +11,6 @@ export const metadata: Metadata = { title: "Team handout", robots: { index: fals
 
 const CRIMSON = "#c5050c";
 const KEY_MILESTONES = ["Hull design", "Electrical design", "Hull built", "First drive", "First fast drive", "Tuning and testing"];
-// How the model links the parts of the boat, in the order a change flows through it.
-const CHAIN = ["Hull, battery, drive, speed", "Mass and balance", "Resistance", "Power", "Battery energy", "Race time"];
 const COMPANIES = "Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool";
 
 // The team's engineering majors, and the part of the boat each one covers. No names on this page.
@@ -77,9 +76,6 @@ export default function Page() {
             <p className="text-[28px] font-semibold leading-tight tracking-tight">
               A student team building an autonomous boat from the ground up.
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-zinc-600">
-              A composite planing hull, two motor pods and a rudder, designed as one system at UW–Madison.
-            </p>
           </div>
           <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
             <Image src="/haav-hull.webp" alt="CAD rendering of the Haav hull" width={1202} height={1008} className="mx-auto h-auto max-h-[1.45in] w-full object-contain" />
@@ -88,30 +84,19 @@ export default function Page() {
 
         <section className="mt-5 px-10">
           <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">How we model it</h2>
-          <div className="mt-2.5 grid grid-cols-[1.35fr_1fr] gap-4 rounded-xl bg-zinc-100 p-4">
+          <div className="mt-2.5 grid grid-cols-[1fr_1.45fr] items-center gap-4 rounded-xl bg-zinc-100 p-3">
             <div>
-              <h3 className="text-lg font-semibold leading-tight">First-principles mixed-integer optimization</h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-zinc-700">
-                We are building the model from physics up, so every part of the boat is tied to every other. Change the hull,
-                the battery or the speed and the effect carries through the whole boat. Component choices are integers; sizes
-                and speed are continuous.
+              <h3 className="text-base font-semibold leading-tight">First-principles mixed-integer linear programming</h3>
+              <p className="mt-2 text-xs leading-relaxed text-zinc-700">
+                We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds
+                the fastest one left. Hull resistance comes from <span className="font-semibold">Savitsky&apos;s planing-hull model</span>.
               </p>
-              <ol className="mt-3 flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                {CHAIN.map((c, i) => (
-                  <li key={c} className="flex items-center gap-1.5">
-                    <span className="rounded-md bg-white px-2 py-1 text-[11px] font-medium leading-none">{c}</span>
-                    {i < CHAIN.length - 1 && <span style={{ color: CRIMSON }} className="text-xs">→</span>}
-                  </li>
-                ))}
-              </ol>
+              <p className="mt-2 text-[11px] leading-snug text-zinc-500">
+                Illustrative: lines are constraints, dots are integer choices, red is what the 6 kW drive adds.
+              </p>
             </div>
-            <div className="rounded-lg bg-zinc-900 p-3 font-mono text-[11px] leading-relaxed text-white">
-              <div className="text-white/60">choose the one boat that passes</div>
-              <div className="text-white/60">every margin, fastest first</div>
-              <div className="mt-2">minimize Σ Tᵢ·xᵢ</div>
-              <div>s.t. Σ xᵢ = 1</div>
-              <div>{"      "}Σ mₖᵢ·xᵢ ≥ 0 ∀k</div>
-              <div>{"      "}each xᵢ is 0 or 1</div>
+            <div className="rounded-lg bg-white p-2">
+              <MilpPlot />
             </div>
           </div>
         </section>
