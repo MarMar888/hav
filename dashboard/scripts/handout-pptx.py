@@ -102,14 +102,14 @@ slide.shapes.add_picture(str(HULL), Inches(5.3), Inches(1.2), height=Inches(1.4)
 # how we model it
 label(PAD, 2.9, 4, "How we model it")
 box(PAD, 3.12, W, 2.25, fill=PANEL, radius=0.1, name="Model panel")
-text(0.56, 3.3, 2.7, 0.5, "First-principles mixed-integer linear programming", size=12, bold=True, name="Model title")
+text(0.56, 3.3, 2.95, 0.5, "First-principles mixed-integer linear programming", size=12, bold=True, name="Model title")
 text(
-    0.56, 3.88, 2.7, 1.0,
+    0.56, 3.86, 2.95, 1.1,
     [[("We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds the fastest one left. Hull resistance comes from ", {}),
-      ("Savitsky's planing-hull model", {"bold": True}), (".", {})]],
-    size=9, color=GRAY, spacing=1.2, name="Model text",
+      ("Savitsky's planing-hull model", {"bold": True}), (". As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.", {})]],
+    size=8.5, color=GRAY, spacing=1.15, name="Model text",
 )
-text(0.56, 4.95, 2.7, 0.4, "Illustrative: lines are constraints, dots are integer choices, red is what the 6 kW drive adds.", size=8, color=MUTED, name="Model note")
+text(0.56, 5.0, 2.95, 0.3, "Illustrative: lines are constraints, dots are integer choices, red is what the 6 kW drive adds.", size=8, color=MUTED, name="Model note")
 box(3.67, 3.23, 4.28, 2.03, fill=WHITE, radius=0.08, name="Graph plate")
 slide.shapes.add_picture(str(GRAPH), Inches(3.77), Inches(3.3), width=Inches(4.08)).name = "Feasible-region graph"
 
