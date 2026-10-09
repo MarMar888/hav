@@ -7,9 +7,6 @@ import { InquiryForm } from "./inquiry-form";
 const h2 ="text-2xl font-semibold tracking-tight";
 const section = "scroll-mt-8 border-t border-zinc-200 pt-12 dark:border-zinc-800";
 const prose = "mt-4 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300";
-// Fixed to UTC so a milestone never shifts a day with the visitor's time zone.
-const day = (iso: string) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 
 
 export default function Page() {
@@ -47,7 +44,7 @@ export default function Page() {
       <section id="boat" className={section}>
         <h2 className={h2}>Basic Spec</h2>
         <p className={prose}>
-          A 4-6 foot composite hull. Autonomy using GPS, IMU and LIDAR. Two motor pods steer with differential thrust and a rudder for stability at high speeds.
+          A 4-6 foot composite hull. Autonomy using GPS, IMU and LIDAR.
         </p>
       </section>
 
@@ -72,13 +69,26 @@ export default function Page() {
 
       <section id="timeline" className={section}>
         <h2 className={h2}>Timeline</h2>
-        <ol className="mt-8 divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
-          {TIMELINE.map((m) => (
-            <li key={m.label} className="flex flex-wrap items-baseline gap-x-6 py-3">
-              <time dateTime={m.date} className="w-32 shrink-0 tabular-nums text-zinc-500">{day(m.date)}</time>
-              <span className="text-lg">{m.label}</span>
-            </li>
-          ))}
+        {/* A rail with a marker per milestone: a filled dot for a day, a hollow ring for a stretch of work. */}
+        <ol className="relative ml-32 mt-8 border-l-2 border-zinc-200 dark:border-zinc-700">
+          {TIMELINE.map((m) => {
+            const stretch = /–|^From |^Until /.test(m.when);
+            return (
+              <li key={m.label} className="relative pb-8 pl-6 last:pb-0">
+                <span
+                  aria-hidden
+                  className={`absolute -left-[8px] top-[7px] size-3.5 rounded-full border-2 border-emerald-600 ring-4 ring-white dark:ring-zinc-950 ${
+                    stretch ? "bg-white dark:bg-zinc-950" : "bg-emerald-600"
+                  }`}
+                />
+                <time dateTime={m.date} className="absolute right-full top-1 mr-5 w-28 text-right text-sm text-zinc-500">
+                  {m.when}
+                </time>
+                <div className="text-lg font-semibold leading-snug">{m.label}</div>
+                {m.detail && <p className="mt-1 leading-relaxed text-zinc-600 dark:text-zinc-400">{m.detail}</p>}
+              </li>
+            );
+          })}
         </ol>
       </section>
 
