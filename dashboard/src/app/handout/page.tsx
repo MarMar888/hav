@@ -142,7 +142,7 @@ export default function Page() {
           <ol className="mt-1.5 grid grid-flow-col grid-cols-2 grid-rows-[repeat(6,auto)] gap-x-8 gap-y-[2px]">
             {TIMELINE.map((m) => (
               <li key={m.label} className="flex items-baseline gap-3 text-[11px] leading-snug">
-                <span className="w-[1.1in] shrink-0 font-semibold tabular-nums">{m.when}</span>
+                <span className="w-[0.98in] shrink-0 font-semibold tabular-nums">{m.when}</span>
                 <span style={{ color: SOFT }}>{m.label}</span>
               </li>
             ))}
