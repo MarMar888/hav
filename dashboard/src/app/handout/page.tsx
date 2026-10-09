@@ -89,7 +89,7 @@ export default function Page() {
         <section className="mt-3 grid grid-cols-3 gap-3">
           {FEATURES.map((f) => (
             <div key={f.label} className="rounded-2xl px-[0.15in] py-[0.1in]" style={{ backgroundColor: CARD }}>
-              <div className="text-[19px] font-bold leading-tight tracking-tight">{f.value}</div>
+              <div className="text-[22px] font-bold leading-tight tracking-tight">{f.value}</div>
               <div className="text-[11.5px] leading-snug" style={{ color: SOFT }}>{f.label}</div>
             </div>
           ))}
