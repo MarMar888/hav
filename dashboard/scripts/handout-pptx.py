@@ -133,7 +133,7 @@ hull.rotation = -3
 hull.name = "Hull render"
 
 # quick facts (three small cards)
-features = [("40 mph", "Speed"), ("Under 80 lbs", "Weight"), ("Realtime LTE", "With LoRa backup")]
+features = [("30 mph", "Autonomously"), ("Integrated", "Software and controller"), ("Realtime LTE", "With LoRa backup")]
 fw, fgap = (CONTENT_W - 0.25) / 3, 0.125
 for i, (value, caption) in enumerate(features):
     x = LEFT + i * (fw + fgap)

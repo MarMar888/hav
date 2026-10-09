@@ -46,8 +46,8 @@ const COMPONENTS = [
 
 // A few quick facts about the boat.
 const FEATURES = [
-  { value: "40 mph", label: "Speed" },
-  { value: "Under 80 lbs", label: "Weight" },
+  { value: "30 mph", label: "Autonomously" },
+  { value: "Integrated", label: "Software and controller" },
   { value: "Realtime LTE", label: "With LoRa backup" },
 ];
 
