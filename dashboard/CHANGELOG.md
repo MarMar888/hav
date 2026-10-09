@@ -22,6 +22,7 @@ as we design.
 The handout is laid out as a relaxed one-pager: a plain white page, a few soft grey cards (model, the three parts and
 the footer), the site's own sans font, black, white and grey only, and red just for the "UW–Madison / College of
 Engineering" mark at the top right.
+The handout also shows three quick facts about the boat (40 mph, under 80 lbs, realtime LTE with LoRa backup).
 The handout is also available as an editable PowerPoint (imports into Canva with live text and shapes): `public/haav-handout.pptx`, built by
 `scripts/handout-pptx.py` (the team's wording edits are in the script and the page).
 

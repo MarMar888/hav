@@ -20,9 +20,9 @@ const COMPANIES = "Tesla, Northrop Grumman, Xcel Energy, Fincantieri and Milwauk
 // The team's engineering majors, and the part of the boat each one covers. No names on this page.
 const DISCIPLINES = [
   { name: "Industrial", covers: "Optimization, composites and manufacturing" },
-  { name: "Mechanical", covers: "Structures, CAD" },
+  { name: "Mechanical", covers: "Structures, CAD, fabrication" },
   { name: "Electrical", covers: "Power, battery and high voltage" },
-  { name: "Computer", covers: "Embedded, firmware and software" },
+  { name: "Computer", covers: "Firmware, software, controls" },
 ];
 
 // The three parts of the boat and the approach to each. Names stay off this page except the contact in the footer.
@@ -42,6 +42,13 @@ const COMPONENTS = [
     strategy: "Manage drift and controls.",
     points: ["GPS, IMU and LIDAR sensing", "Fundamental feedback protocols", "Software plans the route"],
   },
+];
+
+// A few quick facts about the boat.
+const FEATURES = [
+  { value: "40 mph", label: "Speed" },
+  { value: "Under 80 lbs", label: "Weight" },
+  { value: "Realtime LTE", label: "With LoRa backup" },
 ];
 
 const h2 = "text-[17px] font-semibold leading-tight tracking-tight";
@@ -67,16 +74,25 @@ export default function Page() {
         </header>
 
         <section className="relative mt-1 flex items-center">
-          <p className="relative z-10 max-w-[4.2in] text-[32px] font-bold leading-[1.1] tracking-tight">
-            A student team building an uncrewed autonomous boat from the ground up.
+          <p className="relative z-10 max-w-[4.9in] text-[30px] font-bold leading-[1.1] tracking-tight">
+            We are a student team building an uncrewed autonomous boat from the ground up.
           </p>
           <Image
             src="/haav-hull.webp"
             alt="CAD rendering of the Haav hull"
             width={1202}
             height={1008}
-            className="ml-auto h-auto w-[2.2in] -rotate-3 mix-blend-multiply"
+            className="ml-auto h-auto w-[1.9in] -rotate-3 mix-blend-multiply"
           />
+        </section>
+
+        <section className="mt-3 grid grid-cols-3 gap-3">
+          {FEATURES.map((f) => (
+            <div key={f.label} className="rounded-2xl px-[0.15in] py-[0.1in]" style={{ backgroundColor: CARD }}>
+              <div className="text-[19px] font-bold leading-tight tracking-tight">{f.value}</div>
+              <div className="text-[11.5px] leading-snug" style={{ color: SOFT }}>{f.label}</div>
+            </div>
+          ))}
         </section>
 
         <section className={`${card} mt-4`} style={{ backgroundColor: CARD, borderColor: EDGE }}>

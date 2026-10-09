@@ -127,37 +127,46 @@ text(8.5 - LEFT - 3.5, 0.4, 3.5, 0.4, "Team: UW–Madison", size=19.5, bold=True
 text(8.5 - LEFT - 3.5, 0.8, 3.5, 0.22, "College of Engineering", size=9.75, color=SOFT, align=PP_ALIGN.RIGHT, name="College of Engineering")
 
 # hero
-text(LEFT, 1.72, 4.3, 1.3, "A student team building an uncrewed autonomous boat from the ground up.", size=24, bold=True, spacing=1.0, name="Headline")
-hull = slide.shapes.add_picture(str(hull_on_paper()), Inches(8.5 - LEFT - 2.5), Inches(1.42), width=Inches(2.5))
+text(LEFT, 1.62, 4.9, 1.2, "We are a student team building an uncrewed autonomous boat from the ground up.", size=22.5, bold=True, spacing=1.0, name="Headline")
+hull = slide.shapes.add_picture(str(hull_on_paper()), Inches(8.5 - LEFT - 1.9), Inches(1.28), width=Inches(1.9))
 hull.rotation = -3
 hull.name = "Hull render"
 
-# how we model it (card)
-box(LEFT, 3.53, CONTENT_W, 1.07, fill=CARD, line=EDGE, radius=R, name="Model card")
-text(LEFT + 0.17, 3.63, CONTENT_W - 0.34, 0.3, "Ground up means simulation + modeling first", size=12.75, bold=True, name="Model title")
+# quick facts (three small cards)
+features = [("40 mph", "Speed"), ("Under 80 lbs", "Weight"), ("Realtime LTE", "With LoRa backup")]
+fw, fgap = (CONTENT_W - 0.25) / 3, 0.125
+for i, (value, caption) in enumerate(features):
+    x = LEFT + i * (fw + fgap)
+    box(x, 3.0, fw, 0.6, fill=CARD, line=EDGE, radius=R, name=f"Fact card: {caption}")
+    text(x + 0.15, 3.07, fw - 0.3, 0.3, value, size=14.25, bold=True, name=f"Fact: {value}")
+    text(x + 0.15, 3.35, fw - 0.3, 0.2, caption, size=8.6, color=SOFT, name=f"Fact label: {caption}")
+
+# model card
+box(LEFT, 3.76, CONTENT_W, 1.05, fill=CARD, line=EDGE, radius=R, name="Model card")
+text(LEFT + 0.17, 3.86, CONTENT_W - 0.34, 0.3, "Ground up means simulation + modeling first", size=12.75, bold=True, name="Model title")
 text(
-    LEFT + 0.17, 3.92, CONTENT_W - 0.34, 0.65,
+    LEFT + 0.17, 4.14, CONTENT_W - 0.34, 0.65,
     "We are building the model from first principles, mixing empirical and rule-of-thumb decisions with dynamic programming. Each constraint cuts the space of possible boats, and our model finds the fastest one based on current variables. As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.",
-    size=9, color=SOFT, spacing=1.2, name="Model text",
+    size=8.6, color=SOFT, spacing=1.2, name="Model text",
 )
 
 # engineers
-heading(LEFT, 4.85, "Engineers from across UW–Madison", size=12.75)
-text(LEFT, 5.13, CONTENT_W, 0.2, "Lead members have interned at Tesla, Northrop Grumman, Xcel Energy, Fincantieri and Milwaukee Tool.", size=9, color=SOFT, name="Engineers text")
+heading(LEFT, 4.98, "Engineers from across UW–Madison", size=12.75)
+text(LEFT, 5.27, CONTENT_W, 0.2, "Lead members have interned at Tesla, Northrop Grumman, Xcel Energy, Fincantieri and Milwaukee Tool.", size=9, color=SOFT, name="Engineers text")
 disciplines = [
     ("Industrial", "Optimization, composites and manufacturing"),
-    ("Mechanical", "Structures, CAD"),
+    ("Mechanical", "Structures, CAD, fabrication"),
     ("Electrical", "Power, battery and high voltage"),
-    ("Computer", "Embedded, firmware and software"),
+    ("Computer", "Firmware, software, controls"),
 ]
 step = (CONTENT_W + 0.25) / 4
 for i, (name, covers) in enumerate(disciplines):
     x = LEFT + i * step
-    text(x, 5.4, step - 0.2, 0.2, name, size=9.5, bold=True, name=f"Discipline: {name}")
-    text(x, 5.6, step - 0.3, 0.4, covers, size=8.6, color=SOFT, spacing=1.1, name=f"Discipline text: {name}")
+    text(x, 5.52, step - 0.2, 0.2, name, size=9.5, bold=True, name=f"Discipline: {name}")
+    text(x, 5.72, step - 0.3, 0.4, covers, size=8.6, color=SOFT, spacing=1.1, name=f"Discipline text: {name}")
 
-# approach (three cards)
-heading(LEFT, 6.1, "Our primary phases", size=12.75)
+# phases (three cards)
+heading(LEFT, 6.17, "Our primary phases", size=12.75)
 cards = [
     ("Hull", "Plane fast and stay light.", ["Hybrid planing composite hull", "Dimensions shaped by weight", "Optimization shaped by hydrodynamics"]),
     ("Electric", "Every watt-hour to speed.", ["High-voltage battery storage", "Propulsion sized by the model", "Propulsion and cooling co-designed"]),
@@ -166,23 +175,23 @@ cards = [
 cw, cgap = (CONTENT_W - 0.25) / 3, 0.125
 for i, (title, strategy, points) in enumerate(cards):
     x = LEFT + i * (cw + cgap)
-    box(x, 6.37, cw, 1.3, fill=CARD, line=EDGE, radius=R, name=f"Card: {title}")
-    text(x + 0.15, 6.53, cw - 0.3, 0.25, title, size=11.25, bold=True, name=f"Part: {title}")
-    text(x + 0.15, 6.76, cw - 0.3, 0.2, strategy, size=9, color=INK, bold=True, name=f"Part tagline: {title}")
-    text(x + 0.15, 7.02, cw - 0.3, 0.6, points, size=8.2, color=SOFT, spacing=1.2, name=f"Part points: {title}")
+    box(x, 6.45, cw, 1.3, fill=CARD, line=EDGE, radius=R, name=f"Card: {title}")
+    text(x + 0.15, 6.61, cw - 0.3, 0.25, title, size=11.25, bold=True, name=f"Part: {title}")
+    text(x + 0.15, 6.84, cw - 0.3, 0.2, strategy, size=9, color=INK, bold=True, name=f"Part tagline: {title}")
+    text(x + 0.15, 7.1, cw - 0.3, 0.6, points, size=8.2, color=SOFT, spacing=1.2, name=f"Part points: {title}")
 
 # timeline: dates and titles only, two balanced columns, read from src/lib/timeline.ts
-heading(LEFT, 7.8, "Timeline", size=12.75)
+heading(LEFT, 7.93, "Timeline", size=12.75)
 steps = read_timeline()
 colw = (CONTENT_W - 0.333) / 2
 label_w = colw - 1.2
 chars_per_line = int(label_w / 0.05)  # 8.2 pt Arial
-ys = [8.1, 8.1]
+ys = [8.24, 8.24]
 for i, (when, what) in enumerate(steps):
     col = 0 if i < 6 else 1
     x = LEFT + col * (colw + 0.333)
     lines = -(-len(what) // chars_per_line)
-    h = 0.185 + (lines - 1) * 0.13
+    h = 0.178 + (lines - 1) * 0.125
     text(x, ys[col], 1.1, 0.18, when, size=8.2, color=INK, bold=True, name=f"Timeline date: {what}")
     text(x + 1.2, ys[col], label_w, h, what, size=8.2, color=SOFT, name=f"Timeline label: {what}")
     ys[col] += h
