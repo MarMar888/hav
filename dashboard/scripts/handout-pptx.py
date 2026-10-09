@@ -34,7 +34,11 @@ prs.slide_width, prs.slide_height = Inches(8.5), Inches(11)
 slide = prs.slides.add_slide(prs.slide_layouts[6])
 
 
+Y_SHIFT = 0.0  # lets whole sections move together
+
+
 def box(x, y, w, h, fill=None, line=None, radius=None, name=None):
+    y += Y_SHIFT
     shape = slide.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE if radius else MSO_SHAPE.RECTANGLE, Inches(x), Inches(y), Inches(w), Inches(h))
     if radius:
         shape.adjustments[0] = radius / min(w, h)
@@ -56,6 +60,7 @@ def box(x, y, w, h, fill=None, line=None, radius=None, name=None):
 
 def text(x, y, w, h, runs, size=10, color=INK, bold=False, align=PP_ALIGN.LEFT, spacing=None, anchor=MSO_ANCHOR.TOP, name=None):
     """runs: a string, or a list of paragraphs, each a string or a list of (text, {bold, color}) runs."""
+    y += Y_SHIFT
     tb = slide.shapes.add_textbox(Inches(x), Inches(y), Inches(w), Inches(h))
     if name:
         tb.name = name
@@ -126,9 +131,10 @@ text(LEFT, 1.04, 4, 0.22, "Highly amphibious / autonomous Vehicle", size=9.75, c
 text(8.5 - LEFT - 3.5, 0.4, 3.5, 0.4, "Team: UW–Madison", size=19.5, bold=True, color=RED, align=PP_ALIGN.RIGHT, name="UW-Madison")
 text(8.5 - LEFT - 3.5, 0.8, 3.5, 0.22, "College of Engineering", size=9.75, color=SOFT, align=PP_ALIGN.RIGHT, name="College of Engineering")
 
-# hero
+# hero (the page pulls it closer to the header)
+Y_SHIFT = -0.12
 text(LEFT, 1.62, 4.9, 1.2, "We are a student team building an uncrewed autonomous boat from the ground up.", size=22.5, bold=True, spacing=1.0, name="Headline")
-hull = slide.shapes.add_picture(str(hull_on_paper()), Inches(8.5 - LEFT - 1.9), Inches(1.28), width=Inches(1.9))
+hull = slide.shapes.add_picture(str(hull_on_paper()), Inches(8.5 - LEFT - 1.9), Inches(1.28 + Y_SHIFT), width=Inches(1.9))
 hull.rotation = -3
 hull.name = "Hull render"
 
@@ -138,8 +144,8 @@ fw, fgap = (CONTENT_W - 0.25) / 3, 0.125
 for i, (value, caption) in enumerate(features):
     x = LEFT + i * (fw + fgap)
     box(x, 3.0, fw, 0.6, fill=CARD, line=EDGE, radius=R, name=f"Fact card: {caption}")
-    text(x + 0.15, 3.07, fw - 0.3, 0.3, value, size=14.25, bold=True, name=f"Fact: {value}")
-    text(x + 0.15, 3.35, fw - 0.3, 0.2, caption, size=8.6, color=SOFT, name=f"Fact label: {caption}")
+    text(x + 0.15, 3.05, fw - 0.3, 0.35, value, size=16.5, bold=True, name=f"Fact: {value}")
+    text(x + 0.15, 3.38, fw - 0.3, 0.2, caption, size=8.6, color=SOFT, name=f"Fact label: {caption}")
 
 # model card
 box(LEFT, 3.76, CONTENT_W, 1.05, fill=CARD, line=EDGE, radius=R, name="Model card")
@@ -184,7 +190,7 @@ for i, (title, strategy, points) in enumerate(cards):
 heading(LEFT, 7.93, "Timeline", size=12.75)
 steps = read_timeline()
 colw = (CONTENT_W - 0.333) / 2
-label_w = colw - 1.2
+label_w = colw - 1.05
 chars_per_line = int(label_w / 0.05)  # 8.2 pt Arial
 ys = [8.24, 8.24]
 for i, (when, what) in enumerate(steps):
@@ -193,10 +199,11 @@ for i, (when, what) in enumerate(steps):
     lines = -(-len(what) // chars_per_line)
     h = 0.178 + (lines - 1) * 0.125
     text(x, ys[col], 1.1, 0.18, when, size=8.2, color=INK, bold=True, name=f"Timeline date: {what}")
-    text(x + 1.2, ys[col], label_w, h, what, size=8.2, color=SOFT, name=f"Timeline label: {what}")
+    text(x + 1.05, ys[col], label_w, h, what, size=8.2, color=SOFT, name=f"Timeline label: {what}")
     ys[col] += h
 
-# footer (card)
+# footer (card) stays put
+Y_SHIFT = 0.0
 box(LEFT, 9.65, CONTENT_W, 0.9, fill=INK, radius=R, name="Footer card")
 text(LEFT + 0.2, 9.8, 3.8, 0.3, "Want to get involved?", size=14.25, bold=True, color=PAPER, name="Footer title")
 text(LEFT + 0.2, 10.1, 3.6, 0.4, "We are looking for funds, parts, advisors and supporters. Email Marley or head to our site for more information.", size=9, color=FADED, spacing=1.15, name="Footer text")
