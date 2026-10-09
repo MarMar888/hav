@@ -73,7 +73,7 @@ export default function Page() {
           </div>
         </header>
 
-        <section className="relative mt-1 flex items-center">
+        <section className="relative -mt-3 flex items-center">
           <p className="relative z-10 max-w-[4.9in] text-[30px] font-bold leading-[1.1] tracking-tight">
             We are a student team building an uncrewed autonomous boat from the ground up.
           </p>
