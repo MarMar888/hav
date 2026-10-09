@@ -19,10 +19,10 @@ const COMPANIES = "Tesla, Northrop Grumman, Xcel Energy, Fincantieri and Milwauk
 
 // The team's engineering majors, and the part of the boat each one covers. No names on this page.
 const DISCIPLINES = [
-  { name: "Industrial", covers: "optimization, composites and manufacturing" },
-  { name: "Mechanical", covers: "structures, CAD" },
-  { name: "Electrical", covers: "power, battery and high voltage" },
-  { name: "Computer", covers: "embedded, firmware and software" },
+  { name: "Industrial", covers: "Optimization, composites and manufacturing" },
+  { name: "Mechanical", covers: "Structures, CAD" },
+  { name: "Electrical", covers: "Power, battery and high voltage" },
+  { name: "Computer", covers: "Embedded, firmware and software" },
 ];
 
 // The three parts of the boat and the approach to each. Names stay off this page except the contact in the footer.

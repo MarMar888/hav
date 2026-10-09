@@ -145,10 +145,10 @@ text(
 heading(LEFT, 4.85, "Engineers from across UW–Madison", size=12.75)
 text(LEFT, 5.13, CONTENT_W, 0.2, "Lead members have interned at Tesla, Northrop Grumman, Xcel Energy, Fincantieri and Milwaukee Tool.", size=9, color=SOFT, name="Engineers text")
 disciplines = [
-    ("Industrial", "optimization, composites and manufacturing"),
-    ("Mechanical", "structures, CAD"),
-    ("Electrical", "power, battery and high voltage"),
-    ("Computer", "embedded, firmware and software"),
+    ("Industrial", "Optimization, composites and manufacturing"),
+    ("Mechanical", "Structures, CAD"),
+    ("Electrical", "Power, battery and high voltage"),
+    ("Computer", "Embedded, firmware and software"),
 ]
 step = (CONTENT_W + 0.25) / 4
 for i, (name, covers) in enumerate(disciplines):
