@@ -3,6 +3,33 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.7.0 — 2026-10-08
+
+Added a one-page, letter-size handout at `/handout` (hero, how we model the boat with first-principles mixed-integer
+linear programming and Savitsky's planing-hull model, the engineering disciplines we pull from across UW–Madison, our approach to the Hull, Electric and
+Autonomous parts, timeline, contact), with the exported PDF at `public/haav-handout.pdf`. No names on it except the
+project lead's contact in the footer. Re-export the PDF after changing the page: print `/handout` to PDF from
+Chrome with headers and footers off.
+Removed the motor pods from the site's Basic Spec and from the handout; the boat no longer uses pod motors.
+New timeline with hard dates (`src/lib/timeline.ts`): hull design frozen (Oct 25), preliminary design review (Nov 1),
+critical and long-lead parts ordered (Nov 10), mechanical and electrical design frozen with full BOM and order (Nov 20),
+the Nov 20 to Dec 20 hull build, first float and tow test (Jan 8), manufacturing and assembly and spare parts
+(Jan 8-30), first nautical mile (Jan 31), slow drives (Feb 1-14), more speed (Feb 15) and testing and tuning until April.
+Entries keep the team plan's wording on the site and in `timeline.txt`; the handout and PowerPoint show the dates and titles only. The site
+shows it as a rail with a marker per milestone (a filled dot for a day, a hollow ring for a stretch of work). The full
+plan is also written out in `timeline.txt`, and the PowerPoint reads `src/lib/timeline.ts` directly. The handout footer and the `/join` page now say we need people to build the BOM
+as we design.
+The handout is laid out as a relaxed one-pager: a plain white page, a few soft grey cards (model, the three parts and
+the footer), the site's own sans font, black, white and grey only, and red just for the "UW–Madison / College of
+Engineering" mark at the top right.
+The handout also shows three quick facts about the boat (30 mph autonomously, integrated software and controller, realtime LTE with LoRa backup).
+The handout is also available as an editable PowerPoint (imports into Canva with live text and shapes): `public/haav-handout.pptx`, built by
+`scripts/handout-pptx.py` (the team's wording edits are in the script and the page).
+
+## 0.6.2 — 2026-10-08
+
+Added the official UW–Madison horizontal logo (`public/uw-logo-horizontal.png`) under the intro sentence on the home page.
+
 ## 0.6.1 — 2026-10-07
 
 Merged the embedded, firmware and low voltage groups into one on the home page and the `/join` form (Software stays
