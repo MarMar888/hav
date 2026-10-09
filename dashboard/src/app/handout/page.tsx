@@ -83,7 +83,7 @@ export default function Page() {
           <h2 className={h2}>Ground up means simulation + modeling first</h2>
           <p className="mt-1 text-[11.5px] leading-[1.45]" style={{ color: SOFT }}>
             We are building the model from first principles, mixing empirical and rule-of-thumb decisions with dynamic
-            programming. Each constraint cuts the space of possible boats, and the optimizer finds the fastest one based on
+            programming. Each constraint cuts the space of possible boats, and our model finds the fastest one based on
             current variables. As we build and test, we keep updating the model and adding constraints: a hybrid of
             simulation and empirical data.
           </p>
@@ -108,10 +108,10 @@ export default function Page() {
           <h2 className={h2}>Our primary phases</h2>
           <div className="mt-1.5 grid grid-cols-3 gap-3">
             {COMPONENTS.map((c) => (
-              <div key={c.title} className={card} style={{ backgroundColor: CARD, borderColor: EDGE }}>
+              <div key={c.title} className="rounded-2xl px-[0.15in] py-[0.16in]" style={{ backgroundColor: CARD }}>
                 <h3 className="text-[15px] font-semibold leading-tight">{c.title}</h3>
-                <p className="text-[12px] font-semibold leading-snug">{c.strategy}</p>
-                <ul className="mt-1.5 space-y-0.5 text-[11.5px] leading-snug" style={{ color: SOFT }}>
+                <p className="mt-0.5 text-[12px] font-semibold leading-snug">{c.strategy}</p>
+                <ul className="mt-2 space-y-1 text-[10.5px] leading-snug" style={{ color: SOFT }}>
                   {c.points.map((pt) => (
                     <li key={pt}>{pt}</li>
                   ))}

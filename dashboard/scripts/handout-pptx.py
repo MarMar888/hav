@@ -137,7 +137,7 @@ box(LEFT, 3.53, CONTENT_W, 1.07, fill=CARD, line=EDGE, radius=R, name="Model car
 text(LEFT + 0.17, 3.63, CONTENT_W - 0.34, 0.3, "Ground up means simulation + modeling first", size=12.75, bold=True, name="Model title")
 text(
     LEFT + 0.17, 3.92, CONTENT_W - 0.34, 0.65,
-    "We are building the model from first principles, mixing empirical and rule-of-thumb decisions with dynamic programming. Each constraint cuts the space of possible boats, and the optimizer finds the fastest one based on current variables. As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.",
+    "We are building the model from first principles, mixing empirical and rule-of-thumb decisions with dynamic programming. Each constraint cuts the space of possible boats, and our model finds the fastest one based on current variables. As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.",
     size=9, color=SOFT, spacing=1.2, name="Model text",
 )
 
@@ -166,10 +166,10 @@ cards = [
 cw, cgap = (CONTENT_W - 0.25) / 3, 0.125
 for i, (title, strategy, points) in enumerate(cards):
     x = LEFT + i * (cw + cgap)
-    box(x, 6.37, cw, 1.25, fill=CARD, line=EDGE, radius=R, name=f"Card: {title}")
-    text(x + 0.15, 6.45, cw - 0.3, 0.25, title, size=11.25, bold=True, name=f"Part: {title}")
-    text(x + 0.15, 6.68, cw - 0.3, 0.2, strategy, size=9, color=INK, bold=True, name=f"Part tagline: {title}")
-    text(x + 0.15, 6.92, cw - 0.3, 0.6, points, size=8.6, color=SOFT, spacing=1.15, name=f"Part points: {title}")
+    box(x, 6.37, cw, 1.3, fill=CARD, line=EDGE, radius=R, name=f"Card: {title}")
+    text(x + 0.15, 6.53, cw - 0.3, 0.25, title, size=11.25, bold=True, name=f"Part: {title}")
+    text(x + 0.15, 6.76, cw - 0.3, 0.2, strategy, size=9, color=INK, bold=True, name=f"Part tagline: {title}")
+    text(x + 0.15, 7.02, cw - 0.3, 0.6, points, size=8.2, color=SOFT, spacing=1.2, name=f"Part points: {title}")
 
 # timeline: dates and titles only, two balanced columns, read from src/lib/timeline.ts
 heading(LEFT, 7.8, "Timeline", size=12.75)
