@@ -15,12 +15,12 @@ const EDGE = "#f5f5f5";
 const INK = "#111111";
 const SOFT = "#555555";
 const RED = "#c5050c"; // the UW–Madison mark only
-const COMPANIES = "Tesla, Northrop Grumman, Xcel Energy and Milwaukee Tool";
+const COMPANIES = "Tesla, Northrop Grumman, Xcel Energy, Fincantieri and Milwaukee Tool";
 
 // The team's engineering majors, and the part of the boat each one covers. No names on this page.
 const DISCIPLINES = [
   { name: "Industrial", covers: "optimization, composites and manufacturing" },
-  { name: "Mechanical", covers: "structures, CAD and fabrication" },
+  { name: "Mechanical", covers: "structures, CAD" },
   { name: "Electrical", covers: "power, battery and high voltage" },
   { name: "Computer", covers: "embedded, firmware and software" },
 ];
@@ -29,8 +29,8 @@ const DISCIPLINES = [
 const COMPONENTS = [
   {
     title: "Hull",
-    strategy: "Plane well and stay light.",
-    points: ["Hybrid planing composite hull", "Shape tuned by optimization", "Resistance checked in CFD first"],
+    strategy: "Plane fast and stay light.",
+    points: ["Hybrid planing composite hull", "Dimensions shaped by weight", "Optimization shaped by hydrodynamics"],
   },
   {
     title: "Electric",
@@ -40,7 +40,7 @@ const COMPONENTS = [
   {
     title: "Autonomous",
     strategy: "Manage drift and controls.",
-    points: ["GPS, IMU and LIDAR sensing", "Firmware protects the battery", "Software plans the route"],
+    points: ["GPS, IMU and LIDAR sensing", "Fundamental feedback protocols", "Software plans the route"],
   },
 ];
 
@@ -57,41 +57,42 @@ export default function Page() {
       >
         <header className="flex items-start justify-between">
           <div>
-            <h1 className="text-[48px] font-bold leading-none tracking-tight">Haav</h1>
-            <p className="mt-1.5 text-[13px]" style={{ color: SOFT }}>Highly Amphibious / Autonomous Vehicle</p>
+            <h1 className="text-[48px] font-bold leading-none tracking-tight">HaaV</h1>
+            <p className="mt-1.5 text-[13px]" style={{ color: SOFT }}>Highly amphibious / autonomous Vehicle</p>
           </div>
           <div className="text-right">
-            <div className="text-[26px] font-bold leading-none tracking-tight" style={{ color: RED }}>UW–Madison</div>
+            <div className="text-[26px] font-bold leading-none tracking-tight" style={{ color: RED }}>Team: UW–Madison</div>
             <div className="mt-1 text-[13px]" style={{ color: SOFT }}>College of Engineering</div>
           </div>
         </header>
 
         <section className="relative mt-1 flex items-center">
           <p className="relative z-10 max-w-[4.2in] text-[32px] font-bold leading-[1.1] tracking-tight">
-            A student team building an autonomous boat from the ground up.
+            A student team building an uncrewed autonomous boat from the ground up.
           </p>
           <Image
             src="/haav-hull.webp"
             alt="CAD rendering of the Haav hull"
             width={1202}
             height={1008}
-            className="ml-auto h-auto w-[2.5in] -rotate-3 mix-blend-multiply"
+            className="ml-auto h-auto w-[2.2in] -rotate-3 mix-blend-multiply"
           />
         </section>
 
         <section className={`${card} mt-4`} style={{ backgroundColor: CARD, borderColor: EDGE }}>
-          <h2 className={h2}>First-principles mixed-integer linear programming</h2>
-          <p className="mt-1 text-[12px] leading-[1.5]" style={{ color: SOFT }}>
-            We build the model from physics up. Each constraint cuts the space of possible boats, and the optimizer finds the
-            fastest one left. Hull resistance comes from <span className="font-semibold" style={{ color: INK }}>Savitsky&apos;s planing-hull model</span>.
-            As we build and test, we keep updating the model and adding constraints: a hybrid of simulation and empirical data.
+          <h2 className={h2}>Ground up means simulation + modeling first</h2>
+          <p className="mt-1 text-[11.5px] leading-[1.45]" style={{ color: SOFT }}>
+            We are building the model from first principles, mixing empirical and rule-of-thumb decisions with dynamic
+            programming. Each constraint cuts the space of possible boats, and the optimizer finds the fastest one based on
+            current variables. As we build and test, we keep updating the model and adding constraints: a hybrid of
+            simulation and empirical data.
           </p>
         </section>
 
-        <section className="mt-5">
+        <section className="mt-4">
           <h2 className={h2}>Engineers from across UW–Madison</h2>
           <p className="mt-1 text-balance text-[12px] leading-[1.5]" style={{ color: SOFT }}>
-            Each segment of the boat is covered, and members have worked at {COMPANIES}.
+            Lead members have interned at {COMPANIES}.
           </p>
           <dl className="mt-1.5 grid grid-cols-4 gap-x-6">
             {DISCIPLINES.map((d) => (
@@ -103,8 +104,8 @@ export default function Page() {
           </dl>
         </section>
 
-        <section className="mt-5">
-          <h2 className={h2}>Our approach</h2>
+        <section className="mt-4">
+          <h2 className={h2}>Our primary phases</h2>
           <div className="mt-1.5 grid grid-cols-3 gap-3">
             {COMPONENTS.map((c) => (
               <div key={c.title} className={card} style={{ backgroundColor: CARD, borderColor: EDGE }}>
@@ -120,7 +121,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="mt-5">
+        <section className="mt-4">
           <h2 className={h2}>Timeline</h2>
           <ol className="mt-1.5 grid grid-flow-col grid-cols-2 grid-rows-[repeat(6,auto)] gap-x-8 gap-y-[2px]">
             {TIMELINE.map((m) => (
@@ -137,9 +138,9 @@ export default function Page() {
           style={{ backgroundColor: INK, color: PAPER }}
         >
           <div className="max-w-[3.5in]">
-            <div className="text-[19px] font-semibold leading-tight tracking-tight">Want to help build it?</div>
+            <div className="text-[19px] font-semibold leading-tight tracking-tight">Want to get involved?</div>
             <p className="mt-0.5 text-[12px] leading-snug opacity-80">
-              We are looking for funds, parts, advisors and people to build our BOM as we design.
+              We are looking for funds, parts, advisors and supporters. Email Marley or head to our site for more information.
             </p>
           </div>
           <div className="text-right text-[12px] leading-snug">

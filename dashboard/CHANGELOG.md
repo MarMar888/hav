@@ -22,9 +22,8 @@ as we design.
 The handout is laid out as a relaxed one-pager: a plain white page, a few soft grey cards (model, the three parts and
 the footer), the site's own sans font, black, white and grey only, and red just for the "UW–Madison / College of
 Engineering" mark at the top right.
-The handout is also available as an editable PowerPoint (imports into Canva with live text and shapes): the generated
-`public/haav-handout-white.pptx`, built by `scripts/handout-pptx.py`, and `public/haav-handout.pptx`, which has hand edits and
-is not regenerated.
+The handout is also available as an editable PowerPoint (imports into Canva with live text and shapes): `public/haav-handout.pptx`, built by
+`scripts/handout-pptx.py` (the team's wording edits are in the script and the page).
 
 ## 0.6.2 — 2026-10-08
 
