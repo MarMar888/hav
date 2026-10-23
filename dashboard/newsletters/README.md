@@ -25,7 +25,7 @@ date: 2026-11-04                  # optional: shown under the logo as "November 
 
 # A heading
 
-Normal paragraphs, **bold**, *italic*, [links](https://haav.build/simulation) and lists work as in Markdown.
+Normal paragraphs, **bold**, *italic*, [links](https://haav.build/join) and lists work as in Markdown.
 Links that start with / point at haav.build.
 
 ![Alt text for a plain image](hull.jpg)
