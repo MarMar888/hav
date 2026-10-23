@@ -3,6 +3,13 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.8.0 — 2026-10-23
+
+Newsletter. Newsletters are MDX files in `newsletters/` (Markdown plus `<Figure>` and `<Button>`, with images beside
+them), rendered through a React email template that follows the site's design. A passcode-protected `/admin` page adds
+subscribers to a Resend segment, previews a newsletter, emails a preview to the owner, and sends it to the list as a
+Resend broadcast, once per newsletter.
+
 ## 0.7.23 — 2026-10-23
 
 Six more responsive UI tweaks: anchored headings stop below the sticky header; the search clear button is muted and larger on
