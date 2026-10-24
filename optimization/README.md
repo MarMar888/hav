@@ -339,10 +339,21 @@ explore notebook and does not import CAD geometry yet.
 
 ## Explore notebook
 
-`explore.ipynb` is a working model of the boat described in `optimization2.md` for exploring by hand: a prismatic
-hull with OpenPlaning for the planing balance, plus hydrostatics, propeller, battery voltage and the constraints, with
-sweeps, sliders and a small search. It is separate from the finalops solver above and uses placeholder component data. Its propeller has a small model (actuator-disk efficiency, mass that grows with diameter cubed, a tip-speed limit), so
+`explore.ipynb` is a working model of the boat described in `optimization2.md` for exploring by hand: a V-bottom
+hull with OpenPlaning for the planing balance, plus mesh hydrostatics, propeller, battery voltage and the constraints, with
+sweeps, sliders and a small search. It is separate from the finalops solver above and uses placeholder cell, speed controller and propeller data. The motor is real: one winding of one
+SSS brushless motor, chosen from the supplier spec sheet in `sss_motors.csv` (27 motors, 263 windings; the 33 whose resistance entry looks like a typo on the
+sheet are left out unless `INCLUDE_SUSPECT_R = True`). Kv, max current and voltage, continuous power and weight come from the sheet, and the motor's current and efficiency come from a DC
+motor model at the propeller's operating point, so the torque and rpm a propeller asks for now decide which motors can drive it. Its propeller has a small model (actuator-disk efficiency, mass that grows with diameter cubed, a tip-speed limit), so
 pitch and diameter are searched along with the hull, motor and battery.
+Hydrostatics are real geometry: the notebook meshes the hull (prismatic aft body, chine beam tapering to the stem over a
+placeholder bow fraction) and [navaltoolbox](https://github.com/NavalToolbox/navaltoolbox-lib) computes draft, freeboard,
+the metacentric height GM and the at-rest trim from that mesh; a minimum-GM stability margin (one of twenty-four) now
+punishes hulls too narrow to stand up. A Modes cell collects the explicit switches (`MOTOR_LIMITS` sheet/theoretical,
+`ENFORCE_VALIDITY`, `INCLUDE_SUSPECT_R`, `COURSE_MODE`) and a problem card prints the whole problem — modes, every decision
+variable against its bounds, every margin sorted tightest-first — computed live for the baseline and again for the search
+winner. The section 14 search records every candidate it evaluates and charts its own convergence, feasible share and
+which constraint killed the infeasible candidates, plus what loosening each limit 10% would buy the winner.
 
 After section 7 the notebook has an eleven-chart overview of how the model operates (pipeline, propeller/thrust/motor drive, hull, mass and balance,
 hydrostatics, planing, power chain, battery, race, constraints, feasible region), all drawn live from the section 2 design.
@@ -353,12 +364,59 @@ the seeds, a target speed and which designs to compare. The notebook then search
 `DESIGNS`. Every later chart reads from that dictionary, so adding your own design to `EXTRA_DESIGNS` puts it in all of them.
 Run All takes about two and a half minutes, most of it the searches.
 
+**Local setup:** use a Python between 3.10 and 3.13 for the venv — `navaltoolbox` ships prebuilt wheels for
+CPython 3.9–3.13 only, and on a newer Python pip falls back to compiling its Rust source, which fails (the
+notebook's first cell now says so instead of printing the compiler log). After creating `optimization/.venv`
+as above (e.g. `python3.13 -m venv optimization/.venv`), also run
+`optimization/.venv/bin/python -m pip install -r optimization/requirements-notebook.txt`. That adds `openplaning`, `navaltoolbox`,
+`ipywidgets`, `matplotlib`, `jupyterlab`, and `setuptools<81`. Without the pin, `from openplaning import PlaningBoat` fails with
+`ModuleNotFoundError: No module named 'pkg_resources'`, because newer virtualenvs no longer install `setuptools` and
+setuptools 81 and later no longer ship `pkg_resources`.
+
 **Colab:** `explore.ipynb` also runs in Google Colab with no setup. Open it with
 [this link](https://colab.research.google.com/github/MarMar888/hav/blob/master/optimization/explore.ipynb) and choose Runtime, Run all.
-Its first code cell installs `openplaning` (pinning `setuptools<81`, as `requirements-notebook.txt` does); Colab already has the rest.
+Its first code cell installs `openplaning` and `navaltoolbox` when they are missing (pinning `setuptools<81`, as `requirements-notebook.txt` does); Colab already has the rest.
+The notebook reads `sss_motors.csv` from beside itself, and falls back to the copy on GitHub when the file is not there (as in Colab).
 
 `openplaning-reference.ipynb` is a different, smaller notebook: a reference for the `PlaningBoat` class
 itself (what it takes as input vs what it computes, split into hull and propulsion), built on the
 openplaning README's own documented Savitsky '76 worked example rather than this project's hull - use it
 to understand the library before trusting `explore.ipynb`'s use of it. Same setup as above, just point
 `jupyter lab` at `optimization/openplaning-reference.ipynb` instead.
+
+`willmarley.ipynb` is a third, standalone notebook (numpy + matplotlib only): how to choose a motor, propeller and
+battery, one section per choice, with the loop closed — every input is a low/high range, nothing is picked, and no
+single design point is headlined. Section 1, the motor (`Kt = 60/2πKv`, torque from current, rpm from volts, the
+`I_max` guardrail, the volts a motor actually needs: `V_needed = rpm/Kv + I·R`, and `n_motors` — one or two, with twins
+doubling shaft power, motor weight and pack draw); section 2, the propeller (torque demand `Q = K_Q ρ n² D⁵`, prop efficiency `η_p`, and the zero-slip
+ceiling `rpm × pitch / 1056` — slip is an output now, not an input); section 3, the battery (volts, amp-hours, runtime,
+its own weight `W_batt = C·V/e_batt`, and a continuous-amp ceiling of 80% of `C_rate·C` that the solve enforces
+alongside the motor's `I_max`); section 4, the water and the weight
+(`W = W_hull + W_batt + W_motor + payload + margin` with a fixed 30 lb payload and 5 lb safety margin,
+`R_water = W / L/D(v)` where `L/D(v) = LD0/(1+(v/26)²)` — the hull rides worse the faster it goes, with peak quality
+`LD0` as the ranged input — and the towing bill `P = R_water × speed`, which makes the power balance a cubic in speed
+and removes any need for an artificial speed cap). Section 5 draws
+the map — the model's ontology, every input grouped by component with an arrow per equation into the intermediates and
+the outputs. Section 6 solves it: the torque balance (a quadratic in rpm, current limit as the one special case) gives
+shaft power, power balance against `R_water` gives speed, capped by the zero-slip ceiling — shown as the torque-balance
+chart, a per-input speed sweep, and a diameter × pitch speed map. Section 7 samples every range uniformly (thousands of
+whole-model solves) and shows how the variables move together: an input × output correlation heatmap and a
+speed-vs-runtime scatter of every sampled design. Section 8 draws conclusions: a valid space (editable requirements
+plus sanity bounds where the model's assumptions hold) with per-criterion pass-rates, a per-input chart of where valid
+designs sit in each range with computed shop-low/shop-high verdicts, and an ideal space — the fastest valid designs,
+with runtime required only to finish an editable race course with reserve (race time = course / speed), the top three
+printed in full. Section 9 runs every winding on the SSS supplier
+sheet (`sss_motors.csv`) through the same model and checks — voltage clamped to each winding's `v_max`, `max_rpm`
+enforced — ranking the catalog by its valid share of the prop/battery/hull space and showing the best winding's own
+Pareto front. Section 10 pools every valid catalog combo, takes the 5%-tolerance Pareto set (buyable motors only), and
+checks each non-motor input for bound-hugging — a computed pressed/leans/interior verdict per range, flagging any bound
+that is doing the choosing instead of the physics — then prints three complete shopping lists from the ideal set
+(fastest, lightest battery, most efficient): the SSS winding to buy plus every propeller, battery and hull parameter,
+the resulting speed, race time, battery used vs capacity needed, current, weights, efficiency and solved slip. A closing list names what's deliberately missing.
+(27 models, 263 windings in all, typed into `sss_motors.csv`, which the notebook reads from its own folder;
+change `WINDING` to plot another winding). It needs only `numpy` and
+`matplotlib` and does not use `explore.ipynb`'s model. Its first code cell runs `%pip install -q matplotlib numpy`,
+which installs into whichever kernel runs it. In VS Code, open the notebook, choose Select Kernel, then Python
+Environments, and pick `optimization/.venv` (create it as in the setup above and add `ipykernel`). The notebook's
+kernel is the generic `python3`, so it follows that choice. Tracking issue:
+[#85](https://github.com/MarMar888/hav/issues/85).
