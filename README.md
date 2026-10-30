@@ -11,16 +11,18 @@ This repo holds five things, each documented where it lives, not here:
 |---|---|---|
 | [`cad/`](cad/) | The hull: a parametric build123d model, STEP exports, drawings, and an OpenFOAM resistance case | Current design: 48.4 × 17.9 in hull, 59.5 lb all-up against a 62 lb budget |
 | [`dashboard/`](dashboard/) | The BOM (a Postgres table on Neon, shown and edited on a Next.js site) and the optimizer results viewer | Live — the public project and sponsor pages, plus the team workshop you open day to day |
-| [`optimization/`](optimization/) | The boat-design optimizer: one model picks hull geometry, drive, battery and speed together | Working demo. The numbers are synthetic fixtures, not a design recommendation yet — see its README |
 | [`archive/`](archive/) | Earlier phases, kept for the reasoning, not the parts | Historical. The project started as a bought catamaran hull before becoming the RIB above |
 | [`PEP2026TeamExtractions/`](PEP2026TeamExtractions/) | Raw text of the PEP26 Autonomy and Uncrewed Open white papers, with charts of what the teams built (motors, batteries, race points) and a TFL SSS motor catalog | Research data, not part of the design. Doesn't version; see its README |
 | [`docs/`](docs/) | Reference material that isn't part of the design itself | [`docs/PEP-Rules/`](docs/PEP-Rules/) holds the official race rules; [`docs/white-paper/`](docs/white-paper/) is the scaffold for the required 20-point submission, unwritten so far |
+
+The design math — the boat-design optimizer and the motor/prop/battery sizing notebooks — lives in its own
+repo, [Haav-modeling](https://github.com/MarMar888/Haav-modeling), split out of this one with its history (#98).
 
 ## If you're new here
 
 1. Read this file (you're doing it).
 2. Read [`docs/PEP-Rules/`](docs/PEP-Rules/) — this is the race the boat is built for, and most of the
-   numbers in `optimization/` (30 lb payload, 55.5 V limit, 2-mile course) come straight from it.
+   numbers in [Haav-modeling](https://github.com/MarMar888/Haav-modeling) (30 lb payload, 55.5 V limit, 2-mile course) come straight from it.
 3. Run the website — one site, with everything else reachable from its header nav:
    ```bash
    cd dashboard && pnpm install && cd ..   # once
@@ -30,7 +32,7 @@ This repo holds five things, each documented where it lives, not here:
    optimizer results viewer (`/optimization`) and the 3D hull viewer. `pnpm build`/`pnpm start`/`pnpm lint` work the same way, from the root — see
    [`dashboard/README.md`](dashboard/README.md) for what each page does.
 4. Look at the hull: open [`cad/README.md`](cad/README.md).
-5. If you care about the design math, [`optimization/README.md`](optimization/README.md) has the full
+5. If you care about the design math, [Haav-modeling](https://github.com/MarMar888/Haav-modeling) has the full
    model — objective, constraints, decision variables, and its limits.
 
 ## What's real and what isn't
@@ -45,12 +47,12 @@ Three languages, three setups:
 
 - **The dashboard** (TypeScript/Next.js) — [`dashboard/README.md`](dashboard/README.md).
 - **The CAD** (Python/build123d) — [`cad/README.md`](cad/README.md).
-- **The optimizer** (Python/SciPy) — [`optimization/README.md`](optimization/README.md).
+- **The optimizer** (Python/SciPy) — in [Haav-modeling](https://github.com/MarMar888/Haav-modeling), not this repo.
 
 This is Next.js 16, which has breaking changes from what you've seen before — read [`AGENTS.md`](AGENTS.md)
 before touching `dashboard/`.
 
-`cad/`, `optimization/`, `dashboard/`, and `docs/` each version independently (their own `VERSION` +
+`cad/`, `dashboard/`, and `docs/` each version independently (their own `VERSION` +
 `CHANGELOG.md`, or `package.json`'s version for `dashboard/`) — see [`docs/VERSIONING.md`](docs/VERSIONING.md).
 
 ## Archive

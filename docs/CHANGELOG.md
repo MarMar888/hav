@@ -1,7 +1,13 @@
 # Docs changelog
 
 See [`VERSIONING.md`](VERSIONING.md) for how this file and `VERSION` are kept — this folder versions
-independently of `cad/`, `optimization/`, and `dashboard/`.
+independently of `cad/` and `dashboard/`.
+
+## 0.1.1 — 2026-10-30
+
+[`VERSIONING.md`](VERSIONING.md) now lists three subgroups instead of four: the modeling work
+(`optimization/`) moved to its own repo, [Haav-modeling](https://github.com/MarMar888/Haav-modeling) (#98),
+which versions on its own.
 
 ## 0.1.0 — 2026-10-01
 

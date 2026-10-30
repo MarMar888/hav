@@ -4,7 +4,7 @@ import path from "node:path";
 import { z } from "zod";
 import { candidateSchema, resultsSchema, type RunSummary } from "./optimization";
 
-// optimization/ is a sibling of dashboard/, not inside it.
+// Runs come from a Haav-modeling checkout placed (or symlinked) as optimization/, a sibling of dashboard/.
 const root = path.join(process.cwd(), "..", "optimization", "runs");
 
 async function readRunFile(run: string, parts: string[]) {

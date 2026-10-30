@@ -1,6 +1,6 @@
 # Versioning
 
-Four subgroups version independently — `cad/`, `optimization/`, `dashboard/`, `docs/` — because they
+Three subgroups version independently — `cad/`, `dashboard/`, `docs/` — because they
 change on different clocks (a hull revision and a doc fix aren't the same kind of event) and a single
 repo-wide version number would say nothing useful about any one of them. `archive/` doesn't version;
 it's frozen.
@@ -22,6 +22,6 @@ change, not an automated rule.
 
 ## Who changed what
 
-Don't duplicate that in the changelog — `git log -- cad/` (or `optimization/`, `dashboard/`, `docs/`)
+Don't duplicate that in the changelog — `git log -- cad/` (or `dashboard/`, `docs/`)
 already gives the real author and date for anything in that subgroup, and a name copied into
 `CHANGELOG.md` would just drift out of sync with reality.

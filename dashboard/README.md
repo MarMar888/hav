@@ -130,6 +130,7 @@ before changing site code.
 ## The optimization results viewer
 
 `/optimization`, linked from the shared navigation, reads completed runs from `../optimization/runs/`
-(a sibling of this folder, not inside it) on each request — independent of the BOM database. See
-[`../optimization/README.md`](../optimization/README.md#results-viewer) for what it shows and how to run
-its Playwright tests.
+on each request — independent of the BOM database. The optimizer lives in its own repo,
+[Haav-modeling](https://github.com/MarMar888/Haav-modeling); place (or symlink) a checkout of it as `optimization/`
+next to this folder to see runs locally. Its README's results-viewer section says what the page shows and
+how to run its Playwright tests.
