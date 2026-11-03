@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ModeToggle } from "@/components/mode-toggle";
 import { isAdmin } from "@/lib/admin-auth";
 import { logout } from "./actions";
 
@@ -20,7 +19,6 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
               <button type="submit" className="min-h-9 text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100">Sign out</button>
             </form>
           )}
-          <ModeToggle />
         </div>
       </header>
       <main className="mx-auto w-full max-w-3xl flex-1 px-5 py-8">{children}</main>

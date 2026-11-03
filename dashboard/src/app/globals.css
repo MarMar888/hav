@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Dark mode follows the .dark class that next-themes puts on <html> (light / dark / system), not the OS setting alone. */
+/* The site is light-only: ThemeProvider forces the light theme, so the .dark rules below stay dormant. */
 @custom-variant dark (&:is(.dark *));
 
 :root {

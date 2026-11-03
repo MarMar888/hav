@@ -3,6 +3,12 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.8.1 — 2026-10-23
+
+Disabled dark mode. The site is light-only: the theme is forced to light regardless of the OS setting or a saved
+choice, the light / dark / system toggle is gone from the site, workshop and admin headers, and the browser bar colour
+is always white.
+
 ## 0.8.0 — 2026-10-23
 
 Newsletter. Newsletters are MDX files in `newsletters/` (Markdown plus `<Figure>` and `<Button>`, with images beside

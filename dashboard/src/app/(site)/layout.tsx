@@ -1,6 +1,5 @@
 import Link from "next/link";
 import pkg from "../../../package.json";
-import { ModeToggle } from "@/components/mode-toggle";
 import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import { MarginArt } from "./margin-art";
 import { NavLinks } from "./nav-links";
@@ -48,7 +47,6 @@ export default function SiteLayout({ children }: Readonly<{ children: React.Reac
           <Link href="/" className="-mx-2 inline-flex min-h-11 items-center px-2 font-semibold tracking-tight">Haav</Link>
           <nav className="ml-auto flex items-center gap-x-2.5 sm:gap-x-6">
             <NavLinks />
-            <ModeToggle />
           </nav>
         </header>
         <main id="main" tabIndex={-1} className="flex-1 outline-none">{children}</main>
