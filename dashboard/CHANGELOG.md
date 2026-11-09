@@ -3,6 +3,10 @@
 See [`../docs/VERSIONING.md`](../docs/VERSIONING.md) for how this file and `package.json`'s `version`
 are kept — this folder versions independently of `cad/`, `optimization/`, and `docs/`.
 
+## 0.8.2 — 2026-11-08
+
+Added Big Joe Forklifts to the "Our sponsors" section on the home page, using the primary logo from their brand guidelines.
+
 ## 0.8.1 — 2026-10-23
 
 Disabled dark mode. The site is light-only: the theme is forced to light regardless of the OS setting or a saved
