@@ -6,7 +6,7 @@ import type { ComponentProps } from "react";
 import * as runtime from "react/jsx-runtime";
 import { evaluate } from "@mdx-js/mdx";
 import { render } from "@react-email/render";
-import { A, Button, Code, Figure, H1, H2, H3, Hr, Img, LI, NewsletterEmail, OL, P, Quote, UL } from "@/emails/newsletter";
+import { A, Button, Code, Figure, H1, H2, H3, Hr, Img, LI, NewsletterEmail, OL, P, Quote, Sponsor, UL } from "@/emails/newsletter";
 import { SITE_URL } from "./site";
 
 export const NEWSLETTER_DIR = path.join(process.cwd(), "newsletters");
@@ -75,6 +75,8 @@ function components(slug: string, assetBase: string) {
     a: ({ href, ...p }: ComponentProps<"a">) => <A {...p} href={link(href)} />,
     img: ({ src, ...p }: ComponentProps<"img">) => <Img {...p} src={image(typeof src === "string" ? src : "")} />,
     Figure: ({ src, ...p }: ComponentProps<typeof Figure>) => <Figure {...p} src={image(typeof src === "string" ? src : "")} />,
+    // Capitalised on purpose: MDX leaves a hand-written lowercase <img> alone, so it would skip the path fix above.
+    Sponsor: ({ src, ...p }: ComponentProps<typeof Sponsor>) => <Sponsor {...p} src={image(typeof src === "string" ? src : "")} />,
     Button: ({ href, children }: ComponentProps<typeof Button>) => <Button href={link(href)}>{children}</Button>,
   };
 }

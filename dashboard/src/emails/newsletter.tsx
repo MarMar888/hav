@@ -76,8 +76,6 @@ export function NewsletterEmail({ preview, dateLabel, unsubscribeUrl, children }
                     </tr>
                     <tr>
                       <td className="rule muted" style={{ padding: "20px 0 0", borderTop: `1px solid ${rule}`, color: muted, fontSize: 13, lineHeight: "20px" }}>
-                        You are getting this because you signed up for updates from the Haav student team at UW-Madison.
-                        <br />
                         Questions? Reply to this email or write <a href={`mailto:${CONTACT_EMAIL}`} className="link" style={{ color: emerald }}>{CONTACT_EMAIL}</a>.
                         <br />
                         <a href={unsubscribeUrl} className="link" style={{ color: emerald }}>Unsubscribe</a>
@@ -163,5 +161,32 @@ export function Button({ href, children }: { href: string; children: ReactNode }
         {children}
       </a>
     </div>
+  );
+}
+
+/**
+ * A sponsor row: logo on the left, name and what they gave on the right.
+ * <Sponsor src="logo.png" alt="Acme logo" name="Acme" width="90">donated epoxy.</Sponsor>
+ * `width` (px, default 170) sizes the logo inside its 190 px column; use a smaller one for a square logo.
+ */
+export function Sponsor({ src, alt = "", name, width = 170, children }: { src: string; alt?: string; name: string; width?: number | string; children?: ReactNode }) {
+  return (
+    <table role="presentation" width="100%" cellPadding={0} cellSpacing={0} style={{ margin: "0 0 14px", borderCollapse: "collapse" }}>
+      <tbody>
+        <tr>
+          <td width={190} valign="middle" style={{ width: 190, padding: "0 16px 0 0" }}>
+            <div style={{ backgroundColor: "#ffffff", border: `1px solid ${rule}`, borderRadius: 8, padding: 10, textAlign: "center" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element -- this renders to email HTML, not a Next page */}
+              <img src={src} alt={alt} width={Number(width)} style={{ display: "inline-block", width: Number(width), maxWidth: "100%", height: "auto", border: 0 }} />
+            </div>
+          </td>
+          <td valign="middle" className="body" style={{ fontFamily: sans, color: body, fontSize: 15, lineHeight: "23px" }}>
+            <strong className="ink" style={{ color: ink }}>{name}</strong>
+            <br />
+            {children}
+          </td>
+        </tr>
+      </tbody>
+    </table>
   );
 }

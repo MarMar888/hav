@@ -33,8 +33,13 @@ Links that start with / point at haav.build.
 <Figure src="hull.jpg" alt="Describe the picture" caption="Optional caption underneath." />
 
 <Button href="/join">Become a member</Button>
+
+<Sponsor src="acme.png" alt="Acme logo" name="Acme">donated the epoxy.</Sponsor>
 ```
 
+- **Sponsors**: `<Sponsor src alt name>what they gave</Sponsor>` shows the logo in a box on the left and the text beside it.
+  Add `width="90"` (pixels, default 170) to shrink a squarish logo. Write the tag on one line, and use `.png`, not `.svg`.
+  Do not use a lowercase `<img>` tag: MDX skips the path fix and the picture will not load.
 - **Images** are files in the same folder, named in `src`. Use `.jpg` or `.png` (some mail apps, notably desktop
   Outlook, cannot show `.webp`), and keep each under about 1 MB. Always fill in `alt`.
 - The email loads its pictures from `haav.build/newsletters/<id>/`, so a new image only shows up in a preview or a
