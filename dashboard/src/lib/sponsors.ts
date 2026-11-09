@@ -23,4 +23,10 @@ export const SPONSORS: readonly Sponsor[] = [
     width: 448,
     logo: { src: "/hoofers-sailing-club-logo.png", width: 395, height: 100 },
   },
+  {
+    name: "Big Joe Forklifts",
+    url: "https://www.bigjoeforklifts.com",
+    width: 256,
+    logo: { src: "/big-joe-forklifts-logo.png", width: 800, height: 713 },
+  },
 ];
