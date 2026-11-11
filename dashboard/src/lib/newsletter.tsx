@@ -66,9 +66,14 @@ export async function listNewsletters(): Promise<Newsletter[]> {
 const isAbsolute = (url: string) => /^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(url);
 
 /** Maps the Markdown elements (and the extra tags) a newsletter may use onto the email building blocks. */
-function components(slug: string, assetBase: string) {
-  // Images sit next to the newsletter and are served from /newsletters/<slug>/; links to site pages need the full origin.
-  const image = (src = "") => (isAbsolute(src) ? src : `${assetBase}/newsletters/${slug}/${src.replace(/^\.?\//, "")}`);
+function components(slug: string, assetBase: string, imageUrls: Record<string, string>) {
+  // Images sit next to the newsletter. A picture already uploaded (imageUrls) is linked at its public URL; any other is
+  // served from /newsletters/<slug>/ on assetBase. Links to site pages need the full origin.
+  const image = (src = "") => {
+    if (isAbsolute(src)) return src;
+    const file = src.replace(/^\.?\//, "");
+    return imageUrls[file] ?? `${assetBase}/newsletters/${slug}/${file}`;
+  };
   const link = (href = "") => (isAbsolute(href) ? href : new URL(href, SITE_URL).toString());
   return {
     h1: H1, h2: H2, h3: H3, p: P, ul: UL, ol: OL, li: LI, blockquote: Quote, code: Code, hr: Hr,
@@ -85,9 +90,10 @@ export type RenderedNewsletter = { subject: string; preview: string | null; html
 
 /**
  * @param assetBase  Origin that images are loaded from. "" (same origin) for the admin preview, the site origin for email.
+ * @param imageUrls  Public URLs for pictures that were uploaded (see newsletter-images.ts), by file name.
  * @param unsubscribeUrl  The footer's unsubscribe link: Resend's placeholder for a broadcast, "#" for a test email.
  */
-export async function renderNewsletter(slug: string, { assetBase, unsubscribeUrl }: { assetBase: string; unsubscribeUrl: string }): Promise<RenderedNewsletter> {
+export async function renderNewsletter(slug: string, { assetBase, unsubscribeUrl, imageUrls = {} }: { assetBase: string; unsubscribeUrl: string; imageUrls?: Record<string, string> }): Promise<RenderedNewsletter> {
   const { meta, body } = await read(slug);
   let Content;
   try {
@@ -97,7 +103,7 @@ export async function renderNewsletter(slug: string, { assetBase, unsubscribeUrl
   }
   const email = (
     <NewsletterEmail preview={meta.preview} dateLabel={dateLabel(meta.date)} unsubscribeUrl={unsubscribeUrl}>
-      <Content components={components(slug, assetBase)} />
+      <Content components={components(slug, assetBase, imageUrls)} />
     </NewsletterEmail>
   );
   const [html, text] = await Promise.all([render(email), render(email, { plainText: true })]);

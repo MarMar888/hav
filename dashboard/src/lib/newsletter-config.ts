@@ -6,7 +6,7 @@ import { CONTACT_EMAIL } from "./site";
 export const ADMIN_PASSCODE = "fastandfurious";
 
 /** The sender. Its domain must be verified in Resend, or sending to the list fails (previews to the Resend account owner still work). */
-export const NEWSLETTER_FROM = "HaaV <newsletter@haav.build>";
+export const NEWSLETTER_FROM = "Haav Newsletter <newsletter@haav.build>";
 
 /** Where "Send preview to me" delivers. */
 export const PREVIEW_EMAIL = CONTACT_EMAIL;

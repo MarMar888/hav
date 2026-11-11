@@ -76,8 +76,9 @@ export async function sentBroadcasts(): Promise<Map<string, SentInfo>> {
 
 type Message = { subject: string; preview: string | null; html: string; text: string };
 
-export async function sendPreviewEmail(to: string, m: Message): Promise<void> {
-  must(await resend().emails.send({ from: NEWSLETTER_FROM, to: [to], subject: `[Preview] ${m.subject}`, html: m.html, text: m.text }));
+/** Sends one email (not a broadcast) to `to`. `tag` goes in front of the subject, e.g. "[Preview]". */
+export async function sendPreviewEmail(to: string | readonly string[], m: Message, tag = "[Preview]"): Promise<void> {
+  must(await resend().emails.send({ from: NEWSLETTER_FROM, to: [...(typeof to === "string" ? [to] : to)], subject: `${tag} ${m.subject}`, html: m.html, text: m.text }));
 }
 
 /** Creates the broadcast and sends it to the whole segment right away. `key` makes a repeated click a no-op. */

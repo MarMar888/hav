@@ -10,6 +10,10 @@ logo in a box beside the sponsor's name and what they gave. Removed the "You are
 from the email footer. The newsletter's images are served from the site, so they only show in a sent email once this is
 deployed.
 
+Newsletter photos no longer need a deploy: sending, or the new "Upload photos" button on /admin, uploads the newsletter
+folder's pictures to a public Vercel Blob store (`haav-newsletter-images`, `BLOB_READ_WRITE_TOKEN`) and the email links
+to them there. Added a "Send to team…" button: tick people from the subscriber list and send them the newsletter as an ordinary email, repeatable and not counted as the real send.
+
 ## 0.8.2 — 2026-11-08
 
 Added Big Joe Forklifts to the "Our sponsors" section on the home page, using the primary logo from their brand guidelines.

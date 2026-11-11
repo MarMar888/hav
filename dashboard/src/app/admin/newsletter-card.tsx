@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { sendPreview, sendToList, type AdminState } from "./actions";
+import { sendPreview, sendToList, sendToTeam, uploadPhotos, type AdminState } from "./actions";
 import { primary, secondary, spinner } from "./ui";
 
 type Props = {
@@ -12,15 +12,33 @@ type Props = {
   sentAt: string | null;
   recipients: number;
   previewTo: string;
+  /** Everyone who can be picked for "Send to team": the active subscribers. */
+  people: string[];
+  /** Whether photo uploads are set up (BLOB_READ_WRITE_TOKEN). */
+  uploadsReady: boolean;
   canSend: boolean;
 };
 
 const idle: AdminState = { ok: false };
+const TEAM_KEY = "haav-newsletter-team"; // the last people ticked, remembered in this browser
 
-export function NewsletterCard({ slug, subject, date, sentAt, recipients, previewTo, canSend }: Props) {
+function savedTeam(): string[] {
+  try {
+    const v: unknown = JSON.parse(localStorage.getItem(TEAM_KEY) ?? "[]");
+    return Array.isArray(v) ? v.filter((x): x is string => typeof x === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+export function NewsletterCard({ slug, subject, date, sentAt, recipients, previewTo, people, uploadsReady, canSend }: Props) {
   const [showPreview, setShowPreview] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [previewState, previewAction, previewPending] = useActionState(sendPreview.bind(null, slug), idle);
+  const [uploadState, uploadAction, uploadPending] = useActionState(uploadPhotos.bind(null, slug), idle);
+  const [pickingTeam, setPickingTeam] = useState(false);
+  const [picked, setPicked] = useState<string[]>([]);
+  const [teamState, teamAction, teamPending] = useActionState(sendToTeam.bind(null, slug), idle);
   const [sendState, sendAction, sendPending] = useActionState(sendToList.bind(null, slug), idle);
   const sent = sentAt !== null || sendState.ok;
 
@@ -45,6 +63,23 @@ export function NewsletterCard({ slug, subject, date, sentAt, recipients, previe
             {previewPending ? <><span aria-hidden className={spinner} />Sending…</> : "Send preview to me"}
           </button>
         </form>
+        <form action={uploadAction}>
+          <button type="submit" disabled={uploadPending} title={uploadsReady ? "Uploads this newsletter's pictures so emails can load them. Sending does this too." : "Needs BLOB_READ_WRITE_TOKEN in .env.local"} className={secondary}>
+            {uploadPending ? <><span aria-hidden className={spinner} />Uploading…</> : "Upload photos"}
+          </button>
+        </form>
+        <button
+          type="button"
+          aria-expanded={pickingTeam}
+          disabled={people.length === 0}
+          onClick={() => {
+            if (!pickingTeam) setPicked(savedTeam().filter((e) => people.includes(e)));
+            setPickingTeam((v) => !v);
+          }}
+          className={secondary}
+        >
+          Send to team…
+        </button>
         {!sent && !confirming && (
           <button type="button" disabled={!canSend || recipients === 0} onClick={() => setConfirming(true)} className={primary}>
             Send to everyone
@@ -55,6 +90,44 @@ export function NewsletterCard({ slug, subject, date, sentAt, recipients, previe
       {!previewState.ok && !previewState.error && <p className="mt-2 text-sm text-zinc-500">Previews go to {previewTo}.</p>}
       {previewState.message && <p role="status" className="mt-2 text-sm text-emerald-700 dark:text-emerald-400">{previewState.message}</p>}
       {previewState.error && <p role="alert" className="mt-2 text-sm text-red-600 dark:text-red-400">{previewState.error}</p>}
+
+      {uploadState.message && <p role="status" className="mt-2 text-sm text-emerald-700 dark:text-emerald-400">{uploadState.message}</p>}
+      {uploadState.error && <p role="alert" className="mt-2 text-sm text-red-600 dark:text-red-400">{uploadState.error}</p>}
+      {pickingTeam && (
+        <form
+          action={teamAction}
+          onSubmit={() => localStorage.setItem(TEAM_KEY, JSON.stringify(picked))}
+          className="mt-4 rounded-md border border-zinc-200 p-4 dark:border-zinc-800"
+        >
+          <p className="text-sm font-medium">Send <strong>{subject}</strong> to just these people:</p>
+          <ul className="mt-3 max-h-56 space-y-1 overflow-y-auto text-sm">
+            {people.map((email) => (
+              <li key={email}>
+                <label className="flex min-h-8 cursor-pointer items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="to"
+                    value={email}
+                    checked={picked.includes(email)}
+                    onChange={(e) => setPicked((p) => (e.target.checked ? [...p, email] : p.filter((x) => x !== email)))}
+                    className="size-4 accent-emerald-700"
+                  />
+                  <span className="break-all">{email}</span>
+                </label>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button type="submit" disabled={teamPending || picked.length === 0} className={primary}>
+              {teamPending ? <><span aria-hidden className={spinner} />Sending…</> : `Send to ${picked.length} ${picked.length === 1 ? "person" : "people"}`}
+            </button>
+            <button type="button" disabled={teamPending} onClick={() => setPickingTeam(false)} className={secondary}>Close</button>
+          </div>
+          <p className="mt-2 text-xs text-zinc-500">An ordinary email to each person, marked [Team]. It doesn&rsquo;t count as sending the newsletter, so you can repeat it.</p>
+        </form>
+      )}
+      {teamState.message && <p role="status" className="mt-2 text-sm text-emerald-700 dark:text-emerald-400">{teamState.message}</p>}
+      {teamState.error && <p role="alert" className="mt-2 text-sm text-red-600 dark:text-red-400">{teamState.error}</p>}
 
       {confirming && !sent && (
         <form action={sendAction} className="mt-4 rounded-md border border-amber-500/50 bg-amber-50 p-4 dark:bg-amber-950/40">

@@ -1,5 +1,6 @@
 import { isAdmin } from "@/lib/admin-auth";
 import { listNewsletters } from "@/lib/newsletter";
+import { blobConfigured } from "@/lib/newsletter-images";
 import { PREVIEW_EMAIL } from "@/lib/newsletter-config";
 import { listSubscribers, resendConfigured, sentBroadcasts, type SentInfo, type Subscriber } from "@/lib/resend";
 import { AddSubscribers } from "./add-subscribers";
@@ -48,6 +49,8 @@ export default async function Page() {
                 sentAt={sent.has(n.slug) ? (sent.get(n.slug)!.at ?? "") : null}
                 recipients={active.length}
                 previewTo={PREVIEW_EMAIL}
+                people={active.map((s) => s.email)}
+                uploadsReady={blobConfigured()}
                 canSend={canSend}
               />
             ))}
