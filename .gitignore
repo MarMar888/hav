@@ -24,3 +24,4 @@
 
 # OpenFOAM decomposed solver output (hundreds of MB); regenerate with the case run scripts
 cad/cfd/*/processor*/
+.vercel

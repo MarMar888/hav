@@ -6,7 +6,7 @@ import type { ComponentProps } from "react";
 import * as runtime from "react/jsx-runtime";
 import { evaluate } from "@mdx-js/mdx";
 import { render } from "@react-email/render";
-import { A, Button, Code, Figure, H1, H2, H3, Hr, Img, LI, NewsletterEmail, OL, P, Quote, UL } from "@/emails/newsletter";
+import { A, Button, Code, Figure, H1, H2, H3, Hr, Img, LI, NewsletterEmail, OL, P, Quote, Sponsor, UL } from "@/emails/newsletter";
 import { SITE_URL } from "./site";
 
 export const NEWSLETTER_DIR = path.join(process.cwd(), "newsletters");
@@ -66,15 +66,22 @@ export async function listNewsletters(): Promise<Newsletter[]> {
 const isAbsolute = (url: string) => /^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(url);
 
 /** Maps the Markdown elements (and the extra tags) a newsletter may use onto the email building blocks. */
-function components(slug: string, assetBase: string) {
-  // Images sit next to the newsletter and are served from /newsletters/<slug>/; links to site pages need the full origin.
-  const image = (src = "") => (isAbsolute(src) ? src : `${assetBase}/newsletters/${slug}/${src.replace(/^\.?\//, "")}`);
+function components(slug: string, assetBase: string, imageUrls: Record<string, string>) {
+  // Images sit next to the newsletter. A picture already uploaded (imageUrls) is linked at its public URL; any other is
+  // served from /newsletters/<slug>/ on assetBase. Links to site pages need the full origin.
+  const image = (src = "") => {
+    if (isAbsolute(src)) return src;
+    const file = src.replace(/^\.?\//, "");
+    return imageUrls[file] ?? `${assetBase}/newsletters/${slug}/${file}`;
+  };
   const link = (href = "") => (isAbsolute(href) ? href : new URL(href, SITE_URL).toString());
   return {
     h1: H1, h2: H2, h3: H3, p: P, ul: UL, ol: OL, li: LI, blockquote: Quote, code: Code, hr: Hr,
     a: ({ href, ...p }: ComponentProps<"a">) => <A {...p} href={link(href)} />,
     img: ({ src, ...p }: ComponentProps<"img">) => <Img {...p} src={image(typeof src === "string" ? src : "")} />,
     Figure: ({ src, ...p }: ComponentProps<typeof Figure>) => <Figure {...p} src={image(typeof src === "string" ? src : "")} />,
+    // Capitalised on purpose: MDX leaves a hand-written lowercase <img> alone, so it would skip the path fix above.
+    Sponsor: ({ src, ...p }: ComponentProps<typeof Sponsor>) => <Sponsor {...p} src={image(typeof src === "string" ? src : "")} />,
     Button: ({ href, children }: ComponentProps<typeof Button>) => <Button href={link(href)}>{children}</Button>,
   };
 }
@@ -83,9 +90,10 @@ export type RenderedNewsletter = { subject: string; preview: string | null; html
 
 /**
  * @param assetBase  Origin that images are loaded from. "" (same origin) for the admin preview, the site origin for email.
+ * @param imageUrls  Public URLs for pictures that were uploaded (see newsletter-images.ts), by file name.
  * @param unsubscribeUrl  The footer's unsubscribe link: Resend's placeholder for a broadcast, "#" for a test email.
  */
-export async function renderNewsletter(slug: string, { assetBase, unsubscribeUrl }: { assetBase: string; unsubscribeUrl: string }): Promise<RenderedNewsletter> {
+export async function renderNewsletter(slug: string, { assetBase, unsubscribeUrl, imageUrls = {} }: { assetBase: string; unsubscribeUrl: string; imageUrls?: Record<string, string> }): Promise<RenderedNewsletter> {
   const { meta, body } = await read(slug);
   let Content;
   try {
@@ -95,7 +103,7 @@ export async function renderNewsletter(slug: string, { assetBase, unsubscribeUrl
   }
   const email = (
     <NewsletterEmail preview={meta.preview} dateLabel={dateLabel(meta.date)} unsubscribeUrl={unsubscribeUrl}>
-      <Content components={components(slug, assetBase)} />
+      <Content components={components(slug, assetBase, imageUrls)} />
     </NewsletterEmail>
   );
   const [html, text] = await Promise.all([render(email), render(email, { plainText: true })]);

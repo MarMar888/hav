@@ -62,8 +62,9 @@ Newsletters are files in [`newsletters/`](newsletters/README.md), sent with [Res
   address and the preview address. Only `RESEND_API_KEY` is an environment variable (set it in `.env.local` and in
   Vercel); without it `/admin` stays locked. The sender's domain must be verified in Resend before "Send to everyone"
   works. This repo is public, so the passcode is readable by anyone: it deters casual visitors, not a determined one.
-- **Images** are served from `/newsletters/<folder>/<file>`, so the email loads them from haav.build. Push and deploy
-  before sending a preview of a newsletter with new images (the in-page preview works immediately).
+- **Images** are uploaded to a public Vercel Blob store (`BLOB_READ_WRITE_TOKEN`) when you send or press **Upload photos**,
+  and the email links to them there, so sending from localhost works. Without the token the email loads them from
+  `/newsletters/<folder>/<file>` on haav.build, which needs a deploy first. The in-page preview always works immediately.
 
 ## The BOM
 
